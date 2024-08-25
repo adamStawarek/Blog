@@ -1,9 +1,13 @@
-﻿using Blog.Domain.Entities;
+﻿using Blog.Application.Services.ApplicationUser;
+using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
+using Blog.Server.Contracts;
+using Carter;
 using FluentResults;
 using FluentValidation;
 using Mapster;
 using MediatR;
+using static Blog.Server.Features.Articles.CreateArticle;
 
 namespace Blog.Server.Features.Articles;
 public static class CreateArticle
@@ -36,20 +40,24 @@ public static class CreateArticle
     public sealed class Handler : IRequestHandler<Command, Result<Article.EntityId>>
     {
         private readonly BlogDbContext _context;
+        private readonly IApplicationUserProvider _userProvider;
 
-        public Handler(BlogDbContext context)
+        public Handler(BlogDbContext context, IApplicationUserProvider userProvider)
         {
             _context = context;
+            _userProvider = userProvider;
         }
 
         public async Task<Result<Article.EntityId>> Handle(Command request, CancellationToken cancellationToken)
         {
+            var currentUser = await _userProvider.GetAsync(cancellationToken);
+
             var article = new Article
             {
                 Title = request.Title,
                 Content = request.Content,
                 Tags = request.Tags,
-                //AuthorId = 
+                AuthorId = currentUser.Id
             };
 
             await _context.Set<Article>().AddAsync(article, cancellationToken);
@@ -59,17 +67,13 @@ public static class CreateArticle
             return Result.Ok(article.Id);
         }
     }
+}
 
-    public sealed record Request
+public class CreateArticleEndpoint : ICarterModule
+{
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
-        public string Title { get; set; } = string.Empty;
-        public string Content { get; set; } = string.Empty;
-        public List<string> Tags { get; set; } = new();
-    }
-
-    public static void MapEndpoints(IEndpointRouteBuilder app)
-    {
-        app.MapPost("api/articles", async (Request request, ISender sender) =>
+        app.MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
         {
             var command = request.Adapt<Command>();
 
@@ -83,5 +87,4 @@ public static class CreateArticle
             return Results.Ok(result.Value);
         });
     }
-
 }

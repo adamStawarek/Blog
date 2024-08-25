@@ -1,4 +1,5 @@
-﻿using Blog.Infrastructure.Database.Interceptors;
+﻿using Blog.Domain.Entities;
+using Blog.Infrastructure.Database.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -10,7 +11,13 @@ public sealed class BlogDbContext : DbContext
         (IInterceptor)new SoftDeleteInterceptor(), (IInterceptor)new AuditInterceptor()
     };
 
-    public BlogDbContext(DbContextOptions<BlogDbContext> dbContextOptions) : base(dbContextOptions) { }
+    public DbSet<User> User { get; set; }
+    public DbSet<Article> Article { get; set; }
+    public DbSet<Comment> Comment { get; set; }
+
+    public BlogDbContext(DbContextOptions<BlogDbContext> dbContextOptions) : base(dbContextOptions)
+    {
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
