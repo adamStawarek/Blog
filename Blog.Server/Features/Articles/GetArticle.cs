@@ -64,9 +64,8 @@ public static class GetArticle
 
 public class GetArticleEndpoint : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapGet("/articles/{id}", async (Guid id, ISender sender) =>
+    public void AddRoutes(IEndpointRouteBuilder app) => app
+        .MapGet("api/articles/{id}", async (Guid id, ISender sender) =>
         {
             var result = await sender.Send(new Query
             {
@@ -81,6 +80,8 @@ public class GetArticleEndpoint : ICarterModule
             var response = result.Value.Adapt<GetArticleResponse>();
 
             return Results.Ok(response);
-        }).Produces<GetArticleResponse>();
-    }
+        })
+        .WithTags("Articles")
+        .WithName("GetArticle")
+        .Produces<GetArticleResponse>();
 }

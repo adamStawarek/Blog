@@ -71,9 +71,8 @@ public static class CreateArticle
 
 public class CreateArticleEndpoint : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
+    public void AddRoutes(IEndpointRouteBuilder app) => app
+        .MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
         {
             var command = request.Adapt<Command>();
 
@@ -84,7 +83,9 @@ public class CreateArticleEndpoint : ICarterModule
                 return Results.BadRequest();
             }
 
-            return Results.Ok(result.Value);
-        });
-    }
+            return Results.Ok(result.Value.Value);
+        })
+        .WithTags("Articles")
+        .WithName("CreateArticle")
+        .Produces<Guid>();
 }

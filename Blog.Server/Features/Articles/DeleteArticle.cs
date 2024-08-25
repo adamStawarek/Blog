@@ -49,9 +49,8 @@ public static class DeleteArticle
 
 public class DeleteArticleEndpoint : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapDelete("api/articles/{id}", async (Guid id, ISender sender) =>
+    public void AddRoutes(IEndpointRouteBuilder app) => app
+        .MapDelete("api/articles/{id}", async (Guid id, ISender sender) =>
         {
             var result = await sender.Send(new Command
             {
@@ -64,6 +63,7 @@ public class DeleteArticleEndpoint : ICarterModule
             }
 
             return Results.Ok();
-        });
-    }
+        })
+        .WithTags("Articles")
+        .WithName("DeleteArticle");
 }

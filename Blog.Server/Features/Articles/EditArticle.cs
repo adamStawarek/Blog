@@ -65,9 +65,8 @@ public static class EditArticle
 
 public class EditArticleEndpoint : ICarterModule
 {
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapPut("/articles/{id}", async (Guid id, EditArticleRequest request, ISender sender) =>
+    public void AddRoutes(IEndpointRouteBuilder app) => app
+        .MapPut("api/articles/{id}", async (Guid id, EditArticleRequest request, ISender sender) =>
         {
             var command = request.Adapt<Command>();
 
@@ -81,6 +80,7 @@ public class EditArticleEndpoint : ICarterModule
             }
 
             return Results.Ok();
-        });
-    }
+        })
+        .WithTags("Articles")
+        .WithName("EditArticle");
 }

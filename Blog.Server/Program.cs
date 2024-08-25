@@ -31,11 +31,11 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
 
-builder.Services.AddScoped(async serviceProvider =>
+builder.Services.AddScoped(serviceProvider =>
 {
     var currentTimeProvider = serviceProvider.GetRequiredService<ICurrentTimeProvider>();
     var currentUserProvider = serviceProvider.GetRequiredService<IApplicationUserProvider>();
-    var currentUser = await currentUserProvider.GetAsync(CancellationToken.None);
+    var currentUser = currentUserProvider.GetAsync(CancellationToken.None).Result;
     return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now.DateTime);
 });
 
@@ -51,6 +51,15 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddCarter();
 
+builder.Services.AddOpenApiDocument(settings =>
+{
+    settings.PostProcess = document =>
+    {
+        document.Info.Version = "v1";
+        document.Info.Title = "Blog API";
+    };
+});
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -58,7 +67,7 @@ app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseOpenApi();
     app.UseSwaggerUI();
 }
 
