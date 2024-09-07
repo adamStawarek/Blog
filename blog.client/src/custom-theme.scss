@@ -1,0 +1,59 @@
+@use '@angular/material' as mat;
+
+$blue-palette: (
+  50: #e5e8ee,
+  100: #bdc6d7,
+  200: #94a1bc,
+  300: #6c7da0,
+  400: #4d63be,
+  500: #2d4a7e,
+  600: #264376,
+  700: #1e3a6b,
+  800: #17305f,
+  900: #0f2147,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white)
+);
+
+$red-palette: (
+  50: #fdecee,
+  100: #facfd1,
+  200: #e79d9a,
+  300: #db7974,
+  400: #e35e52,
+  500: #dc462f,
+  600: #d84938,
+  700: #c64033,
+  800: #b93b2c,
+  900: #aa3121,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white)
+);
+
+$primary: mat.m2-define-palette($blue-palette, 800);
+$accent: mat.m2-define-palette($blue-palette, 300);
+$warn: mat.m2-define-palette($red-palette, 400);
+
+$dark-theme: mat.m2-define-dark-theme((color: (primary: $primary,
+        accent: $accent,
+        warn: $warn,
+      ),
+      typography: mat.m2-define-typography-config(),
+      density: 0,
+    ));

@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+@use './custom-theme';
+
+@include mat.core();
+
+$dark-background: rgb(33, 36, 40);
+$foreground: rgb(246, 247, 249);
+
+html {
+  @include mat.all-component-themes(custom-theme.$dark-theme);
+
+  background-color: $dark-background;
+  color: $foreground;
+}
+
+body {
+  margin: 0;
+}
