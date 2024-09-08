@@ -1,0 +1,17 @@
+.container {
+  height: calc(100vh - 64px);
+
+  .article {
+    width: 800px;
+    margin: 10px auto;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #264376;
+    }
+
+    mat-card-content {
+      margin-top: 10px;
+    }
+  }
+}
