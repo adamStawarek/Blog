@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Entities;
-using Blog.Infrastructure.Database;
+﻿using Blog.Infrastructure.Database;
 using Blog.Server.Contracts;
 using Carter;
 using FluentResults;
@@ -19,7 +18,7 @@ public static class GetArticle
 
     internal sealed class Response
     {
-        public Article.EntityId Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; } = null!;
         public string Author { get; set; } = null!;
         public string Content { get; set; } = null!;
@@ -55,7 +54,7 @@ public static class GetArticle
                     Author = x.Author.DisplayName,
                     Date = x.Meta_CreatedDate.Date
                 })
-                .FirstAsync(x=>x.Id == request.ArticleId, cancellationToken);
+                .FirstAsync(x => x.Id == request.ArticleId, cancellationToken);
 
             return Result.Ok(article);
         }

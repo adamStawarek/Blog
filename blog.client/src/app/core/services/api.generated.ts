@@ -313,6 +313,7 @@ export interface GetArticleListResponse extends PageableResponseOfArticleItem {
 }
 
 export interface ArticleItem {
+    id: string;
     title: string;
     author: string;
     description: string;

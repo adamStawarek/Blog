@@ -5,7 +5,6 @@ using FluentResults;
 using FluentValidation;
 using Mapster;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static Blog.Server.Features.Articles.GetArticleList;
 
@@ -27,6 +26,7 @@ public static class GetArticleList
 
         public sealed class ArticleItem
         {
+            public Guid Id { get; set; }
             public string Title { get; set; } = null!;
             public string Author { get; set; } = null!;
             public string Description { get; set; } = null!;
@@ -62,6 +62,7 @@ public static class GetArticleList
                 .Take(request.ItemsPerPage)
                 .Select(x => new Response.ArticleItem
                 {
+                    Id = x.Id,
                     Title = x.Title,
                     Description = x.Content.Substring(0, 200),
                     Author = x.Author.DisplayName,

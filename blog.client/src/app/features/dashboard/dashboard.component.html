@@ -1,11 +1,16 @@
 <cdk-virtual-scroll-viewport class="container" [itemSize]="115" appendOnly>
-  <mat-card class="article" *cdkVirtualFor="let article of articleDataSource">
-    <mat-card-header>
-      <mat-card-title>{{article.title}}</mat-card-title>
-      <mat-card-subtitle>{{article.author}} - {{article.date | date}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      {{article.description}}
-    </mat-card-content>
+  <mat-card class="article" *cdkVirtualFor="let article of articleDataSource" (click)="navigateToArticle(article)">
+    <ng-container *ngIf="article;else articleLoadingAnimation">
+      <mat-card-header>
+        <mat-card-title>{{article.title}}</mat-card-title>
+        <mat-card-subtitle>{{article.author}} - {{article.date | date}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        {{article.description}}
+      </mat-card-content>
+    </ng-container>
+    <ng-template #articleLoadingAnimation>
+      <div class="article-loading"></div>
+    </ng-template>
   </mat-card>
 </cdk-virtual-scroll-viewport>
