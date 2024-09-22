@@ -7,19 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Server", "src\Blog.Ser
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "blog.client", "src\blog.client\blog.client.esproj", "{DE9AD71D-54BF-413A-9F7C-19A17DB86809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Application", "src\Blog.Application\Blog.Application.csproj", "{D676A3C3-FD0F-41BF-AE54-7D757A03A78C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Application", "src\Blog.Application\Blog.Application.csproj", "{D676A3C3-FD0F-41BF-AE54-7D757A03A78C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Domain", "src\Blog.Domain\Blog.Domain.csproj", "{D1F58473-5723-4C2E-81FA-52641FB91CEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "src\Blog.Domain\Blog.Domain.csproj", "{D1F58473-5723-4C2E-81FA-52641FB91CEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Infrastructure", "src\Blog.Infrastructure\Blog.Infrastructure.csproj", "{E5B75F3D-605D-4BC9-83EE-67C1139E3664}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Infrastructure", "src\Blog.Infrastructure\Blog.Infrastructure.csproj", "{E5B75F3D-605D-4BC9-83EE-67C1139E3664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Infrastructure.DatabaseMigrations", "src\Blog.Infrastructure.DatabaseMigrations\Blog.Infrastructure.DatabaseMigrations.csproj", "{B2922206-6D4F-4DE5-A4F6-3308D72CB1D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Infrastructure.DatabaseMigrations", "src\Blog.Infrastructure.DatabaseMigrations\Blog.Infrastructure.DatabaseMigrations.csproj", "{B2922206-6D4F-4DE5-A4F6-3308D72CB1D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB9D2AF4-F3A9-4BD9-B829-76D2B882D278}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6956ED49-4D5B-4798-AF92-012DE52D6035}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Server.Tests.Integration", "tests\Blog.Server.Tests.Integration\Blog.Server.Tests.Integration.csproj", "{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,9 +57,16 @@ Global
 		{B2922206-6D4F-4DE5-A4F6-3308D72CB1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2922206-6D4F-4DE5-A4F6-3308D72CB1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2922206-6D4F-4DE5-A4F6-3308D72CB1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD} = {6956ED49-4D5B-4798-AF92-012DE52D6035}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D67C1D39-9BEB-4AAC-BC99-A396F643F35D}
