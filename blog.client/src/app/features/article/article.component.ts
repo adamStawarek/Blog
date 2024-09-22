@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client } from 'src/app/core/services/api.generated';
+import { Client, GetArticleResponse } from 'src/app/core/services/api.generated';
 
 @Component({
   selector: 'app-article',
@@ -11,6 +11,8 @@ import { Client } from 'src/app/core/services/api.generated';
   styleUrl: './article.component.scss'
 })
 export class ArticleComponent implements OnInit, OnDestroy {
+  public article?: GetArticleResponse;
+
   private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(private readonly apiClient: Client, private readonly activatedRoute: ActivatedRoute) { }
@@ -29,7 +31,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.apiClient.getArticle(articleId)
       .pipe(takeUntil(this._destroy$))
       .subscribe((article) => {
-
+        this.article = article
       });
   }
 }

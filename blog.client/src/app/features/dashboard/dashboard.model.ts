@@ -3,10 +3,6 @@ import { BehaviorSubject, Observable, Subscription, take } from "rxjs";
 import { ArticleItem, Client } from "src/app/core/services/api.generated";
 
 export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
-  constructor(private _apiClient: Client) {
-    super();
-  }
-
   private _length = 1000;
   private _pageSize = 10;
   private _cachedData = Array.from<ArticleItem>({ length: this._length });
@@ -15,7 +11,11 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
   private readonly _dataStream = new BehaviorSubject<(ArticleItem | undefined)[]>(this._cachedData);
   private readonly _subscription = new Subscription();
 
-  connect(collectionViewer: CollectionViewer): Observable<(ArticleItem | undefined)[]> {
+  constructor(private _apiClient: Client) {
+    super();
+  }
+
+  public connect(collectionViewer: CollectionViewer): Observable<(ArticleItem | undefined)[]> {
     this._subscription.add(
       collectionViewer.viewChange.subscribe(range => {
         const startPage = this._getPageForIndex(range.start);
@@ -28,7 +28,7 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
     return this._dataStream;
   }
 
-  disconnect(): void {
+  public disconnect(): void {
     this._subscription.unsubscribe();
   }
 
@@ -36,7 +36,7 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
     return Math.floor(index / this._pageSize);
   }
 
-  private _fetchPage(page: number) {
+  private _fetchPage(page: number): void {
     if (this._fetchedPages.has(page)) {
       return;
     }
