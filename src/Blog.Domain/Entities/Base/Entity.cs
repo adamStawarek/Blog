@@ -1,7 +1,7 @@
 ﻿using Blog.Domain.Interfaces;
 
 namespace Blog.Domain.Entities.Base;
-public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEntity, TId>>
+public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEntity, TId>>, ISetId<TId>
     where TEntity : IEntity<TId>
     where TId : IEquatable<TId>
 {
@@ -53,6 +53,8 @@ public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEn
     public override bool Equals(object? obj) => obj is Entity<TEntity, TId> other && Equals(other);
 
     public override int GetHashCode() => GetType().GetHashCode() ^ Id.GetHashCode();
+
+    void ISetId<TId>.SetId(TId id) => Id = new EntityId(id);
 
     public sealed record EntityId : IEntityId<TId>
     {

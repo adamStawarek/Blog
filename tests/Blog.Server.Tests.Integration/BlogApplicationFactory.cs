@@ -1,0 +1,105 @@
+using Blog.Infrastructure.Database;
+using Blog.Server.Configurations;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Respawn;
+using System.Data.Common;
+using Testcontainers.MsSql;
+
+namespace Blog.Server.Tests.Integration;
+public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
+{
+    private readonly MsSqlContainer _container = new MsSqlBuilder().Build();
+
+    private DbConnection _dbConnection = null!;
+    private Respawner _respawner = null!;
+
+    public HttpClient HttpClient { get; private set; } = default!;
+
+    public async Task InitializeAsync()
+    {
+        await _container.StartAsync();
+
+        _dbConnection = new SqlConnection(_container.GetConnectionString());
+
+        HttpClient = CreateClient();
+
+        await _dbConnection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
+        {
+            DbAdapter = DbAdapter.SqlServer,
+            CheckTemporalTables = true
+        });
+    }
+
+    public async Task ResetDatabaseAsync()
+    {
+        await _respawner.ResetAsync(_dbConnection);
+    }
+
+    public new async Task DisposeAsync()
+    {
+        await _container.DisposeAsync();
+    }
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureAppConfiguration((_, configurationBuilder) =>
+        {
+            configurationBuilder.Sources.Clear();
+            configurationBuilder.AddJsonFile(Path.Combine(Environment.CurrentDirectory, "appsettings.Tests.json"));
+        });
+
+        builder.ConfigureServices(services =>
+        {
+            services.Configure<AuthMockConfiguration>((x) => new AuthMockConfiguration
+            {
+                Enabled = true,
+                User = new AuthMockConfiguration.MockUser
+                {
+                    Id = Guid.NewGuid(),
+                    DisplayName = "John Smith",
+                    Roles = Array.Empty<string>()
+                }
+            });
+
+            RemoveDbContext(services);
+            AddDbContext(services, _container.GetConnectionString());
+            EnsureDbCreated(services);
+        });
+    }
+
+    private static void RemoveDbContext(IServiceCollection services)
+    {
+        var dbContextDescriptor = services.SingleOrDefault(
+            d => d.ServiceType == typeof(DbContextOptions<BlogDbContext>));
+
+        services.Remove(dbContextDescriptor!);
+
+        var dbConnectionDescriptor = services.SingleOrDefault(
+            d => d.ServiceType == typeof(DbConnection));
+
+        services.Remove(dbConnectionDescriptor!);
+    }
+
+    private static void AddDbContext(IServiceCollection services, string connString)
+    {
+        services.AddDbContext<BlogDbContext>(options =>
+        {
+            options.UseSqlServer(connString, x =>
+                x.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+        });
+    }
+
+    private static void EnsureDbCreated(IServiceCollection services)
+    {
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var serviceProvider = scope.ServiceProvider;
+        var context = serviceProvider.GetRequiredService<BlogDbContext>();
+        context.Database.EnsureCreated();
+    }
+}

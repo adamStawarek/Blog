@@ -10,74 +10,81 @@ using Blog.Server.Services.ApplicationUser;
 using Carter;
 using FluentValidation;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var authMockConfiguration = builder.Configuration.GetSection(AuthMockConfiguration.Key).Get<AuthMockConfiguration>()!;
-
-if (authMockConfiguration.Enabled)
+namespace Blog.Server;
+public class Program
 {
-    builder.Services.Configure<AuthHandlerMock.AuthHandlerMockOptions>(_ => { });
-    builder.Services
-        .AddAuthentication(AuthHandlerMock.AuthenticationScheme)
-        .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(AuthHandlerMock.AuthenticationScheme, _ => { });
-}
-
-builder.Services.AddAuthorization();
-
-builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
-
-builder.Services.AddScoped(serviceProvider =>
-{
-    var currentTimeProvider = serviceProvider.GetRequiredService<ICurrentTimeProvider>();
-    var currentUserProvider = serviceProvider.GetRequiredService<IApplicationUserProvider>();
-    var currentUser = currentUserProvider.GetAsync(CancellationToken.None).Result;
-    return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now.DateTime);
-});
-
-builder.Services.AddBlogServices(builder.Configuration);
-
-builder.Services.AddBlogInfrastructure(builder.Configuration, options =>
-    options.AllowMigrationManagement());
-
-builder.Services.AddMediatR(config =>
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-
-builder.Services.AddCarter();
-
-builder.Services.AddOpenApiDocument(settings =>
-{
-    settings.PostProcess = document =>
+    public static void Main(string[] args)
     {
-        document.Info.Version = "v1";
-        document.Info.Title = "Blog API";
-    };
-});
+        var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+        builder.Services.Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseOpenApi();
-    app.UseSwaggerUI();
+        var authMockConfiguration = builder.Configuration.GetSection(AuthMockConfiguration.Key).Get<AuthMockConfiguration>()!;
+
+        if (authMockConfiguration.Enabled)
+        {
+            builder.Services.Configure<AuthHandlerMock.AuthHandlerMockOptions>(_ => { });
+            builder.Services
+                .AddAuthentication(AuthHandlerMock.AuthenticationScheme)
+                .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(AuthHandlerMock.AuthenticationScheme, _ => { });
+        }
+
+        builder.Services.AddAuthorization();
+
+        builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
+
+        builder.Services.AddScoped(serviceProvider =>
+        {
+            var currentTimeProvider = serviceProvider.GetRequiredService<ICurrentTimeProvider>();
+            var currentUserProvider = serviceProvider.GetRequiredService<IApplicationUserProvider>();
+            var currentUser = currentUserProvider.GetAsync(CancellationToken.None).Result;
+            return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now.DateTime);
+        });
+
+        builder.Services.AddBlogServices(builder.Configuration);
+
+        builder.Services.AddBlogInfrastructure(builder.Configuration, options =>
+            options.AllowMigrationManagement());
+
+        builder.Services.AddMediatR(config =>
+            config.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+        builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+        builder.Services.AddCarter();
+
+        builder.Services.AddOpenApiDocument(settings =>
+        {
+            settings.PostProcess = document =>
+            {
+                document.Info.Version = "v1";
+                document.Info.Title = "Blog API";
+            };
+        });
+
+        var app = builder.Build();
+
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseOpenApi();
+            app.UseSwaggerUI();
+        }
+
+        app.MapCarter();
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.MapFallbackToFile("/index.html");
+
+        app.Run();
+    }
 }
-
-app.MapCarter();
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapFallbackToFile("/index.html");
-
-app.Run();
