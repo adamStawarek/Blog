@@ -1,0 +1,70 @@
+<form [formGroup]="editForm" class="container" (ngSubmit)="onSubmit()">
+  <!-- TITLE -->
+  <div class="container__title">
+    <mat-form-field appearance="outline" color="accent" floatLabel='always'>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter article title..." />
+      <mat-error *ngIf="editForm.get('title')?.hasError('minlength')">
+        Minimum 3 characters required.
+      </mat-error>
+      <mat-error *ngIf="editForm.get('title')?.hasError('maxlength')">
+        Maximum 100 characters allowed.
+      </mat-error>
+      <mat-error *ngIf="editForm.get('title')?.hasError('required')">
+        This field is required.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <!-- INTRO -->
+  <div class="container__intro">
+    <mat-form-field appearance="outline" color="accent" floatLabel='always'>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" placeholder="Enter short introduction to article..." />
+      <mat-error *ngIf="editForm.get('description')?.hasError('minlength')">
+        Minimum 20 characters required.
+      </mat-error>
+      <mat-error *ngIf="editForm.get('description')?.hasError('maxlength')">
+        Maximum 200 characters allowed.
+      </mat-error>
+      <mat-error *ngIf="editForm.get('description')?.hasError('required')">
+        This field is required.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <!-- TAGS -->
+  <div class="container__tags">
+    <mat-form-field appearance="outline" color="accent" floatLabel='always'>
+      <mat-label>Tags</mat-label>
+      <mat-chip-grid #reactiveChipGrid formControlName="tags">
+        @for (tag of tags(); track tag) {
+        <mat-chip-row (removed)="removeTag(tag)">
+          {{tag}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input placeholder="Add article tags..." [matChipInputFor]="reactiveChipGrid"
+        (matChipInputTokenEnd)="addTag($event)" />
+      <mat-error *ngIf="editForm.get('tags')?.errors">
+        At least one tag is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <!-- EDITOR -->
+  <div class="container__editor">
+    <angular-editor formControlName="content" [config]="config">
+    </angular-editor>
+  </div>
+  <!-- ACTIONS -->
+  <div class="container__actions">
+    <button mat-raised-button class="container__actions__cancel-btn" color="warn" type="submit" (click)="onCancel()">
+      Cancel
+    </button>
+    <button mat-raised-button class="container__actions__submit-btn" color="primary" type="submit"
+      [disabled]="editForm.invalid">
+      Submit
+    </button>
+  </div>
+</form>

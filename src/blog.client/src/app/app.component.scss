@@ -1,1 +1,14 @@
-﻿
+﻿mat-toolbar {
+  .logo {
+    color: white;
+    text-decoration: none;
+  }
+
+  .actions {
+    margin-left: auto;
+
+    &__create-btn {
+      background: green;
+    }
+  }
+}

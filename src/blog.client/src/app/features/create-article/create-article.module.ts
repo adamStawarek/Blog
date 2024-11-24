@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
 import { Route, RouterModule } from '@angular/router';
-import { ArticleComponent } from './article.component';
+import { CreateArticleComponent } from './create-article.component';
 
 export const routes: Route[] = [
   {
-    path: ':id',
-    component: ArticleComponent
+    path: '',
+    component: CreateArticleComponent
   }
 ];
 
@@ -15,8 +14,7 @@ export const routes: Route[] = [
   declarations: [],
   imports: [
     CommonModule,
-    MatDividerModule,
     RouterModule.forChild(routes),
   ]
 })
-export class ArticleModule { }
+export class CreateArticleModule { }

@@ -1,0 +1,19 @@
+.article {
+  margin: 20px auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #1e3a6b;
+  width: 1250px;
+
+  &__header {
+    h3 {
+      color: #94a1bc;
+    }
+  }
+
+  &__content {
+    font-size: 22px;
+  }
+}

@@ -12,6 +12,8 @@ internal sealed class ArticleConfiguration : EntityBaseConfiguration<Article>
 
         builder.Property(x => x.Title).HasMaxLength(200);
 
+        builder.Property(x => x.Description).HasMaxLength(400);
+
         builder.Property(x => x.Content).HasMaxLength(4000);
 
         builder.HasIndex(x => x.Title).IsUnique();

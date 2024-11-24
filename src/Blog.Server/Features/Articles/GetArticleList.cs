@@ -58,13 +58,14 @@ public static class GetArticleList
 
             var articles = await _context.Article
                 .AsNoTracking()
+                .OrderByDescending(x => x.Meta_CreatedDate)
                 .Skip(request.Page * request.ItemsPerPage)
                 .Take(request.ItemsPerPage)
                 .Select(x => new Response.ArticleItem
                 {
                     Id = x.Id,
                     Title = x.Title,
-                    Description = x.Content.Substring(0, 200),
+                    Description = x.Description,
                     Author = x.Author.DisplayName,
                     Date = x.Meta_CreatedDate.Date
                 })

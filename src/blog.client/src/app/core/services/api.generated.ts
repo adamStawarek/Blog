@@ -285,12 +285,14 @@ export class Client {
 
 export interface CreateArticleRequest {
     title: string;
+    description: string;
     content: string;
     tags: string[];
 }
 
 export interface EditArticleRequest {
     title: string;
+    description: string;
     content: string;
     tags: string[];
 }

@@ -1,0 +1,23 @@
+.container {
+  margin: 20px auto;
+  width: 1250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
+
+    &__submit-btn {
+      background: green;
+    }
+  }
+}

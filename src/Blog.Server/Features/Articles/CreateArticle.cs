@@ -15,6 +15,7 @@ public static class CreateArticle
     public sealed class Command : IRequest<Result<Article.EntityId>>
     {
         public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public List<string> Tags { get; set; } = new();
     }
@@ -26,6 +27,10 @@ public static class CreateArticle
             RuleFor(c => c.Title)
                 .NotEmpty()
                 .MaximumLength(200);
+
+            RuleFor(c => c.Description)
+               .NotEmpty()
+               .MaximumLength(400);
 
             RuleFor(c => c.Content)
                 .NotEmpty()
@@ -55,6 +60,7 @@ public static class CreateArticle
             var article = new Article
             {
                 Title = request.Title,
+                Description = request.Description,
                 Content = request.Content,
                 Tags = request.Tags,
                 AuthorId = currentUser.Id

@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Client, GetArticleResponse } from 'src/app/core/services/api.generated';
@@ -6,7 +8,7 @@ import { Client, GetArticleResponse } from 'src/app/core/services/api.generated'
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [],
+  imports: [MatDivider, DatePipe],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss'
 })

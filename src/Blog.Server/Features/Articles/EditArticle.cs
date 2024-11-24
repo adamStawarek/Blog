@@ -16,6 +16,7 @@ public static class EditArticle
     {
         public Guid ArticleId { get; set; } = default!;
         public string Title { get; set; } = default!;
+        public string Description { get; set; } = default!;
         public string Content { get; set; } = default!;
         public List<string> Tags { get; set; } = default!;
     }
@@ -27,6 +28,10 @@ public static class EditArticle
             RuleFor(c => c.Title)
                 .NotEmpty()
                 .MaximumLength(200);
+
+            RuleFor(c => c.Title)
+                .NotEmpty()
+                .MaximumLength(400);
 
             RuleFor(c => c.Content)
                 .NotEmpty()
@@ -53,7 +58,8 @@ public static class EditArticle
                 .FirstAsync(x => x.Id == request.ArticleId, cancellationToken);
 
             article.Title = request.Title;
-            article.Content = request.Title;
+            article.Description = request.Description;
+            article.Content = request.Content;
             article.Tags = request.Tags;
 
             await _context.SaveChangesAsync(cancellationToken);

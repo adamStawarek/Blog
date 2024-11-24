@@ -5,8 +5,7 @@
         <mat-card-title>{{article.title}}</mat-card-title>
         <mat-card-subtitle>{{article.author}} - {{article.date | date}}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
-        {{article.description}}
+      <mat-card-content [innerHTML]="article.description">
       </mat-card-content>
     </ng-container>
     <ng-template #articleLoadingAnimation>

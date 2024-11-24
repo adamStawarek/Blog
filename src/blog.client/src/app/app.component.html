@@ -1,2 +1,9 @@
-﻿<mat-toolbar color="primary">Blog</mat-toolbar>
+﻿<mat-toolbar color="primary" *ngIf="!rawPage">
+  <a class="logo" routerLink="/">Blog</a>
+  <div class="actions">
+    <button mat-raised-button class="actions__create-btn" routerLink="/create-article">
+      Create new article
+    </button>
+  </div>
+</mat-toolbar>
 <router-outlet></router-outlet>

@@ -11,6 +11,13 @@ const routes: Routes = [
     path: 'articles',
     loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule),
   },
+  {
+    path: 'create-article',
+    data: {
+      rawPage: true
+    },
+    loadChildren: () => import('./features/create-article/create-article.module').then(m => m.CreateArticleModule),
+  },
 ];
 
 @NgModule({
