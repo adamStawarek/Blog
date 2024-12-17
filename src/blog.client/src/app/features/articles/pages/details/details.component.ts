@@ -6,13 +6,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { Client, GetArticleResponse } from 'src/app/core/services/api.generated';
 
 @Component({
-  selector: 'app-article',
+  selector: 'app-article-details',
   standalone: true,
   imports: [MatDivider, DatePipe],
-  templateUrl: './article.component.html',
-  styleUrl: './article.component.scss'
+  templateUrl: './details.component.html',
+  styleUrl: './details.component.scss'
 })
-export class ArticleComponent implements OnInit, OnDestroy {
+export class ArticleDetailsComponent implements OnInit, OnDestroy {
   public article?: GetArticleResponse;
 
   private _destroy$: Subject<void> = new Subject<void>();

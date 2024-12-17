@@ -3,20 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
-  },
+  { path: '', redirectTo: '/articles', pathMatch: 'full' },
   {
     path: 'articles',
-    loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule),
-  },
-  {
-    path: 'create-article',
-    data: {
-      rawPage: true
-    },
-    loadChildren: () => import('./features/create-article/create-article.module').then(m => m.CreateArticleModule),
+    loadChildren: () => import('./features/articles/articles.module').then(m => m.ArticlesModule)
   },
 ];
 

@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, signal, WritableSignal } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
 import { AngularEditorConfig, AngularEditorModule } from '@kolkov/angular-editor';
-import { Subject, takeUntil } from 'rxjs';
-import { Client, CreateArticleRequest } from 'src/app/core/services/api.generated';
+import { Subject } from 'rxjs';
+import { ArticleData } from './article-editor.model';
 
 @Component({
-  selector: 'app-create-article',
+  selector: 'app-article-editor',
   standalone: true,
   imports: [
     AngularEditorModule,
@@ -24,10 +23,10 @@ import { Client, CreateArticleRequest } from 'src/app/core/services/api.generate
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule],
-  templateUrl: './create-article.component.html',
-  styleUrl: './create-article.component.scss'
+  templateUrl: './article-editor.component.html',
+  styleUrl: './article-editor.component.scss'
 })
-export class CreateArticleComponent implements OnDestroy {
+export class ArticleEditorComponent implements OnDestroy, OnChanges {
   public editForm!: FormGroup;
   public tags: WritableSignal<string[]> = signal([]);
   public config: AngularEditorConfig = {
@@ -58,12 +57,14 @@ export class CreateArticleComponent implements OnDestroy {
     ]
   };
 
-  private _destroy$: Subject<void> = new Subject<void>()
+  private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(fb: FormBuilder,
-    private readonly _router: Router,
-    private readonly _apiClient: Client) {
+  @Input() article: ArticleData | null = null;
 
+  @Output() cancel = new EventEmitter<ArticleData>();
+  @Output() submit = new EventEmitter<ArticleData>();
+
+  constructor(fb: FormBuilder) {
     this.editForm = fb.group({
       title: ['', [
         Validators.required,
@@ -80,6 +81,15 @@ export class CreateArticleComponent implements OnDestroy {
         Validators.required
       ]]
     });
+  }
+
+  ngOnChanges(_changes: SimpleChanges): void {
+    if (!_changes['article'] || this.article) return;
+
+    this.editForm.controls['title'].setValue(this.article!.title);
+    this.editForm.controls['description'].setValue(this.article!.description);
+    this.editForm.controls['tags'].setValue(this.article!.tags);
+    this.editForm.controls['content'].setValue(this.article!.content);
   }
 
   ngOnDestroy(): void {
@@ -110,22 +120,17 @@ export class CreateArticleComponent implements OnDestroy {
   }
 
   public onCancel(): void {
-    this._router.navigate(['']);
+    this.cancel.emit();
   }
 
   public onSubmit(): void {
     if (this.editForm.invalid) return;
 
-    const request: CreateArticleRequest = {
+    this.submit.emit({
       title: this.editForm.get('title')?.value,
       description: this.editForm.get('description')?.value,
       content: this.editForm.get('content')?.value,
       tags: this.editForm.get('tags')?.value,
-    }
-    this._apiClient.createArticle(request)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._router.navigate(['']);
-      });
+    });
   }
 }

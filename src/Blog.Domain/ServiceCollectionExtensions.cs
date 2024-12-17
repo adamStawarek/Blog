@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Blog.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Domain;
@@ -14,9 +15,4 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
-}
-
-public interface IDomainService
-{
-
 }

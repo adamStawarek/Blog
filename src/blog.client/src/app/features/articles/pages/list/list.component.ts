@@ -6,10 +6,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { ArticleItem, Client } from 'src/app/core/services/api.generated';
-import { ArticlesDataSource } from './dashboard.model';
+import { ArticlesDataSource } from './list.model';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,10 +17,10 @@ import { ArticlesDataSource } from './dashboard.model';
     ScrollingModule,
     MatCardModule,
     MatButtonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  templateUrl: './list.component.html',
+  styleUrl: './list.component.scss'
 })
-export class DashboardComponent {
+export class ArticleListComponent {
 
   public articleDataSource: ArticlesDataSource;
 
@@ -32,4 +32,3 @@ export class DashboardComponent {
     this._router.navigate(['articles', article.id]);
   }
 }
-
