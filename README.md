@@ -12,7 +12,15 @@ Below are serveral most common commands:
 * Run services: `podman compose up`  
 * Stop services: `podman compose stop`  
 * Remove containers: `podman compose down`
-* Remove containers with volumes: `podman compose down -v`
+* Remove containers with volumes: `podman compose down -v`  
+
+Seq:  
+>	**Url**: [http://localhost:5555](http://localhost:5341)  
+
+Database:  
+>	**Server**: 127.0.0.1,1533  
+>	**User**: sa  
+>	**Password**: Password#123  
 
 To use sql server already that is already installed on the machine instead of podman container replace connection 
 string from appsettings.development.json with following value:   

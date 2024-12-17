@@ -18,10 +18,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Host.UseSerilog((context, configuration) =>
-        {
-            configuration.ReadFrom.Configuration(context.Configuration);
-        });
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .WriteTo.Console()
+            .CreateLogger();
+
+        builder.Host.UseSerilog();
 
         builder.Services.Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
 
@@ -75,6 +77,8 @@ public class Program
 
         app.UseDefaultFiles();
         app.UseStaticFiles();
+
+        app.UseSerilogRequestLogging();
 
         if (app.Environment.IsDevelopment())
         {
