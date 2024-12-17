@@ -48,8 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Blog.Tests.DatabaseUtils\Blog.Tests.DatabaseUtils.csproj" />
 		<ProjectReference Include="..\..\src\Blog.Server\Blog.Server.csproj" />
+		<ProjectReference Include="..\Utils\Blog.Tests.DatabaseUtils\Blog.Tests.DatabaseUtils.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

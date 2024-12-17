@@ -1,7 +1,7 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Domain.Entities;
 using Blog.Domain.Entities.Base;
-using Blog.Server.Configurations;
+using Blog.Server.Auth;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Server.Services.ApplicationUser;
@@ -14,7 +14,7 @@ internal class MockApplicationUserProvider : IApplicationUserProvider
         _configuration = configuration.CurrentValue;
     }
 
-    public Task<Application.Services.ApplicationUser.ApplicationUser> GetAsync(CancellationToken cancellationToken)
+    public Task<Application.Services.ApplicationUser.ApplicationUser> GetAsync(CancellationToken cancellationToken = default)
     {
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
         {

@@ -1,7 +1,7 @@
 using Blog.Domain.Entities;
 using Blog.Domain.Interfaces;
 using Blog.Infrastructure.Database;
-using Blog.Server.Configurations;
+using Blog.Server.Auth;
 using Blog.Tests.DatabaseUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

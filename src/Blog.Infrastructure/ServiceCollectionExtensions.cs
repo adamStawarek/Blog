@@ -23,7 +23,6 @@ public static class ServiceCollectionExtensions
             options.EnableDetailedErrors();
         });
 
-
         return services;
     }
 }

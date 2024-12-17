@@ -1,5 +1,4 @@
 ﻿using Blog.Domain.Entities;
-using Blog.Server.Contracts;
 using Blog.Tests.DatabaseUtils;
 using System.Net;
 

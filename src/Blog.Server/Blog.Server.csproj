@@ -16,6 +16,7 @@
 		<NoWarn>$(NoWarn);1591</NoWarn>
 		<NoWarn>$(NoWarn);1573</NoWarn>
 		<NoWarn>$(NoWarn);1572</NoWarn>
+		<Configurations>Debug;Release;NSwag</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,6 +38,10 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Serilog" Version="4.2.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+		<PackageReference Include="Serilog.Expressions" Version="5.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
@@ -54,8 +59,8 @@
 	</ItemGroup>
 
 
-	  <!--  Run NSwag command with our configuration file in nswag.json. This is PostBuildEvent  -->
-  <Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Debug' ">
-    <Exec LogStandardErrorAsError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />
-  </Target>
+	<!--Run NSwag command with our configuration file in nswag.json. This is PostBuildEvent-->
+	<Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'NSwag' ">
+		<Exec LogStandardErrorAsError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />
+	</Target>
 </Project>

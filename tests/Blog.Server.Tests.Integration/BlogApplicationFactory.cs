@@ -1,5 +1,5 @@
 using Blog.Infrastructure.Database;
-using Blog.Server.Configurations;
+using Blog.Server.Auth;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;

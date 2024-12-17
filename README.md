@@ -1,4 +1,28 @@
+## Infrastructure 
+
+Before one can start the application, additional tools needs to be up and running like 
+sql server and seq.
+
+Prerquisute: 
+1. Install [podman](https://podman-desktop.io/docs/installation) (or docker).  
+2. From the root directory navigate to `infrastructure/development`.  
+2. Open terminal and ensure podman is running (`podman machine start`).  
+
+Below are serveral most common commands: 
+* Run services: `podman compose up`  
+* Stop services: `podman compose stop`  
+* Remove containers: `podman compose down`
+* Remove containers with volumes: `podman compose down -v`
+
+To use sql server already that is already installed on the machine instead of podman container replace connection 
+string from appsettings.development.json with following value:   
+`Data Source=.;Initial Catalog=BlogDb;Integrated Security=true;TrustServerCertificate=True`.
+
 ##	Database changes
+
+### Install dotnet ef tools:  
+`dotnet tool install --global dotnet-ef`
+
 ###	Managing migrations
 Migrations are managed (added, removed, applied, reverted) through EF Core command-line tools.  
 Navigate to the migrations project (Blog.Infrastructure.DatabaseMigrations) in a command prompt to work with project migrations.  

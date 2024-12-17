@@ -5,10 +5,11 @@ using Blog.Infrastructure;
 using Blog.Infrastructure.Database.Interceptors;
 using Blog.Infrastructure.DatabaseMigrations;
 using Blog.Server.Auth;
-using Blog.Server.Configurations;
+using Blog.Server.Extensions;
 using Blog.Server.Services.ApplicationUser;
 using Carter;
 using FluentValidation;
+using Serilog;
 
 namespace Blog.Server;
 public class Program
@@ -16,6 +17,11 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseSerilog((context, configuration) =>
+        {
+            configuration.ReadFrom.Configuration(context.Configuration);
+        });
 
         builder.Services.Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
 
@@ -72,6 +78,8 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
+            app.SeedDatabase();
+
             app.UseOpenApi();
             app.UseSwaggerUI();
         }

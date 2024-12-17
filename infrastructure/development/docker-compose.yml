@@ -1,0 +1,33 @@
+version: "3.5"
+
+volumes:
+  sql-data:
+  seq:
+
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: database
+    environment:
+      - ACCEPT_EULA=true
+      - MSSQL_SA_PASSWORD=${DATABASE_PASS}
+    ports:
+      - 1533:1433
+    volumes:
+      - sql-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S database -U sa -P ${DATABASE_PASS} -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    ports:
+      - 5555:80
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - seq:/data
