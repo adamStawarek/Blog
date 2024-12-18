@@ -33,8 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Development", "Development", "{E12D51E6-C3E2-4241-A35D-0BDD9BE278A6}"
 	ProjectSection(SolutionItems) = preProject
-		infrastructure\development\docker-compose.yml = infrastructure\development\docker-compose.yml
 		infrastructure\development\.env = infrastructure\development\.env
+		infrastructure\development\docker-compose.yml = infrastructure\development\docker-compose.yml
 	EndProjectSection
 EndProject
 Global
@@ -43,8 +43,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Debug|Any CPU.ActiveCfg = NSwag|Any CPU
+		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Debug|Any CPU.Build.0 = NSwag|Any CPU
 		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82E8B409-68FD-45C1-940A-0E68EE36AA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE9AD71D-54BF-413A-9F7C-19A17DB86809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

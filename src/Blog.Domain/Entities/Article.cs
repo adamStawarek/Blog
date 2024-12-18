@@ -6,7 +6,7 @@ public class Article : EntityBase<Article>
     public string Title { get; set; } = null!;
     public string Content { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public ICollection<string> Tags { get; set; } = null!;
+    public List<string> Tags { get; set; } = null!;
 
     #region Relations
 

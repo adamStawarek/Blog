@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Entities;
-using Blog.Infrastructure.Database;
+﻿using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
 using FluentValidation;
@@ -35,10 +34,10 @@ public static class DeleteArticle
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            var article = await _context.Set<Article>()
+            var article = await _context.Article
                 .FirstAsync(x => x.Id == request.ArticleId, cancellationToken);
 
-            _context.Set<Article>().Remove(article);
+            _context.Article.Remove(article);
 
             await _context.SaveChangesAsync(cancellationToken);
 

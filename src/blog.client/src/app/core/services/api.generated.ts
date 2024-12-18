@@ -299,8 +299,10 @@ export interface EditArticleRequest {
 
 export interface GetArticleResponse {
     title: string;
+    description: string;
     author: string;
     content: string;
+    tags: string[];
     date: Date;
 }
 

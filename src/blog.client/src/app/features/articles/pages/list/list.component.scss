@@ -11,7 +11,14 @@
     }
 
     mat-card-content {
-      margin-top: 10px;
+      margin-block: 10px;
+    }
+
+    &__actions {
+      position: absolute;
+      border: 0;
+      bottom: 25px;
+      right: -105px;
     }
 
     @keyframes placeHolderShimmer {

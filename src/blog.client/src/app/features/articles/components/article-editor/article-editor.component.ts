@@ -61,8 +61,8 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
 
   @Input() article: ArticleData | null = null;
 
-  @Output() cancel = new EventEmitter<ArticleData>();
-  @Output() submit = new EventEmitter<ArticleData>();
+  @Output() cancel = new EventEmitter<void>();
+  @Output() save = new EventEmitter<ArticleData>();
 
   constructor(fb: FormBuilder) {
     this.editForm = fb.group({
@@ -84,12 +84,14 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
-    if (!_changes['article'] || this.article) return;
+    if (!_changes['article']) return;
 
     this.editForm.controls['title'].setValue(this.article!.title);
     this.editForm.controls['description'].setValue(this.article!.description);
     this.editForm.controls['tags'].setValue(this.article!.tags);
     this.editForm.controls['content'].setValue(this.article!.content);
+
+    this.tags.update(() => [...this.article!.tags]);
   }
 
   ngOnDestroy(): void {
@@ -126,7 +128,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   public onSubmit(): void {
     if (this.editForm.invalid) return;
 
-    this.submit.emit({
+    this.save.emit({
       title: this.editForm.get('title')?.value,
       description: this.editForm.get('description')?.value,
       content: this.editForm.get('content')?.value,

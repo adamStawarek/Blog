@@ -17,7 +17,9 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
 
   private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private readonly apiClient: Client, private readonly activatedRoute: ActivatedRoute) { }
+  constructor(
+    private readonly _apiClient: Client,
+    private readonly _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchArticle();
@@ -29,8 +31,8 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
   }
 
   private fetchArticle(): void {
-    const articleId = this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.apiClient.getArticle(articleId)
+    const articleId = this._activatedRoute.snapshot.paramMap.get('id')!;
+    this._apiClient.getArticle(articleId)
       .pipe(takeUntil(this._destroy$))
       .subscribe((article) => {
         this.article = article

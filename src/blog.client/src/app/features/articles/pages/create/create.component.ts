@@ -6,14 +6,13 @@ import { ArticleEditorComponent } from "../../components/article-editor/article-
 import { ArticleData } from '../../components/article-editor/article-editor.model';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-article-create',
   standalone: true,
   imports: [ArticleEditorComponent],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
 export class CreateArticleComponent implements OnDestroy {
-
   private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -29,7 +28,7 @@ export class CreateArticleComponent implements OnDestroy {
     this._router.navigate(['']);
   }
 
-  public onSubmit($event: ArticleData): void {
+  public onSave($event: ArticleData): void {
     const request: CreateArticleRequest = {
       title: $event.title,
       description: $event.description,

@@ -20,9 +20,11 @@ public static class GetArticle
     {
         public Guid Id { get; set; }
         public string Title { get; set; } = null!;
+        public string Description { get; set; } = null!;
         public string Author { get; set; } = null!;
         public string Content { get; set; } = null!;
         public DateTime Date { get; set; }
+        public List<string> Tags { get; set; } = null!;
     }
 
     internal sealed class Validator : AbstractValidator<Query>
@@ -50,7 +52,9 @@ public static class GetArticle
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Description = x.Description,
                     Content = x.Content,
+                    Tags = x.Tags,
                     Author = x.Author.DisplayName,
                     Date = x.Meta_CreatedDate.Date
                 })

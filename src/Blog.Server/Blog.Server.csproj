@@ -59,7 +59,6 @@
 		<None Include="nswag.json" />
 	</ItemGroup>
 
-
 	<!--Run NSwag command with our configuration file in nswag.json. This is PostBuildEvent-->
 	<Target Name="NSwag" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'NSwag' ">
 		<Exec LogStandardErrorAsError="true" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net80) run nswag.json /variables:Configuration=$(Configuration)" />

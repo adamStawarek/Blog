@@ -32,6 +32,11 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
     this._subscription.unsubscribe();
   }
 
+  public refresh(): void {
+    this._fetchedPages = new Set<number>();
+    this._fetchPage(0);
+  }
+
   private _getPageForIndex(index: number): number {
     return Math.floor(index / this._pageSize);
   }
