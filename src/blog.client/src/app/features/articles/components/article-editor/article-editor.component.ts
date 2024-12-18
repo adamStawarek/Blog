@@ -27,6 +27,11 @@ import { ArticleData } from './article-editor.model';
   styleUrl: './article-editor.component.scss'
 })
 export class ArticleEditorComponent implements OnDestroy, OnChanges {
+  @Input() public article: ArticleData | null = null;
+
+  @Output() public cancel = new EventEmitter<void>();
+  @Output() public save = new EventEmitter<ArticleData>();
+
   public editForm!: FormGroup;
   public tags: WritableSignal<string[]> = signal([]);
   public config: AngularEditorConfig = {
@@ -58,11 +63,6 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   };
 
   private _destroy$: Subject<void> = new Subject<void>();
-
-  @Input() article: ArticleData | null = null;
-
-  @Output() cancel = new EventEmitter<void>();
-  @Output() save = new EventEmitter<ArticleData>();
 
   constructor(fb: FormBuilder) {
     this.editForm = fb.group({
