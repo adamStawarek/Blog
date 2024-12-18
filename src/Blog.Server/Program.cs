@@ -5,8 +5,10 @@ using Blog.Infrastructure;
 using Blog.Infrastructure.Database.Interceptors;
 using Blog.Infrastructure.DatabaseMigrations;
 using Blog.Server.Auth;
+using Blog.Server.Errors;
 using Blog.Server.Extensions;
 using Blog.Server.Services.ApplicationUser;
+using Blog.Server.Validation;
 using Carter;
 using FluentValidation;
 using Serilog;
@@ -25,19 +27,25 @@ public class Program
 
         builder.Host.UseSerilog();
 
-        builder.Services.Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+        builder.Services.AddProblemDetails();
+
+        builder.Services.Configure<AuthMockConfiguration>(
+            builder.Configuration.GetSection(AuthMockConfiguration.Key));
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        var authMockConfiguration = builder.Configuration.GetSection(AuthMockConfiguration.Key).Get<AuthMockConfiguration>()!;
+        var authMockConfiguration = builder.Configuration.GetSection(
+            AuthMockConfiguration.Key).Get<AuthMockConfiguration>()!;
 
         if (authMockConfiguration.Enabled)
         {
             builder.Services.Configure<AuthHandlerMock.AuthHandlerMockOptions>(_ => { });
             builder.Services
                 .AddAuthentication(AuthHandlerMock.AuthenticationScheme)
-                .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(AuthHandlerMock.AuthenticationScheme, _ => { });
+                .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(
+                    AuthHandlerMock.AuthenticationScheme, _ => { });
         }
 
         builder.Services.AddAuthorization();
@@ -58,7 +66,11 @@ public class Program
             options.AllowMigrationManagement());
 
         builder.Services.AddMediatR(config =>
-            config.RegisterServicesFromAssembly(typeof(Program).Assembly));
+        {
+            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
 
         builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
@@ -79,6 +91,8 @@ public class Program
         app.UseStaticFiles();
 
         app.UseSerilogRequestLogging();
+
+        app.UseExceptionHandler();
 
         if (app.Environment.IsDevelopment())
         {
