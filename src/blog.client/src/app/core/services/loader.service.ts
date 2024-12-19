@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class LoaderService {
     public isLoading$;
 
-    private _apiCount = 0;
+    private _activeRequestsCount = 0;
     private _isLoadingSubject = new BehaviorSubject<boolean>(false);
 
     constructor() {
@@ -15,15 +15,15 @@ export class LoaderService {
     }
 
     public showLoader(): void {
-        if (this._apiCount === 0) {
+        if (this._activeRequestsCount === 0) {
             this._isLoadingSubject.next(true);
         }
-        this._apiCount++;
+        this._activeRequestsCount++;
     }
 
     public hideLoader(): void {
-        this._apiCount--;
-        if (this._apiCount === 0) {
+        this._activeRequestsCount--;
+        if (this._activeRequestsCount === 0) {
             this._isLoadingSubject.next(false);
         }
     }
