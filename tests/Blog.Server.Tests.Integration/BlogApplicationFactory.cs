@@ -13,7 +13,10 @@ using Testcontainers.MsSql;
 namespace Blog.Server.Tests.Integration;
 public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly MsSqlContainer _container = new MsSqlBuilder().Build();
+    private readonly MsSqlContainer _container = new MsSqlBuilder()
+        .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
+        .WithPassword("Strong_password_123!")
+        .Build();
 
     private DbConnection _dbConnection = null!;
     private Respawner _respawner = null!;

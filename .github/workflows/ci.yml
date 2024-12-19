@@ -13,15 +13,6 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
-        services:
-          docker:
-            image: docker
-            options: --privileged # Required to run Docker-in-Docker
-            ports:
-              - 2375:2375
-            env:
-              DOCKER_TLS_CERTDIR: "" # Disable TLS for Docker-in-Docker
-
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -40,8 +31,6 @@ jobs:
               run: dotnet build --configuration Release
 
             - name: Dotnet test
-              env:
-                DOCKER_HOST: "tcp://localhost:2375" # Point Testcontainers to the Docker service
               run: dotnet test --configuration Release --no-build
 
             - name: Dotnet format
