@@ -40,7 +40,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
                 Title = "Server error"
             },
         };
-        httpContext.Response.StatusCode = problemDetails.Status.Value;
+        httpContext.Response.StatusCode = problemDetails.Status!.Value;
 
         await httpContext.Response
             .WriteAsJsonAsync(problemDetails, cancellationToken);

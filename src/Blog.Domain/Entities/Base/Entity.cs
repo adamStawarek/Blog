@@ -81,6 +81,6 @@ public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEn
             return entityId.Value;
         }
 
-        public override string ToString() => Value.ToString();
+        public override string ToString() => Value.ToString()!;
     }
 }
