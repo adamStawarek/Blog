@@ -19,7 +19,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
         CancellationToken cancellationToken)
     {
         _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
-        
+
         var problemDetails = exception switch
         {
             ValidationException validationException => new ProblemDetails

@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Reflection;
 
 namespace Blog.Infrastructure.DatabaseMigrations;
 public static class ServiceCollectionExtensions

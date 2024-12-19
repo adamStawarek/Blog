@@ -9,11 +9,11 @@ public sealed class AuthHandlerMock : AuthenticationHandler<AuthHandlerMock.Auth
     public const string AuthenticationScheme = "Mock";
 
     private readonly AuthMockConfiguration _configuration;
-    
+
     public AuthHandlerMock(
         IOptionsMonitor<AuthMockConfiguration> configuration,
         IOptionsMonitor<AuthHandlerMockOptions> options,
-        ILoggerFactory logger, 
+        ILoggerFactory logger,
         UrlEncoder encoder) : base(options, logger, encoder)
     {
         _configuration = configuration.CurrentValue;
@@ -47,4 +47,3 @@ public sealed class AuthHandlerMock : AuthenticationHandler<AuthHandlerMock.Auth
     {
     }
 }
-

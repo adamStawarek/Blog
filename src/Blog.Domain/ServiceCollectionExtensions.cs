@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Blog.Domain.Interfaces;
+﻿using Blog.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Blog.Domain;
 public static class ServiceCollectionExtensions
