@@ -1,5 +1,6 @@
 # Maintenance guide
 
+
 ## Infrastructure 
 
 Before one can start the application, additional tools needs to be up and running like 
