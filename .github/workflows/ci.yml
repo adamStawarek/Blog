@@ -1,28 +1,36 @@
 name: CI
 
-# Triggers
 on: 
-  push: 
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    push: 
+        branches: [ "master" ]
+    pull_request:
+        branches: [ "master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+            - name: Set up .Net 8
+              uses: actions/setup-dotnet@v4
+              with:
+                dotnet-version: 8
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo text 1
-          echo text 2
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                
+            - name: Dotnet build
+              run: dotnet build --configuration Release
+
+            - name: Dotnet test
+              run: dotnet test --configuration Release --no-build
+
+            - name: Dotnet format
+              run: dotnet format -v detailed --verify-no-changes
