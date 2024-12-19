@@ -7,6 +7,8 @@ internal static class BlogDataGenerator
 {
     public static Action<T> Generate<T>() where T : IEntity => x =>
     {
+        Randomizer.Seed = new Random(8675309);
+
         switch (x)
         {
             case User user:
@@ -31,6 +33,7 @@ internal static class BlogDataGenerator
     private static readonly Faker<Article> ArticleGenerator = new Faker<Article>()
         .RuleFor(x => x.Title, x => x.Lorem.Sentence())
         .RuleFor(x => x.Tags, x => new List<string> { x.PickRandom("c#", "java", "sql") })
+        .RuleFor(x => x.Description, x => x.Lorem.Sentence())
         .RuleFor(x => x.Content, x => x.Lorem.Paragraphs(5));
 
     private static readonly Faker<Comment> CommentGenerator = new Faker<Comment>()

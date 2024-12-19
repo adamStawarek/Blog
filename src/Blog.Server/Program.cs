@@ -52,12 +52,12 @@ public class Program
 
         builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
 
-        builder.Services.AddScoped(serviceProvider =>
+        builder.Services.AddTransient(serviceProvider =>
         {
             var currentTimeProvider = serviceProvider.GetRequiredService<ICurrentTimeProvider>();
             var currentUserProvider = serviceProvider.GetRequiredService<IApplicationUserProvider>();
-            var currentUser = currentUserProvider.GetAsync(CancellationToken.None).Result;
-            return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now.DateTime);
+            var currentUser = currentUserProvider.GetAsync().Result;
+            return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now().DateTime);
         });
 
         builder.Services.AddBlogServices(builder.Configuration);
@@ -96,7 +96,8 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            app.SeedDatabase();
+            //TODO: Disabled to run tests
+            //app.SeedDatabase();
 
             app.UseOpenApi();
             app.UseSwaggerUI();
