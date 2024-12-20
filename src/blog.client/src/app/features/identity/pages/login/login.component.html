@@ -1,0 +1,26 @@
+<h1>Log in</h1>
+<div class="container">
+    <div class="col">
+        <h2>Use a local account to log in</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" required>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+        <div class="links">
+            <a routerLink="/identity/register">Don't have an account? Register</a>
+            <a href="#" (click)="onForgotPassword()">Forgot password?</a>
+        </div>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="col">
+        <h2>Use external service to log in</h2>
+        <button mat-raised-button color="primary" type="submit">Log in with Google</button>
+    </div>
+</div>

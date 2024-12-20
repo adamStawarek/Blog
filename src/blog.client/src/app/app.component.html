@@ -1,7 +1,9 @@
 ﻿<app-spinner></app-spinner>
 <mat-toolbar color="primary" *ngIf="!rawPage">
-  <a class="logo" routerLink="/">Blog</a>
+  <a routerLink="/">Blog</a>
   <div class="actions">
+    <a routerLink="/identity/register">Register</a>
+    <a routerLink="/identity/login">Login</a>
     <button mat-raised-button class="actions__create-btn" routerLink="/articles/create">
       Create new article
     </button>
