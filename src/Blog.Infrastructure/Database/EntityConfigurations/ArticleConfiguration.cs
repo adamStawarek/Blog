@@ -20,9 +20,6 @@ internal sealed class ArticleConfiguration : EntityBaseConfiguration<Article>
 
         builder.HasIndex(x => x.Meta_CreatedDate).IsDescending();
 
-        builder.Property(x => x.AuthorId)
-            .HasConversion(id => id.Value, guidValue => new User.EntityId(guidValue));
-
         builder.HasOne(x => x.Author)
             .WithMany(x => x.Articles)
             .HasForeignKey(x => x.AuthorId)

@@ -14,9 +14,6 @@ internal sealed class CommentConfiguration : EntityBaseConfiguration<Comment>
 
         builder.HasIndex(x => x.Meta_CreatedDate).IsDescending();
 
-        builder.Property(x => x.AuthorId)
-            .HasConversion(id => id.Value, guidValue => new User.EntityId(guidValue));
-
         builder.Property(x => x.ArticleId)
             .HasConversion(id => id.Value, guidValue => new Article.EntityId(guidValue));
 

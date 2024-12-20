@@ -1,6 +1,4 @@
 ﻿using Blog.Application.Services.ApplicationUser;
-using Blog.Domain.Entities;
-using Blog.Domain.Entities.Base;
 using Blog.Server.Auth;
 using Microsoft.Extensions.Options;
 
@@ -18,8 +16,8 @@ internal class MockApplicationUserProvider : IApplicationUserProvider
     {
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
         {
-            Id = new Entity<User, Guid>.EntityId(_configuration.User!.Id),
-            DisplayName = _configuration.User.DisplayName
+            Id = _configuration.User!.Id,
+            UserName = _configuration.User.DisplayName
         });
     }
 }

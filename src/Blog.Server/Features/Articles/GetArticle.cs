@@ -55,7 +55,7 @@ public static class GetArticle
                     Description = x.Description,
                     Content = x.Content,
                     Tags = x.Tags,
-                    Author = x.Author.DisplayName,
+                    Author = x.Author.UserName!,
                     Date = x.Meta_CreatedDate.Date
                 })
                 .FirstAsync(x => x.Id == request.ArticleId, cancellationToken);

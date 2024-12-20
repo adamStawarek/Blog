@@ -56,31 +56,10 @@ public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEn
 
     void ISetId<TId>.SetId(TId id) => Id = new EntityId(id);
 
-    public sealed record EntityId : IEntityId<TId>
+    public sealed record EntityId : EntityIdBase<TId>
     {
-        private TId _value;
-
-        public EntityId()
-            : this(default(TId)!)
+        public EntityId(TId id) : base(id)
         {
         }
-
-        public EntityId(TId value)
-        {
-            _value = value;
-        }
-
-        public TId Value => _value;
-
-        object IEntityId.Value => _value;
-
-        TId IEntityId<TId>.Value { get => _value; set => _value = value; }
-
-        public static implicit operator TId(EntityId entityId)
-        {
-            return entityId.Value;
-        }
-
-        public override string ToString() => Value.ToString()!;
     }
 }

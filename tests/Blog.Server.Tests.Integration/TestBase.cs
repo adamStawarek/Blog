@@ -1,5 +1,4 @@
 using Blog.Domain.Entities;
-using Blog.Domain.Interfaces;
 using Blog.Infrastructure.Database;
 using Blog.Server.Auth;
 using Blog.Tests.DatabaseUtils;
@@ -15,7 +14,7 @@ public abstract class TestBase : IAsyncLifetime
     protected readonly HttpClient Client;
     protected IServiceScope ServiceScope = default!;
     protected BlogDbContext Context = default!;
-    protected User.EntityId UserId = default!;
+    protected Guid UserId = default!;
 
     protected TestBase(BlogApplicationFactory factory)
     {
@@ -30,8 +29,8 @@ public abstract class TestBase : IAsyncLifetime
         BlogDbSeeder.Create(Context)
             .Add<User>(x =>
             {
-                ((ISetId<Guid>)x).SetId(authMock.Value.User!.Id);
-                x.DisplayName = authMock.Value.User!.DisplayName;
+                x.Id = authMock.Value.User!.Id;
+                x.UserName = authMock.Value.User!.DisplayName;
             }, out var user);
 
         UserId = user.Id;

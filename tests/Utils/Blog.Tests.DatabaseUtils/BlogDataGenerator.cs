@@ -26,9 +26,7 @@ internal static class BlogDataGenerator
     };
 
     private static readonly Faker<User> UserGenerator = new Faker<User>()
-        .RuleFor(x => x.DisplayName, x => x.Person.FullName)
-        .RuleFor(x => x.FirstName, x => x.Person.FirstName)
-        .RuleFor(x => x.LastName, x => x.Person.LastName);
+        .RuleFor(x => x.UserName, x => x.Person.FullName);
 
     private static readonly Faker<Article> ArticleGenerator = new Faker<Article>()
         .RuleFor(x => x.Title, x => x.Lorem.Sentence())

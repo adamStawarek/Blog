@@ -7,7 +7,7 @@ public class Comment : EntityBase<Comment>
 
     #region Relations
 
-    public User.EntityId AuthorId { get; set; } = null!;
+    public Guid AuthorId { get; set; }
     public User Author { get; set; } = null!;
 
     public Article.EntityId ArticleId { get; set; } = null!;

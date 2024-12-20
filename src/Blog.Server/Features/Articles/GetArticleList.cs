@@ -66,7 +66,7 @@ public static class GetArticleList
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
-                    Author = x.Author.DisplayName,
+                    Author = x.Author.UserName!,
                     Date = x.Meta_CreatedDate.Date
                 })
                 .ToListAsync(cancellationToken);

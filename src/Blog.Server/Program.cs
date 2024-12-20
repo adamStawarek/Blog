@@ -1,7 +1,9 @@
 using Blog.Application;
 using Blog.Application.Services.ApplicationUser;
 using Blog.Application.Services.CurrentTime;
+using Blog.Domain.Entities;
 using Blog.Infrastructure;
+using Blog.Infrastructure.Database;
 using Blog.Infrastructure.Database.Interceptors;
 using Blog.Infrastructure.DatabaseMigrations;
 using Blog.Server.Auth;
@@ -11,6 +13,7 @@ using Blog.Server.Services.ApplicationUser;
 using Blog.Server.Validation;
 using Carter;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Serilog;
 
 namespace Blog.Server;
@@ -42,13 +45,21 @@ public class Program
         if (authMockConfiguration.Enabled)
         {
             builder.Services.Configure<AuthHandlerMock.AuthHandlerMockOptions>(_ => { });
-            builder.Services
-                .AddAuthentication(AuthHandlerMock.AuthenticationScheme)
-                .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(
-                    AuthHandlerMock.AuthenticationScheme, _ => { });
+
+            builder.Services.AddAuthentication(AuthHandlerMock.AuthenticationScheme)
+                .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(AuthHandlerMock.AuthenticationScheme, _ => { });
+        }
+        else
+        {
+            builder.Services.AddAuthentication()
+                .AddCookie(IdentityConstants.ApplicationScheme);
         }
 
         builder.Services.AddAuthorization();
+
+        builder.Services.AddIdentityCore<User>()
+            .AddEntityFrameworkStores<BlogDbContext>()
+            .AddApiEndpoints();
 
         builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
 
@@ -57,7 +68,7 @@ public class Program
             var currentTimeProvider = serviceProvider.GetRequiredService<ICurrentTimeProvider>();
             var currentUserProvider = serviceProvider.GetRequiredService<IApplicationUserProvider>();
             var currentUser = currentUserProvider.GetAsync().Result;
-            return new AuditContext(currentUser.DisplayName, currentTimeProvider.Now().DateTime);
+            return new AuditContext(currentUser.UserName, currentTimeProvider.Now().DateTime);
         });
 
         builder.Services.AddBlogServices(builder.Configuration);

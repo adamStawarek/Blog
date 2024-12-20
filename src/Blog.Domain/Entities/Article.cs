@@ -10,7 +10,7 @@ public class Article : EntityBase<Article>
 
     #region Relations
 
-    public User.EntityId AuthorId { get; set; } = null!;
+    public Guid AuthorId { get; set; }
     public User Author { get; set; } = null!;
 
     public ICollection<Comment> Comments { get; set; } = null!;

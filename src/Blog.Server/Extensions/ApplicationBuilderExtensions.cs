@@ -1,6 +1,5 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Domain.Entities;
-using Blog.Domain.Interfaces;
 using Blog.Infrastructure.Database;
 
 namespace Blog.Server.Extensions;
@@ -29,9 +28,8 @@ public static class ApplicationBuilderExtensions
 
         var dbUser = new User
         {
-            DisplayName = user.DisplayName,
-            FirstName = user.DisplayName.Split(' ').First(),
-            LastName = user.DisplayName.Split(' ').Last(),
+            Id = user.Id,
+            UserName = user.UserName,
             Articles = new List<Article>
                 {
                     new Article
@@ -52,8 +50,6 @@ public static class ApplicationBuilderExtensions
                     }
                 }
         };
-
-        ((ISetId<Guid>)dbUser).SetId(user.Id);
 
         context.Add(dbUser);
 

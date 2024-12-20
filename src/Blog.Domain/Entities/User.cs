@@ -1,11 +1,11 @@
 ﻿using Blog.Domain.Entities.Base;
+using Blog.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Domain.Entities;
-public class User : EntityBase<User>
+public class User : IdentityUser<Guid>, IEntity
 {
-    public string DisplayName { get; set; } = null!;
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
+    IEntityId IEntity.Id => new EntityIdBase<Guid>(Id);
 
     #region Relations
 

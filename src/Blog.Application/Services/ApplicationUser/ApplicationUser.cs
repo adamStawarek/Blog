@@ -1,8 +1,6 @@
-﻿using Blog.Domain.Entities;
-
-namespace Blog.Application.Services.ApplicationUser;
+﻿namespace Blog.Application.Services.ApplicationUser;
 public class ApplicationUser
 {
-    public User.EntityId Id { get; init; } = null!;
-    public string DisplayName { get; init; } = null!;
+    public Guid Id { get; init; }
+    public string UserName { get; init; } = null!;
 }
