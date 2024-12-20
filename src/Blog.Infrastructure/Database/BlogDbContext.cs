@@ -48,4 +48,3 @@ public sealed class BlogDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
         optionsBuilder.AddInterceptors(Interceptors);
     }
 }
-
