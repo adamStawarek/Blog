@@ -8,7 +8,6 @@ using Blog.Infrastructure.Database.Interceptors;
 using Blog.Infrastructure.DatabaseMigrations;
 using Blog.Server.Auth;
 using Blog.Server.Errors;
-using Blog.Server.Extensions;
 using Blog.Server.Services.ApplicationUser;
 using Blog.Server.Validation;
 using Carter;
@@ -120,6 +119,8 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.MapIdentityApi<User>();
 
         app.MapFallbackToFile("/index.html");
 
