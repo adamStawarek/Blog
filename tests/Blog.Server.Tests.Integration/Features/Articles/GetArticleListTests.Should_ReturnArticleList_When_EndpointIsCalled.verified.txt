@@ -6,21 +6,21 @@
     {
       id: Guid_1,
       title: C,
-      author: John Smith,
+      author: John,
       description: Quam et vel excepturi hic numquam.,
       date: DateTimeOffset_1
     },
     {
       id: Guid_2,
       title: B,
-      author: John Smith,
+      author: John,
       description: Et sunt unde voluptatem et eum doloremque.,
       date: DateTimeOffset_1
     },
     {
       id: Guid_3,
       title: A,
-      author: John Smith,
+      author: John,
       description: Doloribus est quia dolor est id facilis.,
       date: DateTimeOffset_1
     }

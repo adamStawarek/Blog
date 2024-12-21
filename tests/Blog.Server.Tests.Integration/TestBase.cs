@@ -30,7 +30,7 @@ public abstract class TestBase : IAsyncLifetime
             .Add<User>(x =>
             {
                 x.Id = authMock.Value.User!.Id;
-                x.UserName = authMock.Value.User!.DisplayName;
+                x.UserName = authMock.Value.User!.UserName;
             }, out var user);
 
         UserId = user.Id;

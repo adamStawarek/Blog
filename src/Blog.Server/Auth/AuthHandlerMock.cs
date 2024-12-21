@@ -25,8 +25,9 @@ public sealed class AuthHandlerMock : AuthenticationHandler<AuthHandlerMock.Auth
 
         var claims = new List<Claim>
         {
-            new(BlogClaimDefaults.Id, user.Id.ToString()),
-            new(BlogClaimDefaults.DisplayName,user.DisplayName)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email.ToString()),
+            new(ClaimTypes.Name, user.UserName)
         };
 
         foreach (var role in user.Roles)

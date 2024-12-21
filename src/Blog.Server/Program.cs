@@ -8,6 +8,7 @@ using Blog.Infrastructure.Database.Interceptors;
 using Blog.Infrastructure.DatabaseMigrations;
 using Blog.Server.Auth;
 using Blog.Server.Errors;
+using Blog.Server.Extensions;
 using Blog.Server.Services.ApplicationUser;
 using Blog.Server.Validation;
 using Carter;
@@ -18,7 +19,7 @@ using Serilog;
 namespace Blog.Server;
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -32,35 +33,56 @@ public class Program
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddProblemDetails();
 
-        builder.Services.Configure<AuthMockConfiguration>(
-            builder.Configuration.GetSection(AuthMockConfiguration.Key));
+        builder.Services
+            .Configure<AuthMockConfiguration>(builder.Configuration.GetSection(AuthMockConfiguration.Key));
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        var authMockConfiguration = builder.Configuration.GetSection(
-            AuthMockConfiguration.Key).Get<AuthMockConfiguration>()!;
+        var authMockConfiguration = builder.Configuration
+            .GetSection(AuthMockConfiguration.Key)
+            .Get<AuthMockConfiguration>()!;
 
         if (authMockConfiguration.Enabled)
         {
             builder.Services.Configure<AuthHandlerMock.AuthHandlerMockOptions>(_ => { });
 
-            builder.Services.AddAuthentication(AuthHandlerMock.AuthenticationScheme)
+            builder.Services
+                .AddAuthentication(AuthHandlerMock.AuthenticationScheme)
                 .AddScheme<AuthHandlerMock.AuthHandlerMockOptions, AuthHandlerMock>(AuthHandlerMock.AuthenticationScheme, _ => { });
+
+            builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
         }
         else
         {
             builder.Services.AddAuthentication()
                 .AddCookie(IdentityConstants.ApplicationScheme);
+
+            builder.Services.AddScoped<IApplicationUserProvider, ApplicationUserProvider>();
         }
 
         builder.Services.AddAuthorization();
 
-        builder.Services.AddIdentityCore<User>()
+        builder.Services
+            .AddIdentityCore<User>(x =>
+            {
+                x.Password.RequireDigit = true;
+                x.Password.RequiredLength = 8;
+                x.Password.RequireLowercase = true;
+                x.Password.RequireNonAlphanumeric = true;
+                x.Password.RequireUppercase = true;
+
+                x.User.RequireUniqueEmail = true;
+
+                x.SignIn.RequireConfirmedEmail = false; //TODO: Change before deployment!!!
+
+                x.Lockout.AllowedForNewUsers = true;
+                x.Lockout.MaxFailedAccessAttempts = 5;
+                x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+            })
+            .AddRoles<IdentityRole<Guid>>()
             .AddEntityFrameworkStores<BlogDbContext>()
             .AddApiEndpoints();
-
-        builder.Services.AddScoped<IApplicationUserProvider, MockApplicationUserProvider>();
 
         builder.Services.AddTransient(serviceProvider =>
         {
@@ -106,8 +128,10 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            //TODO: Disabled to run tests
-            //app.SeedDatabase();
+            if(authMockConfiguration.Enabled && authMockConfiguration.SeedDatabase)
+            {
+                await app.SeedDatabaseAsync();
+            }
 
             app.UseOpenApi();
             app.UseSwaggerUI();
@@ -120,7 +144,9 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapIdentityApi<User>();
+        app.MapGroup("/api/account")
+           .WithTags("Account")
+           .MapIdentityApi<User>();
 
         app.MapFallbackToFile("/index.html");
 

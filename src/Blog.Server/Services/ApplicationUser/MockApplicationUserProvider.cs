@@ -17,7 +17,7 @@ internal class MockApplicationUserProvider : IApplicationUserProvider
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
         {
             Id = _configuration.User!.Id,
-            UserName = _configuration.User.DisplayName
+            UserName = _configuration.User.UserName
         });
     }
 }

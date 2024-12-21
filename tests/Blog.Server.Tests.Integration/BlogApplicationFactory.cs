@@ -1,10 +1,8 @@
 using Blog.Infrastructure.Database;
-using Blog.Server.Auth;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using System.Data.Common;
@@ -51,25 +49,10 @@ public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAs
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration((_, configurationBuilder) =>
-        {
-            configurationBuilder.Sources.Clear();
-            configurationBuilder.AddJsonFile(Path.Combine(Environment.CurrentDirectory, "appsettings.Tests.json"));
-        });
+        builder.UseEnvironment("Integration");
 
         builder.ConfigureServices(services =>
         {
-            services.Configure<AuthMockConfiguration>((x) => new AuthMockConfiguration
-            {
-                Enabled = true,
-                User = new AuthMockConfiguration.MockUser
-                {
-                    Id = Guid.NewGuid(),
-                    DisplayName = "John Smith",
-                    Roles = Array.Empty<string>()
-                }
-            });
-
             RemoveDbContext(services);
             AddDbContext(services, _container.GetConnectionString());
             EnsureDbCreated(services);
