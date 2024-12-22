@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6956ED49-4D5B-4798-AF92-012DE52D6035}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cls", "cls", "{6956ED49-4D5B-4798-AF92-012DE52D6035}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Server.Tests.Integration", "tests\Blog.Server.Tests.Integration\Blog.Server.Tests.Integration.csproj", "{50A1D7D6-FF55-43A4-877B-7A2EEA018CAD}"
 EndProject

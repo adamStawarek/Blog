@@ -128,7 +128,7 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            if(authMockConfiguration.Enabled && authMockConfiguration.SeedDatabase)
+            if (authMockConfiguration.Enabled && authMockConfiguration.SeedDatabase)
             {
                 await app.SeedDatabaseAsync();
             }
