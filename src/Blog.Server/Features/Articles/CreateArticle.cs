@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
+using Blog.Server.Auth;
 using Blog.Server.Contracts;
 using Carter;
 using FluentResults;
@@ -91,6 +92,7 @@ public class CreateArticleEndpoint : ICarterModule
 
             return Results.Ok(result.Value.Value);
         })
+        .RequireAuthorization(BlogAuthPolicies.AdminAccess)
         .WithTags("Articles")
         .WithName("CreateArticle")
         .Produces<Guid>();

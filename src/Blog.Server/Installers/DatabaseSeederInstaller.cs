@@ -42,7 +42,7 @@ public static class DatabaseSeederInstaller
 
         if (!roleManager.Roles.Any())
         {
-            await roleManager.CreateAsync(new("Admin"));
+            await roleManager.CreateAsync(new(BlogRoles.Admin));
         }
     }
 

@@ -34,7 +34,10 @@ public static class AuthInstaller
             services.AddScoped<IApplicationUserProvider, ApplicationUserProvider>();
         }
 
-        services.AddAuthorization();
+        services.AddAuthorization(x =>
+        {
+            x.AddPolicy(BlogAuthPolicies.AdminAccess, policy => policy.RequireRole(BlogRoles.Admin));
+        });
 
         services
             .AddIdentityCore<User>(x =>

@@ -1,4 +1,5 @@
 ﻿using Blog.Infrastructure.Database;
+using Blog.Server.Auth;
 using Carter;
 using FluentResults;
 using FluentValidation;
@@ -63,6 +64,7 @@ public class DeleteArticleEndpoint : ICarterModule
 
             return Results.Ok();
         })
+        .RequireAuthorization(BlogAuthPolicies.AdminAccess)
         .WithTags("Articles")
         .WithName("DeleteArticle");
 }

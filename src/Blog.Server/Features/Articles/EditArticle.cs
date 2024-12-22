@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
+using Blog.Server.Auth;
 using Blog.Server.Contracts;
 using Carter;
 using FluentResults;
@@ -87,6 +88,7 @@ public class EditArticleEndpoint : ICarterModule
 
             return Results.Ok();
         })
+        .RequireAuthorization(BlogAuthPolicies.AdminAccess)
         .WithTags("Articles")
         .WithName("EditArticle");
 }

@@ -22,6 +22,7 @@ public class GetMyAccountEndpoint : ICarterModule
                     .ToList()
             });
         })
+        .RequireAuthorization()
         .WithTags("Account")
         .WithName("GetMyAccount")
         .Produces<GetArticleResponse>();
