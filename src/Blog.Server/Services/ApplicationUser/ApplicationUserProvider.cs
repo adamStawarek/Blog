@@ -2,7 +2,6 @@
 using System.Security.Claims;
 
 namespace Blog.Server.Services.ApplicationUser;
-
 internal class ApplicationUserProvider : IApplicationUserProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

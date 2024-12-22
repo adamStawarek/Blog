@@ -50,7 +50,11 @@ public class Program
             await app.SeedDatabaseAsync();
 
             app.UseOpenApi();
-            app.UseSwaggerUI();
+            app.UseReDoc(c =>
+            {
+                c.DocumentTitle = "API Docs";
+                c.Path = "/docs";
+            });
         }
 
         app.MapCarter();

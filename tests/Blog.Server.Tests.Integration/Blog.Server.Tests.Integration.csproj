@@ -8,6 +8,9 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="..\..\src\Blog.Server\appsettings.Integration.json" Link="appsettings.Integration.json" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.2">
       <PrivateAssets>all</PrivateAssets>
