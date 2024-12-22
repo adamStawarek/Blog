@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Blog.Application;
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddBlogServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddBlogAppServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<ICurrentTimeProvider, CurrentTimeProvider>();
 
