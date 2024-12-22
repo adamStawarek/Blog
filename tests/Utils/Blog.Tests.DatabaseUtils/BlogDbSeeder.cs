@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Interfaces;
 using Blog.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Tests.DatabaseUtils;
 public class BlogDbSeeder
@@ -26,6 +27,9 @@ public class BlogDbSeeder
         _context.Set<T>().Add(entity);
 
         _context.SaveChanges();
+
+        // Detach the entity to ensure fresh data is fetched from the database
+        _context.Entry(entity).State = EntityState.Detached;
 
         return this;
     }

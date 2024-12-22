@@ -1,0 +1,10 @@
+﻿{
+  title: Title,
+  description: Description,
+  author: John,
+  content: Content,
+  tags: [
+    Tag
+  ],
+  date: DateTimeOffset_1
+}

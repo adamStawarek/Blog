@@ -5,10 +5,13 @@ using Bogus;
 namespace Blog.Tests.DatabaseUtils;
 internal static class BlogDataGenerator
 {
-    public static Action<T> Generate<T>() where T : IEntity => x =>
+    static BlogDataGenerator()
     {
         Randomizer.Seed = new Random(8675309);
+    }
 
+    public static Action<T> Generate<T>() where T : IEntity => x =>
+    {
         switch (x)
         {
             case User user:

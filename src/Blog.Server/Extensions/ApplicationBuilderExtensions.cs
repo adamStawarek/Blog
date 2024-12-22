@@ -21,7 +21,7 @@ public static class ApplicationBuilderExtensions
 
         if (!roleManager.Roles.Any())
         {
-            await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+            await roleManager.CreateAsync(new("Admin"));
         }
 
         var userProvider = scope.ServiceProvider.GetRequiredService<IOptions<AuthMockConfiguration>>();
@@ -29,14 +29,14 @@ public static class ApplicationBuilderExtensions
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-        var userExists = await userManager.FindByEmailAsync(user.Email);
+        var existingUser = await userManager.FindByEmailAsync(user.Email);
 
-        if (userExists is not null)
+        if (existingUser is not null)
         {
             return app;
         }
 
-        var result = await userManager.CreateAsync(new User
+        await userManager.CreateAsync(new User
         {
             Id = user.Id,
             UserName = user.UserName,
