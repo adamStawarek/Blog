@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, ForgotPasswordRequest, LoginRequest } from 'src/app/core/services/api.generated';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +29,11 @@ export class LoginComponent implements OnDestroy {
 
   private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private _apiClient: Client) {
+  constructor(
+    private fb: FormBuilder,
+    private _router: Router,
+    private _authService: AuthService) {
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -44,31 +48,18 @@ export class LoginComponent implements OnDestroy {
   public onSubmit(): void {
     if (!this.loginForm.valid) return;
 
-    const request: LoginRequest = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-      twoFactorCode: undefined,
-      twoFactorRecoveryCode: undefined
-    };
-
-    this._apiClient.postApiAccountLogin(true, true, request)
+    this._authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        // eslint-disable-next-line no-console
-        console.log('User logged in successfully');
+      .subscribe((user) => {
+        if (!user) return;
+
+        this._router.navigate(['/']);
       });
   }
 
   public onForgotPassword(): void {
-    const request: ForgotPasswordRequest = {
-      email: this.loginForm.value.email
-    };
-
-    this._apiClient.postApiAccountForgotPassword(request)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        // eslint-disable-next-line no-console
-        console.log('Link to reset password sent to email');
-      });
+    // const request: ForgotPasswordRequest = {
+    //   email: this.loginForm.value.email
+    // };
   }
 }

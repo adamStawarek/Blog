@@ -15,6 +15,15 @@ internal class ApplicationUserProvider : IApplicationUserProvider
     {
         var identity = _httpContextAccessor.HttpContext!.User.Identity as ClaimsIdentity;
 
+        if (!identity!.IsAuthenticated)
+        {
+            return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
+            {
+                Id = Guid.Empty,
+                UserName = "System"
+            });
+        }
+
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
         {
             Id = Guid.Parse(identity!.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)!.Value),

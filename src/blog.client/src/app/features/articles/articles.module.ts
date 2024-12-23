@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/core/services/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,15 +11,19 @@ const routes: Routes = [
   {
     path: 'create',
     data: {
-      rawPage: true
+      rawPage: true,
+      roles: ['Admin']
     },
+    canActivate: [AuthGuard],
     loadComponent: () => import('./pages/create/create.component').then(m => m.CreateArticleComponent),
   },
   {
     path: ':id/edit',
     data: {
-      rawPage: true
+      rawPage: true,
+      roles: ['Admin']
     },
+    canActivate: [AuthGuard],
     loadComponent: () => import('./pages/edit/edit.component').then(m => m.EditArticleComponent),
   },
   {

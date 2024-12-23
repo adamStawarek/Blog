@@ -1,5 +1,5 @@
 ﻿namespace Blog.Server.Contracts;
-public class GetMyAccountResponse
+public class GetAccountInfoResponse
 {
     public Guid Id { get; set; }
     public string UserName { get; set; } = null!;

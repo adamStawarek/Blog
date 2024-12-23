@@ -2,9 +2,10 @@
 <mat-toolbar color="primary" *ngIf="!rawPage">
   <a routerLink="/">Blog</a>
   <div class="actions">
-    <a routerLink="/identity/register">Register</a>
-    <a routerLink="/identity/login">Login</a>
-    <button mat-raised-button class="actions__create-btn" routerLink="/articles/create">
+    <a routerLink="/identity/register" *ngIf="(authService.isAuthenticated$ |async) === false">Register</a>
+    <a routerLink="/identity/login" *ngIf="(authService.isAuthenticated$ |async) === false">Login</a>
+    <button mat-raised-button routerLink="/articles/create" *ngIf="(authService.isAdmin$ |async)"
+      class="actions__create-btn">
       Create new article
     </button>
   </div>

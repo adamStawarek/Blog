@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace Blog.Server.Features.Account;
-public class GetMyAccountEndpoint : ICarterModule
+public class GetAccountInfoEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app
-        .MapGet("api/account/info", async (IHttpContextAccessor httpContextAccessor, UserManager<User> userManager) =>
+        .MapGet("account/info", async (IHttpContextAccessor httpContextAccessor, UserManager<User> userManager) =>
         {
             var identity = httpContextAccessor.HttpContext!.User.Identity as ClaimsIdentity;
-            return Results.Ok(new GetMyAccountResponse
+
+            return Results.Ok(new GetAccountInfoResponse
             {
                 Id = Guid.Parse(identity!.FindFirst(ClaimTypes.NameIdentifier)!.Value),
                 UserName = identity.FindFirst(ClaimTypes.Name)!.Value,
@@ -24,6 +25,6 @@ public class GetMyAccountEndpoint : ICarterModule
         })
         .RequireAuthorization()
         .WithTags("Account")
-        .WithName("GetMyAccount")
-        .Produces<GetArticleResponse>();
+        .WithName("GetAccountInfo")
+        .Produces<GetAccountInfoResponse>();
 }

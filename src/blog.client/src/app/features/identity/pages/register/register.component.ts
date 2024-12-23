@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, RegisterRequest } from 'src/app/core/services/api.generated';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,11 @@ export class RegisterComponent implements OnDestroy {
 
   private _destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private _apiClient: Client) {
+  constructor(
+    private fb: FormBuilder,
+    private _router: Router,
+    private _authService: AuthService) {
+
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -40,16 +45,10 @@ export class RegisterComponent implements OnDestroy {
   public onSubmit(): void {
     if (!this.registerForm.valid) return;
 
-    const request: RegisterRequest = {
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password
-    };
-
-    this._apiClient.postApiAccountRegister(request)
+    this._authService.register(this.registerForm.value.email, this.registerForm.value.password)
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
-        // eslint-disable-next-line no-console
-        console.log('User registered successfully');
+        this._router.navigate(['/identity/login']);
       });
   }
 }

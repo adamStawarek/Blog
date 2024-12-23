@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, Subscription } from 'rxjs';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
+    public readonly authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    this.authService.init();
+
     this._destroy$ = this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd), // Only process NavigationEnd events

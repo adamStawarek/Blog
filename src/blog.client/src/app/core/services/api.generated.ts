@@ -282,8 +282,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getMyAccount(): Observable<GetArticleResponse> {
-        let url_ = this.baseUrl + "/api/account/info";
+    getAccountInfo(): Observable<GetAccountInfoResponse> {
+        let url_ = this.baseUrl + "/account/info";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -295,20 +295,20 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetMyAccount(response_);
+            return this.processGetAccountInfo(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetMyAccount(response_ as any);
+                    return this.processGetAccountInfo(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetArticleResponse>;
+                    return _observableThrow(e) as any as Observable<GetAccountInfoResponse>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<GetArticleResponse>;
+                return _observableThrow(response_) as any as Observable<GetAccountInfoResponse>;
         }));
     }
 
-    protected processGetMyAccount(response: HttpResponseBase): Observable<GetArticleResponse> {
+    protected processGetAccountInfo(response: HttpResponseBase): Observable<GetAccountInfoResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -318,7 +318,7 @@ export class Client {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetArticleResponse;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetAccountInfoResponse;
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -329,8 +329,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountRegister(registration: RegisterRequest): Observable<void> {
-        let url_ = this.baseUrl + "/api/account/register";
+    postAccountRegister(registration: RegisterRequest): Observable<void> {
+        let url_ = this.baseUrl + "/account/register";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(registration);
@@ -345,11 +345,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountRegister(response_);
+            return this.processPostAccountRegister(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountRegister(response_ as any);
+                    return this.processPostAccountRegister(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -358,7 +358,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountRegister(response: HttpResponseBase): Observable<void> {
+    protected processPostAccountRegister(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -383,8 +383,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountLogin(useCookies: boolean | null | undefined, useSessionCookies: boolean | null | undefined, login: LoginRequest): Observable<AccessTokenResponse> {
-        let url_ = this.baseUrl + "/api/account/login?";
+    postAccountLogin(useCookies: boolean | null | undefined, useSessionCookies: boolean | null | undefined, login: LoginRequest): Observable<AccessTokenResponse> {
+        let url_ = this.baseUrl + "/account/login?";
         if (useCookies !== undefined && useCookies !== null)
             url_ += "useCookies=" + encodeURIComponent("" + useCookies) + "&";
         if (useSessionCookies !== undefined && useSessionCookies !== null)
@@ -404,11 +404,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountLogin(response_);
+            return this.processPostAccountLogin(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountLogin(response_ as any);
+                    return this.processPostAccountLogin(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<AccessTokenResponse>;
                 }
@@ -417,7 +417,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountLogin(response: HttpResponseBase): Observable<AccessTokenResponse> {
+    protected processPostAccountLogin(response: HttpResponseBase): Observable<AccessTokenResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -438,8 +438,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountRefresh(refreshRequest: RefreshRequest): Observable<AccessTokenResponse> {
-        let url_ = this.baseUrl + "/api/account/refresh";
+    postAccountRefresh(refreshRequest: RefreshRequest): Observable<AccessTokenResponse> {
+        let url_ = this.baseUrl + "/account/refresh";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(refreshRequest);
@@ -455,11 +455,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountRefresh(response_);
+            return this.processPostAccountRefresh(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountRefresh(response_ as any);
+                    return this.processPostAccountRefresh(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<AccessTokenResponse>;
                 }
@@ -468,7 +468,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountRefresh(response: HttpResponseBase): Observable<AccessTokenResponse> {
+    protected processPostAccountRefresh(response: HttpResponseBase): Observable<AccessTokenResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -489,8 +489,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getApiAccountConfirmEmail(userId: string | null, code: string | null, changedEmail: string | null | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/account/confirmEmail?";
+    getAccountConfirmEmail(userId: string | null, code: string | null, changedEmail: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/account/confirmEmail?";
         if (userId === undefined)
             throw new Error("The parameter 'userId' must be defined.");
         else if(userId !== null)
@@ -511,11 +511,11 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetApiAccountConfirmEmail(response_);
+            return this.processGetAccountConfirmEmail(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetApiAccountConfirmEmail(response_ as any);
+                    return this.processGetAccountConfirmEmail(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -524,7 +524,7 @@ export class Client {
         }));
     }
 
-    protected processGetApiAccountConfirmEmail(response: HttpResponseBase): Observable<void> {
+    protected processGetAccountConfirmEmail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -543,8 +543,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountResendConfirmationEmail(resendRequest: ResendConfirmationEmailRequest): Observable<void> {
-        let url_ = this.baseUrl + "/api/account/resendConfirmationEmail";
+    postAccountResendConfirmationEmail(resendRequest: ResendConfirmationEmailRequest): Observable<void> {
+        let url_ = this.baseUrl + "/account/resendConfirmationEmail";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(resendRequest);
@@ -559,11 +559,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountResendConfirmationEmail(response_);
+            return this.processPostAccountResendConfirmationEmail(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountResendConfirmationEmail(response_ as any);
+                    return this.processPostAccountResendConfirmationEmail(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -572,7 +572,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountResendConfirmationEmail(response: HttpResponseBase): Observable<void> {
+    protected processPostAccountResendConfirmationEmail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -591,8 +591,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountForgotPassword(resetRequest: ForgotPasswordRequest): Observable<void> {
-        let url_ = this.baseUrl + "/api/account/forgotPassword";
+    postAccountForgotPassword(resetRequest: ForgotPasswordRequest): Observable<void> {
+        let url_ = this.baseUrl + "/account/forgotPassword";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(resetRequest);
@@ -607,11 +607,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountForgotPassword(response_);
+            return this.processPostAccountForgotPassword(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountForgotPassword(response_ as any);
+                    return this.processPostAccountForgotPassword(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -620,7 +620,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountForgotPassword(response: HttpResponseBase): Observable<void> {
+    protected processPostAccountForgotPassword(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -645,8 +645,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountResetPassword(resetRequest: ResetPasswordRequest): Observable<void> {
-        let url_ = this.baseUrl + "/api/account/resetPassword";
+    postAccountResetPassword(resetRequest: ResetPasswordRequest): Observable<void> {
+        let url_ = this.baseUrl + "/account/resetPassword";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(resetRequest);
@@ -661,11 +661,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountResetPassword(response_);
+            return this.processPostAccountResetPassword(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountResetPassword(response_ as any);
+                    return this.processPostAccountResetPassword(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -674,7 +674,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountResetPassword(response: HttpResponseBase): Observable<void> {
+    protected processPostAccountResetPassword(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -699,8 +699,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountManage2fa(tfaRequest: TwoFactorRequest): Observable<TwoFactorResponse> {
-        let url_ = this.baseUrl + "/api/account/manage/2fa";
+    postAccountManage2fa(tfaRequest: TwoFactorRequest): Observable<TwoFactorResponse> {
+        let url_ = this.baseUrl + "/account/manage/2fa";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(tfaRequest);
@@ -716,11 +716,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountManage2fa(response_);
+            return this.processPostAccountManage2fa(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountManage2fa(response_ as any);
+                    return this.processPostAccountManage2fa(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<TwoFactorResponse>;
                 }
@@ -729,7 +729,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountManage2fa(response: HttpResponseBase): Observable<TwoFactorResponse> {
+    protected processPostAccountManage2fa(response: HttpResponseBase): Observable<TwoFactorResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -760,8 +760,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getApiAccountManageInfo(): Observable<InfoResponse> {
-        let url_ = this.baseUrl + "/api/account/manage/info";
+    getAccountManageInfo(): Observable<InfoResponse> {
+        let url_ = this.baseUrl + "/account/manage/info";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -773,11 +773,11 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetApiAccountManageInfo(response_);
+            return this.processGetAccountManageInfo(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetApiAccountManageInfo(response_ as any);
+                    return this.processGetAccountManageInfo(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<InfoResponse>;
                 }
@@ -786,7 +786,7 @@ export class Client {
         }));
     }
 
-    protected processGetApiAccountManageInfo(response: HttpResponseBase): Observable<InfoResponse> {
+    protected processGetAccountManageInfo(response: HttpResponseBase): Observable<InfoResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -817,8 +817,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    postApiAccountManageInfo(infoRequest: InfoRequest): Observable<InfoResponse> {
-        let url_ = this.baseUrl + "/api/account/manage/info";
+    postAccountManageInfo(infoRequest: InfoRequest): Observable<InfoResponse> {
+        let url_ = this.baseUrl + "/account/manage/info";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(infoRequest);
@@ -834,11 +834,11 @@ export class Client {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPostApiAccountManageInfo(response_);
+            return this.processPostAccountManageInfo(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostApiAccountManageInfo(response_ as any);
+                    return this.processPostAccountManageInfo(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<InfoResponse>;
                 }
@@ -847,7 +847,7 @@ export class Client {
         }));
     }
 
-    protected processPostApiAccountManageInfo(response: HttpResponseBase): Observable<InfoResponse> {
+    protected processPostAccountManageInfo(response: HttpResponseBase): Observable<InfoResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -918,6 +918,12 @@ export interface ArticleItem {
     author: string;
     description: string;
     date: Date;
+}
+
+export interface GetAccountInfoResponse {
+    id: string;
+    userName: string;
+    roles: string[];
 }
 
 export interface ProblemDetails {

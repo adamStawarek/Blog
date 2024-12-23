@@ -49,11 +49,18 @@ public class Program
         {
             await app.SeedDatabaseAsync();
 
-            app.UseOpenApi();
-            app.UseReDoc(c =>
+            app.UseOpenApi(x =>
             {
-                c.DocumentTitle = "API Docs";
-                c.Path = "/docs";
+                x.PostProcess = (document, _) =>
+                {
+                    document.Info.Title = "Blog API";
+                    document.Info.Version = "v1";
+                };
+            });
+
+            app.UseReDoc(x =>
+            {
+                x.Path = "/docs";
             });
         }
 
@@ -64,7 +71,7 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapGroup("/api/account")
+        app.MapGroup("/account")
            .WithTags("Account")
            .MapIdentityApi<User>();
 

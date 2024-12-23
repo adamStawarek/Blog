@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ArticleItem, Client } from 'src/app/core/services/api.generated';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ArticlesDataSource } from './list.model';
 
 @Component({
@@ -30,7 +31,8 @@ export class ArticleListComponent implements OnDestroy {
 
   constructor(
     private readonly _apiClient: Client,
-    private readonly _router: Router) {
+    private readonly _router: Router,
+    public readonly authService: AuthService) {
     this.articleDataSource = new ArticlesDataSource(_apiClient);
   }
 
