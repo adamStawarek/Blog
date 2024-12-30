@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Client, LoginRequest, RegisterRequest } from './api.generated';
+import { Client, LoginRequest, RegisterRequest, ResetPasswordRequest } from './api.generated';
 
 @Injectable({
     providedIn: 'root'
@@ -79,6 +79,21 @@ export class AuthService {
                     }
                 })
             );
+    }
+
+    public forgotPassword(email: string): Observable<void> {
+        return this._apiClient.postAccountForgotPassword({
+            email: email
+        });
+    }
+
+    public changePassword(email: string, password: string, code: string): Observable<void> {
+        const request: ResetPasswordRequest = {
+            resetCode: code,
+            email: email,
+            newPassword: password
+        }
+        return this._apiClient.postAccountResetPassword(request);
     }
 }
 

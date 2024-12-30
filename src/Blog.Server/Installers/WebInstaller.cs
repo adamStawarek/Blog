@@ -1,11 +1,12 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Application.Services.CurrentTime;
 using Blog.Infrastructure.Database.Interceptors;
+using Blog.Server.Services.Email;
 using Blog.Server.Validation;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Blog.Server.Extensions;
-
 public static class WebInstaller
 {
     public static IServiceCollection AddBlogWebServices(this IServiceCollection services, IConfiguration configuration)
@@ -26,6 +27,9 @@ public static class WebInstaller
         });
 
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+        services.AddTransient<IEmailSender, SendGridEmailSender>();
+        services.Configure<EmailConfiguration>(configuration.GetSection(EmailConfiguration.Key));
 
         return services;
     }

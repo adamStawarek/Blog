@@ -50,7 +50,7 @@ public static class AuthInstaller
 
                 x.User.RequireUniqueEmail = true;
 
-                x.SignIn.RequireConfirmedEmail = false; //TODO: Change before deployment!!!
+                x.SignIn.RequireConfirmedEmail = true;
 
                 x.Lockout.AllowedForNewUsers = true;
                 x.Lockout.MaxFailedAccessAttempts = 5;

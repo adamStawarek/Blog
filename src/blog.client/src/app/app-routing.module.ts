@@ -10,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'identity',
+    data: {
+      rawPage: true
+    },
     loadChildren: () => import('./features/identity/identity.module').then(m => m.IdentityModule)
   },
 ];

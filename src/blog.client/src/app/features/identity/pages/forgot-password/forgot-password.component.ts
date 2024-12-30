@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-forgot-password',
   standalone: true,
   imports: [
     FormsModule,
@@ -22,23 +22,22 @@ import { AuthService } from 'src/app/core/auth.service';
     MatInputModule,
     MatButtonModule,
     MatCardModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './forgot-password.component.html',
+  styleUrl: './forgot-password.component.scss'
 })
-export class LoginComponent implements OnDestroy {
-  public loginForm: FormGroup;
+export class ForgotPasswordComponent implements OnDestroy {
+  public resetForm: FormGroup;
 
   private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
-    private _snakBar: MatSnackBar,
     private _router: Router,
+    private _snakBar: MatSnackBar,
     private _authService: AuthService) {
 
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+    this.resetForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -48,26 +47,17 @@ export class LoginComponent implements OnDestroy {
   }
 
   public onSubmit(): void {
-    if (!this.loginForm.valid) return;
+    if (!this.resetForm.valid) return;
 
-    this._authService.login(this.loginForm.value.email, this.loginForm.value.password)
+    this._authService.forgotPassword(this.resetForm.value.email)
       .pipe(takeUntil(this._destroy$))
-      .subscribe({
-        next: (user) => {
-          if (!user) return;
+      .subscribe(() => {
+        this._snakBar.open('Password reset email was sent', 'Close', {
+          duration: 5000,
+          panelClass: ['notification-success']
+        });
 
-          this._router.navigate(['/']);
-        },
-        error: () => {
-          this._snakBar.open('Login failed', 'Close', {
-            duration: 5000,
-            panelClass: ['notification-error']
-          })
-        }
+        this._router.navigate(['/identity/change-password']);
       });
-  }
-
-  public onForgotPassword(): void {
-    this._router.navigate(['/identity/forgot-password']);
   }
 }

@@ -3,39 +3,42 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-change-password',
   standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    RouterModule,
+    MatDividerModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  templateUrl: './change-password.component.html',
+  styleUrl: './change-password.component.scss'
 })
-export class RegisterComponent implements OnDestroy {
-  public registerForm: FormGroup;
+export class ChangePasswordComponent implements OnDestroy {
+  public resetForm: FormGroup;
 
   private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
     private _snakBar: MatSnackBar,
-    private _router: Router,
     private _authService: AuthService) {
 
-    this.registerForm = this.fb.group({
+    this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      code: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -45,21 +48,19 @@ export class RegisterComponent implements OnDestroy {
   }
 
   public onSubmit(): void {
-    if (!this.registerForm.valid) return;
+    if (!this.resetForm.valid) return;
 
-    this._authService.register(this.registerForm.value.email, this.registerForm.value.password)
+    this._authService.changePassword(this.resetForm.value.email, this.resetForm.value.password, this.resetForm.value.code)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: () => {
-          this._snakBar.open('Confirmation link was sent to provided email', 'Close', {
+          this._snakBar.open('Password was changed!', 'Close', {
             duration: 5000,
             panelClass: ['notification-success']
           });
-
-          this._router.navigate(['/identity/login']);
         },
         error: (error) => {
-          let msg = 'Failed to register account';
+          let msg = 'Failed to set new password';
           if (error.errors) {
             const errors = Object.values(error.errors).join('\n');
             msg = `${errors}`;
