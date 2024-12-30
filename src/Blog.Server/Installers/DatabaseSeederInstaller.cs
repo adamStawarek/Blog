@@ -64,7 +64,8 @@ public static class DatabaseSeederInstaller
         {
             Id = user.Id,
             UserName = user.UserName,
-            Email = user.Email
+            Email = user.Email,
+            EmailConfirmed = true
         }, user.Password);
 
         var createdUser = await userManager.FindByEmailAsync(user.Email);
