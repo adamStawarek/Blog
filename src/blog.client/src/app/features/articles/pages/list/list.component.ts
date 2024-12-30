@@ -7,8 +7,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { ArticleItem, Client } from 'src/app/core/services/api.generated';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { ArticleItem, Client } from 'src/app/core/api.generated';
+import { AuthService } from 'src/app/core/auth.service';
 import { ArticlesDataSource } from './list.model';
 
 @Component({

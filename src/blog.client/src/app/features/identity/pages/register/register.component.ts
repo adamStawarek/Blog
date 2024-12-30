@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -28,6 +29,7 @@ export class RegisterComponent implements OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private _snakBar: MatSnackBar,
     private _router: Router,
     private _authService: AuthService) {
 
@@ -47,8 +49,27 @@ export class RegisterComponent implements OnDestroy {
 
     this._authService.register(this.registerForm.value.email, this.registerForm.value.password)
       .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._router.navigate(['/identity/login']);
-      });
+      .subscribe({
+        next: () => {
+          this._snakBar.open('Sucessfully registered account', 'Close', {
+            duration: 5000,
+            panelClass: ['notification-success']
+          });
+
+          this._router.navigate(['/identity/login']);
+        },
+        error: (error) => {
+          let msg = 'Failed to register account';
+          if (error.errors) {
+            const errors = Object.values(error.errors).join('\n');
+            msg = `${errors}`;
+          }
+
+          this._snakBar.open(msg, 'Close', {
+            duration: 5000,
+            panelClass: ['notification-error']
+          });
+        }
+      });;
   }
 }

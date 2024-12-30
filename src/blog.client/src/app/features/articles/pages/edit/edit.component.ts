@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, EditArticleRequest } from 'src/app/core/services/api.generated';
+import { Client, EditArticleRequest } from 'src/app/core/api.generated';
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { ArticleData } from '../../components/article-editor/article-editor.model';
 

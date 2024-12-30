@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, Subscription } from 'rxjs';
-import { AuthService } from './core/services/auth.service';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',

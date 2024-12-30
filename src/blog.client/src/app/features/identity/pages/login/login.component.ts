@@ -5,9 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private _snakBar: MatSnackBar,
     private _router: Router,
     private _authService: AuthService) {
 
@@ -50,10 +52,18 @@ export class LoginComponent implements OnDestroy {
 
     this._authService.login(this.loginForm.value.email, this.loginForm.value.password)
       .pipe(takeUntil(this._destroy$))
-      .subscribe((user) => {
-        if (!user) return;
+      .subscribe({
+        next: (user) => {
+          if (!user) return;
 
-        this._router.navigate(['/']);
+          this._router.navigate(['/']);
+        },
+        error: () => {
+          this._snakBar.open('Login failed', 'Close', {
+            duration: 5000,
+            panelClass: ['notification-error']
+          })
+        }
       });
   }
 

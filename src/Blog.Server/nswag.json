@@ -120,7 +120,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "./../blog.client/src/app/core/services/api.generated.ts",
+      "output": "./../blog.client/src/app/core/api.generated.ts",
       "newLineBehavior": "Auto"
     }
   }

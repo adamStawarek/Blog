@@ -31,7 +31,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
             DomainException systemException => new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
-                Title = "Bad request",
+                Title = "Client error",
                 Detail = systemException.Message
             },
             _ => new ProblemDetails

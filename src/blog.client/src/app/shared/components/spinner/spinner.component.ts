@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import { LoaderService } from 'src/app/core/loader.service';
 
 @Component({
   selector: 'app-spinner',

@@ -16,3 +16,15 @@ html {
 body {
   margin: 0;
 }
+
+.notification {
+  &-error {
+    white-space: pre-line !important;
+    --mdc-snackbar-container-color: rgb(243, 145, 145);
+  }
+
+  &-success {
+    white-space: pre-line !important;
+    --mdc-snackbar-container-color: rgb(157, 223, 157);
+  }
+}

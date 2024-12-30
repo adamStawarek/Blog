@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, CreateArticleRequest } from 'src/app/core/services/api.generated';
+import { Client, CreateArticleRequest } from 'src/app/core/api.generated';
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { ArticleData } from '../../components/article-editor/article-editor.model';
 

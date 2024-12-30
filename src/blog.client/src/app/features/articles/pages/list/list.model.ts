@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, Observable, Subscription, take } from "rxjs";
-import { ArticleItem, Client } from "src/app/core/services/api.generated";
+import { ArticleItem, Client } from "src/app/core/api.generated";
 
 export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
   private _length = 1000;

@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, GetArticleResponse } from 'src/app/core/services/api.generated';
+import { Client, GetArticleResponse } from 'src/app/core/api.generated';
 
 @Component({
   selector: 'app-article-details',
