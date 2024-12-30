@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,8 +19,7 @@ import { AuthService } from 'src/app/core/auth.service';
     RouterModule,
     MatDividerModule,
     MatInputModule,
-    MatButtonModule,
-    MatCardModule],
+    MatButtonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

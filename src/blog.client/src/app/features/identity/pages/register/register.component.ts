@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/core/auth.service';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    RouterModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule],
