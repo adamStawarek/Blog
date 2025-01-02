@@ -1,17 +1,27 @@
-﻿mat-toolbar {
-  a {
-    color: white;
-    text-decoration: none;
-  }
+﻿@use '../styles/variables' as vars;
 
-  .actions {
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+
+  &__sidenav {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding: 15px;
     gap: 15px;
-    margin-left: auto;
-
-    &__create-btn {
-      background: green;
-    }
+    background-color: vars.$surface-1;
+    width: 350px;
   }
+
+  &__content {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+img {
+  max-height: 200px;
+  align-self: center;
+  border-radius: 100%;
 }

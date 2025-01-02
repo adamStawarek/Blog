@@ -1,0 +1,60 @@
+@use 'variables' as vars;
+@use '@angular/material' as mat;
+
+$default-palette: (
+  50: vars.$surface-9,
+  100: vars.$surface-8,
+  200: vars.$surface-7,
+  300: vars.$surface-6,
+  400: vars.$surface-5,
+  500: vars.$surface-4,
+  600: vars.$surface-3,
+  700: vars.$surface-2,
+  800: vars.$surface-1,
+  900: vars.$surface-0,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white)
+);
+
+$red-palette: (
+  50: vars.$primary-9,
+  100: vars.$primary-8,
+  200: vars.$primary-7,
+  300: vars.$primary-6,
+  400: vars.$primary-5,
+  500: vars.$primary-4,
+  600: vars.$primary-3,
+  700: vars.$primary-2,
+  800: vars.$primary-1,
+  900: vars.$primary-0,
+  contrast: (50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white)
+);
+
+$primary: mat.m2-define-palette($default-palette, 800);
+$accent: mat.m2-define-palette($red-palette, 700);
+$warn: mat.m2-define-palette($red-palette, 700);
+
+$theme: mat.m2-define-dark-theme((color: (primary: $primary,
+        accent: $accent,
+        warn: $warn,
+      ),
+      typography: mat.m2-define-typography-config(),
+      density: 0,
+    ));

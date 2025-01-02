@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    public readonly authService: AuthService
+    private readonly authService: AuthService
   ) { }
 
   ngOnInit(): void {

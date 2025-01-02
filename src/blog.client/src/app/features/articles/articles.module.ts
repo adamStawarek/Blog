@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'create',
     data: {
       rawPage: true,
-      roles: ['Admin']
+      // roles: ['Admin']
     },
     canActivate: [AuthGuard],
     loadComponent: () => import('./pages/create/create.component').then(m => m.CreateArticleComponent),

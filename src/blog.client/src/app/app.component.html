@@ -1,13 +1,12 @@
 ﻿<app-spinner></app-spinner>
-<mat-toolbar color="primary" *ngIf="!rawPage">
-  <a routerLink="/">Blog</a>
-  <div class="actions">
-    <a routerLink="/identity/register" *ngIf="(authService.isAuthenticated$ |async) === false">Register</a>
-    <a routerLink="/identity/login" *ngIf="(authService.isAuthenticated$ |async) === false">Login</a>
-    <button mat-raised-button routerLink="/articles/create" *ngIf="(authService.isAdmin$ |async)"
-      class="actions__create-btn">
-      Create new article
-    </button>
+<div class="container">
+  <div class="container__sidenav" *ngIf="!rawPage">
+    <img src="assets/author.jpg" alt="author">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque perspiciatis accusantium laudantium placeat
+      accusamus at fuga sint delectus quae ex, quia nisi odit incidunt. Magni at delectus saepe quaerat exercitationem.
+    </p>
   </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+  <div class="container__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

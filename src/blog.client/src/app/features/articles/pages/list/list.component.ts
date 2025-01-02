@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ArticleItem, Client } from 'src/app/core/api.generated';
 import { AuthService } from 'src/app/core/auth.service';
@@ -18,6 +18,7 @@ import { ArticlesDataSource } from './list.model';
     CommonModule,
     MatDividerModule,
     ScrollingModule,
+    RouterModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule],
@@ -43,6 +44,12 @@ export class ArticleListComponent implements OnDestroy {
 
   public navigateToArticle(article: ArticleItem): void {
     this._router.navigate(['articles', article.id]);
+  }
+
+  public createArticle($event: Event): void {
+    $event.stopPropagation();
+
+    this._router.navigate(['articles', 'create']);
   }
 
   public editArticle($event: Event, article: ArticleItem): void {

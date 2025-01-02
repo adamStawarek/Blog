@@ -2,20 +2,21 @@ import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, Observable, Subscription, take } from "rxjs";
 import { ArticleItem, Client } from "src/app/core/api.generated";
 
-export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
-  private _length = 1000;
-  private _pageSize = 10;
-  private _cachedData = Array.from<ArticleItem>({ length: this._length });
+export class ArticlesDataSource extends DataSource<ArticleItem[] | undefined> {
+  private _length = 100;
+  private _pageSize = 9 * 2;
+  private _rowSize = 3;
+  private _cachedData = Array.from<ArticleItem[]>({ length: this._length });
   private _fetchedPages = new Set<number>();
 
-  private readonly _dataStream = new BehaviorSubject<(ArticleItem | undefined)[]>(this._cachedData);
+  private readonly _dataStream = new BehaviorSubject<(ArticleItem[] | undefined)[]>(this._cachedData);
   private readonly _subscription = new Subscription();
 
   constructor(private _apiClient: Client) {
     super();
   }
 
-  public connect(collectionViewer: CollectionViewer): Observable<(ArticleItem | undefined)[]> {
+  public connect(collectionViewer: CollectionViewer): Observable<(ArticleItem[] | undefined)[]> {
     this._subscription.add(
       collectionViewer.viewChange.subscribe(range => {
         const startPage = this._getPageForIndex(range.start);
@@ -54,9 +55,17 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
         this._cachedData.splice(
           page * this._pageSize,
           this._pageSize,
-          ...x.items,
+          ...chunks(x.items, this._rowSize),
         );
         this._dataStream.next(this._cachedData);
       });
   }
+}
+
+function chunks<T>(array: T[], size: number): T[][] {
+  const chunked: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunked.push(array.slice(i, i + size));
+  }
+  return chunked;
 }

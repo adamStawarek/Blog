@@ -37,7 +37,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   public config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: 'calc(100vh - 425px)',
+    height: 'calc(100vh - 325px)',
     translate: 'no',
     defaultFontSize: '4',
     defaultParagraphSeparator: 'p',

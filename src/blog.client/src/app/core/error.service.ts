@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorHandler, Injectable, NgZone } from "@angular/core";
 import { MatSnackBar, } from '@angular/material/snack-bar';
@@ -7,6 +8,8 @@ export class GlobalErrorHandler implements ErrorHandler {
     constructor(private zone: NgZone, private _snakBar: MatSnackBar) { }
 
     public handleError(error: any): void {
+        console.error(error);
+
         const defaultError = 'An error occurred. Please try again later.';
         let msg = defaultError;
         if (error.response != null) {

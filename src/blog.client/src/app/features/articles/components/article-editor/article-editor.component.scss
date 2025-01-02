@@ -1,23 +1,45 @@
 .container {
-  margin: 20px auto;
-  width: 1250px;
-  display: flex;
-  flex-direction: column;
+  padding: 15px;
+  width: calc(100vw - 30px);
+  display: grid;
+  grid-template-areas:
+    "title tags"
+    "subtitle tags"
+    "content content"
+    "actions actions";
+  grid-template-columns: 3fr 2fr;
   gap: 10px;
 
-  mat-form-field {
-    width: 100%;
+  &__title {
+    grid-area: title;
+  }
+
+  &__subtitle {
+    grid-area: subtitle;
+  }
+
+  &__tags {
+    grid-area: tags;
+
+    mat-form-field {
+      height: 100%;
+    }
+  }
+
+  &__content {
+    grid-area: content;
   }
 
   &__actions {
+    grid-area: actions;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     gap: 10px;
     width: 100%;
+  }
 
-    &__submit-btn {
-      background: green;
-    }
+  mat-form-field {
+    width: 100%;
   }
 }
