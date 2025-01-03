@@ -11,7 +11,7 @@
     padding: 15px;
     gap: 15px;
     background-color: vars.$surface-1;
-    width: 350px;
+    width: 400px;
     transition: width 0.25s;
     position: relative;
 
@@ -21,13 +21,18 @@
       bottom: 0;
       cursor: pointer;
       z-index: 1;
-      margin: 5px;
+      margin: 10px;
     }
 
     img {
-      max-height: 200px;
+      max-height: 150px;
       align-self: center;
       border-radius: 100%;
+    }
+
+    p {
+      white-space: pre-wrap;
+      font-size: 12px;
     }
   }
 

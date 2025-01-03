@@ -7,8 +7,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { BlogData } from 'src/app/app.model';
 import { ArticleItem, Client } from 'src/app/core/api.generated';
 import { AuthService } from 'src/app/core/auth.service';
+import jsonData from 'src/assets/data.json';
 import { ArticleSizePipe } from './article-size.pipe';
 import { ArticlesDataSource } from './list.model';
 
@@ -33,6 +35,7 @@ import { ArticlesDataSource } from './list.model';
 export class ArticleListComponent implements OnInit, OnDestroy {
   public articleDataSource: ArticlesDataSource;
   public compactView = false;
+  public blogData: BlogData = jsonData;
 
   private _destroy$: Subject<void> = new Subject<void>();
 

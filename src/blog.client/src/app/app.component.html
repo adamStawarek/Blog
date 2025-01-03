@@ -3,11 +3,15 @@
   <div class="container__sidenav" *ngIf="!rawPage">
     <ng-container *ngIf="!compactView">
       <img src="assets/author.jpg" alt="author">
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque perspiciatis
-        accusantium laudantium placeat accusamus at fuga sint delectus quae ex, quia nisi odit incidunt.
-        Magni at delectus saepe quaerat exercitationem.
-      </p>
+      <p>{{blogData.author.bio}}</p>
+      <a mat-raised-button color="secondary" [href]="blogData.author.github" target="_blank">
+        <mat-icon svgIcon="github"></mat-icon>
+        Github
+      </a>
+      <a mat-raised-button color="secondary" [href]="blogData.author.linkedin" target="_blank">
+        <mat-icon svgIcon="linkedin"></mat-icon>
+        Linkedin
+      </a>
     </ng-container>
     <button class="container__sidenav__toggle" mat-mini-fab color="accent" (click)="compactView = !compactView">
       <mat-icon>{{ compactView ? 'keyboard_arrow_right' : 'keyboard_arrow_left' }}</mat-icon>

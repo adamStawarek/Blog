@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container__header">
-    <h1>Blog</h1>
-    <h3>My super duper blog</h3>
+    <h1>{{blogData.blog.title}}</h1>
+    <h3>{{blogData.blog.description}}</h3>
     <div class="container__header__actions">
       <ng-container *ngIf="authService.isAnonymous$ | async">
         <button *ngIf="compactView" mat-mini-fab color="primary" routerLink="/identity/login">

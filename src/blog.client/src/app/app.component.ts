@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, Subscription } from 'rxjs';
+import jsonData from 'src/assets/data.json';
+import { BlogData } from './app.model';
 import { AuthService } from './core/auth.service';
 
 @Component({
@@ -11,14 +15,20 @@ import { AuthService } from './core/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   public rawPage = false;
   public compactView = false;
+  public blogData: BlogData = jsonData;
 
   private _destroy$?: Subscription;
 
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly matIconRegistry: MatIconRegistry,
+    private readonly domSanitizer: DomSanitizer,
     private readonly authService: AuthService
-  ) { }
+  ) {
+    this.matIconRegistry.addSvgIcon('github', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/github.svg'));
+    this.matIconRegistry.addSvgIcon('linkedin', this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/linkedin.svg'));
+  }
 
   ngOnInit(): void {
     this.authService.init();
