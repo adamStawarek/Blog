@@ -10,6 +10,7 @@ import { AuthService } from './core/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   public rawPage = false;
+  public compactView = false;
 
   private _destroy$?: Subscription;
 
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.init();
+
+    this.compactView = window.innerWidth <= 768;
 
     this._destroy$ = this.router.events
       .pipe(

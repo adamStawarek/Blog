@@ -9,6 +9,7 @@ import { Client, LoginRequest, RegisterRequest, ResetPasswordRequest } from './a
 })
 export class AuthService {
     public isAuthenticated$: Observable<boolean>;
+    public isAnonymous$: Observable<boolean>;
     public isAdmin$: Observable<boolean>;
     public user$: Observable<User>;
 
@@ -20,6 +21,7 @@ export class AuthService {
         this.user$ = this._userSubject.asObservable();
 
         this.isAdmin$ = this.user$.pipe(map(user => user?.roles.includes('Admin')));
+        this.isAnonymous$ = this.isAuthenticated$.pipe(map(isAuthenticated => !isAuthenticated));
     }
 
     public init(): void {

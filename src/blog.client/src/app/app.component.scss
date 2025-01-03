@@ -12,6 +12,23 @@
     gap: 15px;
     background-color: vars.$surface-1;
     width: 350px;
+    transition: width 0.25s;
+    position: relative;
+
+    &__toggle {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      cursor: pointer;
+      z-index: 1;
+      margin: 5px;
+    }
+
+    img {
+      max-height: 200px;
+      align-self: center;
+      border-radius: 100%;
+    }
   }
 
   &__content {
@@ -20,8 +37,26 @@
   }
 }
 
-img {
-  max-height: 200px;
-  align-self: center;
-  border-radius: 100%;
+.compact .container {
+  &__sidenav {
+    width: 0;
+    padding: 0;
+
+    &__toggle {
+      right: unset;
+      left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :not(.compact) .container {
+    &__sidenav {
+      width: 100%;
+    }
+
+    &__content {
+      display: none;
+    }
+  }
 }

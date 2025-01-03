@@ -48,12 +48,16 @@ mat-icon.icon-btn {
 .notification {
   &-error {
     white-space: pre-line !important;
-    --mdc-snackbar-container-color: vars.$warn;
+    --mdc-snackbar-supporting-text-color: white;
+    --mat-snack-bar-button-color: white;
+    --mdc-snackbar-container-color: #fa0000;
   }
 
   &-success {
     white-space: pre-line !important;
-    --mdc-snackbar-container-color: vars.$sucess;
+    --mdc-snackbar-supporting-text-color: white;
+    --mat-snack-bar-button-color: white;
+    --mdc-snackbar-container-color: green;
   }
 }
 

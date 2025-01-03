@@ -3,25 +3,34 @@
     <h1>Blog</h1>
     <h3>My super duper blog</h3>
     <div class="container__header__actions">
-      <button mat-raised-button color="primary" routerLink="/identity/login"
-        *ngIf="(authService.isAuthenticated$ | async) === false">
-        <mat-icon>login</mat-icon>
-        Login
-      </button>
-      <button mat-raised-button color="accent" (click)="createArticle($event)">
-        <mat-icon>add</mat-icon>
-        Create Article
-      </button>
+      <ng-container *ngIf="authService.isAnonymous$ | async">
+        <button *ngIf="compactView" mat-mini-fab color="primary" routerLink="/identity/login">
+          <mat-icon>login</mat-icon>
+        </button>
+        <button *ngIf="!compactView" mat-raised-button color="primary" routerLink="/identity/login">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+      </ng-container>
+      <ng-container *ngIf="authService.isAdmin$ | async">
+        <button *ngIf="compactView" mat-mini-fab color="accent" (click)="createArticle($event)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="!compactView" mat-raised-button color="accent" (click)="createArticle($event)">
+          <mat-icon>add</mat-icon>
+          Create Article
+        </button>
+      </ng-container>
     </div>
   </div>
-  <cdk-virtual-scroll-viewport class="container__body" [itemSize]="142" appendOnly>
-    <ng-container *cdkVirtualFor="let chunks of articleDataSource">
-      <div class="row">
-        <mat-card class="row__item" *ngFor="let article of chunks" (click)="navigateToArticle(article)">
+  <cdk-virtual-scroll-viewport class="container__body" appendOnly [itemSize]="grid.offsetWidth | articleSize">
+    <div class="container__body__grid" #grid>
+      <ng-container *cdkVirtualFor="let article of articleDataSource">
+        <mat-card *ngIf="article" class="article" (click)="navigateToArticle(article)">
           <mat-card-header>
             <mat-card-title>
               <span>{{article.title}}</span>
-              <div class="actions">
+              <div class="article__actions" *ngIf="authService.isAdmin$ | async">
                 <mat-icon class="icon-btn--sm" (click)="editArticle($event, article)">
                   edit
                 </mat-icon>
@@ -36,7 +45,7 @@
             <span> {{article.description}}</span>
           </mat-card-content>
         </mat-card>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </cdk-virtual-scroll-viewport>
 </div>

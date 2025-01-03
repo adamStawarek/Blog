@@ -1,6 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,6 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ArticleItem, Client } from 'src/app/core/api.generated';
 import { AuthService } from 'src/app/core/auth.service';
+import { ArticleSizePipe } from './article-size.pipe';
 import { ArticlesDataSource } from './list.model';
 
 @Component({
@@ -21,12 +22,17 @@ import { ArticlesDataSource } from './list.model';
     RouterModule,
     MatCardModule,
     MatIconModule,
-    MatButtonModule],
+    MatButtonModule,
+    ScrollingModule,
+    ArticleSizePipe
+  ],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArticleListComponent implements OnDestroy {
+export class ArticleListComponent implements OnInit, OnDestroy {
   public articleDataSource: ArticlesDataSource;
+  public compactView = false;
 
   private _destroy$: Subject<void> = new Subject<void>();
 
@@ -35,6 +41,10 @@ export class ArticleListComponent implements OnDestroy {
     private readonly _router: Router,
     public readonly authService: AuthService) {
     this.articleDataSource = new ArticlesDataSource(_apiClient);
+  }
+
+  ngOnInit(): void {
+    this.compactView = window.innerWidth <= 768;
   }
 
   ngOnDestroy(): void {
@@ -48,13 +58,11 @@ export class ArticleListComponent implements OnDestroy {
 
   public createArticle($event: Event): void {
     $event.stopPropagation();
-
     this._router.navigate(['articles', 'create']);
   }
 
   public editArticle($event: Event, article: ArticleItem): void {
     $event.stopPropagation();
-
     this._router.navigate(['articles', article.id, 'edit']);
   }
 

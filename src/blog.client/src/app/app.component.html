@@ -1,10 +1,17 @@
 ﻿<app-spinner></app-spinner>
-<div class="container">
+<div class="container" [class.compact]="compactView">
   <div class="container__sidenav" *ngIf="!rawPage">
-    <img src="assets/author.jpg" alt="author">
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque perspiciatis accusantium laudantium placeat
-      accusamus at fuga sint delectus quae ex, quia nisi odit incidunt. Magni at delectus saepe quaerat exercitationem.
-    </p>
+    <ng-container *ngIf="!compactView">
+      <img src="assets/author.jpg" alt="author">
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque perspiciatis
+        accusantium laudantium placeat accusamus at fuga sint delectus quae ex, quia nisi odit incidunt.
+        Magni at delectus saepe quaerat exercitationem.
+      </p>
+    </ng-container>
+    <button class="container__sidenav__toggle" mat-mini-fab color="accent" (click)="compactView = !compactView">
+      <mat-icon>{{ compactView ? 'keyboard_arrow_right' : 'keyboard_arrow_left' }}</mat-icon>
+    </button>
   </div>
   <div class="container__content">
     <router-outlet></router-outlet>
