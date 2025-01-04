@@ -17,16 +17,22 @@ public class GetArticleListTests : TestBase
             .Add<Article>(x =>
             {
                 x.Title = "A";
+                x.Description = "Description A";
+                x.Tags = new List<string> { "Tag1", "Tag2" };
                 x.AuthorId = UserId;
             }, out _)
             .Add<Article>(x =>
             {
                 x.Title = "B";
+                x.Description = "Description B";
+                x.Tags = new List<string> { "Tag1" };
                 x.AuthorId = UserId;
             }, out _)
             .Add<Article>(x =>
             {
                 x.Title = "C";
+                x.Description = "Description C";
+                x.Tags = new List<string> { "Tag2" };
                 x.AuthorId = UserId;
             }, out _);
 

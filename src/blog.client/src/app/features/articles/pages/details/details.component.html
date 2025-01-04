@@ -2,6 +2,9 @@
   <div class="article__header">
     <h1>{{article?.title}}</h1>
     <h3>{{article?.author}} - {{article?.date | date}}</h3>
+    <mat-chip-set>
+      <mat-chip *ngFor="let tag of article?.tags">{{tag}}</mat-chip>
+    </mat-chip-set>
     <mat-divider></mat-divider>
   </div>
   <div class="article__content" [innerHTML]="article?.content"></div>

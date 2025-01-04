@@ -12,7 +12,7 @@
       "header actions"
       "subheader actions";
     grid-template-columns: 3fr 2fr;
-    height: 120px;
+    height: 115px;
 
     h1 {
       margin-bottom: 0;
@@ -47,7 +47,7 @@
 .article {
   border-radius: 0;
   margin: 2.5px;
-  height: 100px;
+  max-height: 115px;
 
   &:hover {
     cursor: pointer;
@@ -61,12 +61,17 @@
   &__actions {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 5px;
 
     &>mat-icon:first-child {
       color: white;
       fill: white;
     }
+  }
+
+  mat-card-header {
+    padding: 2.5px 7.5px;
   }
 
   mat-card-title {
@@ -81,21 +86,32 @@
   }
 
   mat-card-subtitle {
-    font-size: 12px;
+    font-size: 10px;
+    margin-top: -12.5px;
   }
 
-  mat-card-header {
-    padding: 2.5px 5px;
+  mat-card-actions {
+    min-height: unset;
+    padding: 0 7.5px;
+    margin-top: -7.5px;
+
+    mat-chip {
+      --mdc-chip-container-height: 14px;
+      --mdc-chip-label-text-line-height: 8px;
+      --mdc-chip-label-text-size: 8px;
+      margin-left: 8px;
+    }
   }
 
   mat-card-content {
     font-size: 12px;
-    padding: 2.5px 5px;
+    padding: 2.5px 7.5px;
+    padding-bottom: 5px;
 
     &>span {
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;

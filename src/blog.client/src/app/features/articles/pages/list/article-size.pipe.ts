@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ArticleSizePipe implements PipeTransform {
     public transform(containerWidth: number): number {
-        const itemHeight = 130;
+        const itemHeight = 100;
         if (!containerWidth) return itemHeight;
 
         const minItemWidth = 280;

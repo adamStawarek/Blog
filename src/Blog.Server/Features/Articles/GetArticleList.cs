@@ -30,6 +30,7 @@ public static class GetArticleList
             public string Title { get; set; } = null!;
             public string Author { get; set; } = null!;
             public string Description { get; set; } = null!;
+            public List<string> Tags { get; set; } = null!;
             public DateTime Date { get; set; }
         }
     }
@@ -67,6 +68,7 @@ public static class GetArticleList
                     Title = x.Title,
                     Description = x.Description,
                     Author = x.Author.UserName!,
+                    Tags = x.Tags,
                     Date = x.Meta_CreatedDate.Date
                 })
                 .ToListAsync(cancellationToken);

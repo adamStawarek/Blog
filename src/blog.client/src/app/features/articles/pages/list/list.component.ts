@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
@@ -24,8 +25,8 @@ import { ArticlesDataSource } from './list.model';
     RouterModule,
     MatCardModule,
     MatIconModule,
+    MatChipsModule,
     MatButtonModule,
-    ScrollingModule,
     ArticleSizePipe
   ],
   templateUrl: './list.component.html',

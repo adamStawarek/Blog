@@ -39,10 +39,15 @@
                 </mat-icon>
               </div>
             </mat-card-title>
-            <mat-card-subtitle>{{article.author}} - {{article.date | date}}</mat-card-subtitle>
+            <mat-card-subtitle>{{article.date | date}}</mat-card-subtitle>
           </mat-card-header>
+          <mat-card-actions>
+            <mat-chip-set aria-label="Article tags">
+              <mat-chip *ngFor="let tag of article.tags">{{tag}}</mat-chip>
+            </mat-chip-set>
+          </mat-card-actions>
           <mat-card-content>
-            <span> {{article.description}}</span>
+            <span>{{article.description}}</span>
           </mat-card-content>
         </mat-card>
       </ng-container>
