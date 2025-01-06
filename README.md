@@ -11,7 +11,7 @@ Prerquisute:
 2. Open terminal and ensure podman is running (`podman machine start`).  
 
 Below are serveral most common commands: 
-* Run services: `podman compose up`  
+* Run services: `podman compose --env-file dev.env`  
 * Stop services: `podman compose stop`  
 * Remove containers: `podman compose down`
 * Remove containers with volumes: `podman compose down -v`  
@@ -27,6 +27,23 @@ Database:
 To use sql server already that is already installed on the machine instead of podman container replace connection 
 string from appsettings.development.json with following value:   
 `Data Source=.;Initial Catalog=BlogDb;Integrated Security=true;TrustServerCertificate=True`.
+
+### Running web application with compose
+
+Development (no build):
+```docker
+podman compose --env-file dev.env -f docker-compose.yml -f docker-compose.dev.yml up
+```
+
+Development (with build):
+```docker
+podman compose --env-file dev.env -f docker-compose.yml -f docker-compose.dev.yml up --build web
+```
+
+Production:
+```docker
+podman compose --env-file prod.env -f docker-compose.yml -f docker-compose.prod.yml up
+```
 
 ##	Database changes
 

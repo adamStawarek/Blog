@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    image: web
+    container_name: web
+    depends_on:
+      - database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/app.pfx
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+    volumes:
+      - ./logs:/app/logs
+      - ./../.aspnet/https:/https:ro
+      - ./../src/Blog.Server/appsettings.Development.json:/app/appsettings.Development.json
+    ports:
+      - 5000:5000
+      - 5001:5001
+    restart: unless-stopped
+    networks:
+      - default

@@ -9,7 +9,7 @@ namespace Blog.Server.Features.Account;
 public class GetAccountInfoEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app
-        .MapGet("account/info", async (IHttpContextAccessor httpContextAccessor, UserManager<User> userManager) =>
+        .MapGet("account/info", (IHttpContextAccessor httpContextAccessor, UserManager<User> userManager) =>
         {
             var identity = httpContextAccessor.HttpContext!.User.Identity as ClaimsIdentity;
 

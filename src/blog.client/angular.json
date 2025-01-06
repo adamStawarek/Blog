@@ -18,7 +18,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/blog.client"
+              "base": "dist/blog.client",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
