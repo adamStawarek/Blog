@@ -13,8 +13,8 @@ Prerquisute:
 Below are serveral most common commands: 
 * Run services: `podman compose --env-file dev.env`  
 * Stop services: `podman compose stop`  
-* Remove containers: `podman compose down`
-* Remove containers with volumes: `podman compose down -v`  
+* Remove containers: `podman compose down && podman container prune -f`
+* Remove containers with volumes: `podman compose down -v && podman container prune -f`  
 
 Seq:  
 >	**Url**: [http://localhost:5555](http://localhost:5341)  
