@@ -23,6 +23,7 @@ jobs:
     - name: Push image to GitHub Container Registry
       run: |
         IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
         docker push $IMAGE_ID
 
     # Step 4: Upload docker-compose.yml to remote server
