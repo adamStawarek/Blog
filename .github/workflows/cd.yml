@@ -34,17 +34,20 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "infrastructure/docker-compose.yml,infrastructure/docker-compose.prod.yml,prod.env"
+        source: "infrastructure/docker-compose.yml,infrastructure/docker-compose.prod.yml,infrastructure/prod.env"
         target: "/home/${{ secrets.VPS_USER }}"
-
-    # # Step 5: SSH into remote server and run Docker Compose
-    # - name: Deploy App on Remote Server
-    #   uses: appleboy/ssh-action@v0.1.10
-    #   with:
-    #     host: ${{ secrets.REMOTE_HOST }}
-    #     username: ${{ secrets.REMOTE_USER }}
-    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     script: |
-    #       cd /home/${{ secrets.REMOTE_USER }}
-    #       docker compose pull
-    #       docker compose up -d
+    
+    - name: Run docker compose
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        script: |
+            cd /home/${{ secrets.VPS_USER }}/infrastructure
+            sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' /prod.env
+            sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' /prod.env
+            cat /prod.env
+            mv prod.env .env
+            docker-compose -f docker-compose.prod.yml up -d

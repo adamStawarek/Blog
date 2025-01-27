@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   web:
-    image: ghcr.io/adamstawarek/web:latest
+    image: ghcr.io/adamstawarek/web:${IMAGE_TAG}
     container_name: web
     depends_on:
       - database
