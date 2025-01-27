@@ -38,7 +38,7 @@ jobs:
         target: "/home/${{ secrets.VPS_USER }}"
     
     - name: Run docker compose
-      uses: appleboy/scp-action@v0.1.7
+      uses: appleboy/ssh-action@v1.2.0
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
