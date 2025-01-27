@@ -35,7 +35,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: "infrastructure/prod.env,infrastructure/docker-compose.yml,infrastructure/docker-compose.prod.yml"
-        target: "/home/${{ secrets.VPS_USER }}/x"
+        target: "/home/${{ secrets.VPS_USER }}"
         rm: true
     
     - name: Run docker compose
@@ -46,7 +46,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-            cd /home/${{ secrets.VPS_USER }}/infrastructure/x
+            cd /home/${{ secrets.VPS_USER }}/infrastructure
             sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' /prod.env
             sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' /prod.env
             cat /prod.env
