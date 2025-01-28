@@ -46,8 +46,8 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
             cd /home/${{ secrets.VPS_USER }}/infrastructure
-            sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' /prod.env
-            sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' /prod.env
-            cat /prod.env
+            sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' prod.env
+            sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' prod.env
+            cat prod.env
             mv prod.env .env
             docker-compose -f docker-compose.prod.yml up -d
