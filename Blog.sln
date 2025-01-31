@@ -31,16 +31,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Tests.DatabaseUtils", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DF54DDD7-C28E-42EB-8EAD-83587F9FE1FE}"
 	ProjectSection(SolutionItems) = preProject
+		infrastructure\dev.env = infrastructure\dev.env
 		infrastructure\docker-compose.dev.yml = infrastructure\docker-compose.dev.yml
 		infrastructure\docker-compose.prod.yml = infrastructure\docker-compose.prod.yml
 		infrastructure\docker-compose.yml = infrastructure\docker-compose.yml
 		infrastructure\prod.env = infrastructure\prod.env
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Automation", "Automation", "{9806D214-4D61-465A-9114-E4E6BB30E947}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\cd.yml = .github\workflows\cd.yml
-		.github\workflows\ci.yml = .github\workflows\ci.yml
 	EndProjectSection
 EndProject
 Global

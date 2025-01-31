@@ -20,6 +20,16 @@ jobs:
     - name: Log in to the GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
+    - name: Subsitute variables in appsettings.json
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: 'appsettings.json'
+      env:
+        ConnectionStrings.BlogDbContext: ${{ secrets.DB_CONNECTION_STRING }}
+        Email.SendGridKey: ${{ secrets.MAIL_SENDGRID_API_KEY }}  
+        Email.SenderAddress: ${{ env.MAIL_SENDER_ADDRESS }}  
+        Email.SenderName: ${{ secrets.MAIL_SENDER_NAME }}  
+      
     - name: Build & push image to GitHub Container Registry
       run: |
         IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
