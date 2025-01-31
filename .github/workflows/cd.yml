@@ -23,7 +23,7 @@ jobs:
     - name: Subsitute variables in appsettings.json
       uses: microsoft/variable-substitution@v1
       with:
-        files: 'appsettings.json'
+        files: '**/appsettings.json'
       env:
         ConnectionStrings.BlogDbContext: ${{ secrets.DB_CONNECTION_STRING }}
         Email.SendGridKey: ${{ secrets.MAIL_SENDGRID_API_KEY }}  
