@@ -58,7 +58,6 @@ jobs:
             cd /home/${{ secrets.VPS_USER }}/infrastructure
             sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' prod.env
             sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' prod.env
-            sed -i 's/CERT_PATH=.*/CERT_PATH=${{ secrets.CERT_PATH }}/' prod.env
             sed -i 's/CERT_PASS=.*/CERT_PASS=${{ secrets.CERT_PASS }}/' prod.env
             cat prod.env
             mv prod.env .env
