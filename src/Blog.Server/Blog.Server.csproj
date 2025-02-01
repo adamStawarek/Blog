@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>f230fd4f-c986-4aee-8d74-0c51858742d2</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
 		<SpaRoot>..\blog.client</SpaRoot>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 		<SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
@@ -15,7 +16,7 @@
 		<NoWarn>$(NoWarn);1573</NoWarn>
 		<NoWarn>$(NoWarn);1572</NoWarn>
 		<Configurations>Debug;Release;NSwag</Configurations>
-		<StartupObject>Blog.Server.Program</StartupObject>
+		<StartupObject>Blog.Server.Program</StartupObject>		
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Carter" Version="8.2.1" />
@@ -42,6 +43,7 @@
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />

@@ -3,9 +3,6 @@ name: CD
 on: 
     workflow_dispatch:
 
-env:
-  IMAGE_NAME: "web"
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -30,12 +27,19 @@ jobs:
         Email.SenderAddress: ${{ env.MAIL_SENDER_ADDRESS }}  
         Email.SenderName: ${{ secrets.MAIL_SENDER_NAME }}  
       
-    - name: Build & push image to GitHub Container Registry
+    - name: Build & push WEB docker image
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-        IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
-        docker build . --build-arg BUILD_CONFIGURATION=Release --file Dockerfile --tag $IMAGE_ID
-        docker push $IMAGE_ID
+        WEB_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/web:${{ github.sha }}
+        WEB_IMAGE_ID=$(echo $WEB_IMAGE_ID | tr '[:upper:]' '[:lower:]')
+        docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Server/Dockerfile --tag $WEB_IMAGE_ID
+        docker push $WEB_IMAGE_ID
+
+    - name: Build & push CLI docker image
+      run: |
+        CLI_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/cli:${{ github.sha }}
+        CLI_IMAGE_ID=$(echo $CLI_IMAGE_ID | tr '[:upper:]' '[:lower:]')
+        docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Cli/Dockerfile --tag $CLI_IMAGE_ID
+        docker push $CLI_IMAGE_ID
 
     - name: Copy files via ssh
       uses: appleboy/scp-action@v0.1.7

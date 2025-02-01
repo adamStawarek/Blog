@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Blog.Cli": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

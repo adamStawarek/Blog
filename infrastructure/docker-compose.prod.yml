@@ -5,7 +5,9 @@ services:
     image: ghcr.io/adamstawarek/web:${IMAGE_TAG}
     container_name: web
     depends_on:
-      - database
+      cli-apply-migrations:
+        condition: service_completed_successfully
+      
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
@@ -15,8 +17,15 @@ services:
       - ./logs:/app/logs
       -  ${CERT_PATH}:/certs/certificate.pfx:ro
     ports:
-      - 443:5000
-      - 80:5001
+      - 80:5000
+      - 443:5001
     restart: unless-stopped
     networks:
       - default
+
+  cli-apply-migrations:
+    image: ghcr.io/adamstawarek/cli:${IMAGE_TAG}
+    container_name: cli-apply-migrations
+    command: [database apply-migrations]
+    depends_on:
+      - database

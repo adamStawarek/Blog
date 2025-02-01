@@ -10,7 +10,7 @@ using Serilog;
 namespace Blog.Server;
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -47,8 +47,6 @@ public class Program
 
         if (app.Environment.IsDevelopment())
         {
-            await app.SeedDatabaseAsync();
-
             app.UseOpenApi(x =>
             {
                 x.PostProcess = (document, _) =>
