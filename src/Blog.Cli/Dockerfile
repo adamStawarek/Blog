@@ -14,7 +14,6 @@ COPY ["src/Blog.Cli/Blog.Cli.csproj", "src/Blog.Cli/"]
 COPY ["src/Blog.Domain/Blog.Domain.csproj", "src/Blog.Domain/"]
 COPY ["src/Blog.Infrastructure.DatabaseMigrations/Blog.Infrastructure.DatabaseMigrations.csproj", "src/Blog.Infrastructure.DatabaseMigrations/"]
 COPY ["src/Blog.Infrastructure/Blog.Infrastructure.csproj", "src/Blog.Infrastructure/"]
-COPY ["src/Blog.Cli/appsettings.json", "src/Blog.Cli/appsettings.json"]
 RUN dotnet restore "./src/Blog.Cli/Blog.Cli.csproj"
 COPY . .
 WORKDIR "/src/src/Blog.Cli"
