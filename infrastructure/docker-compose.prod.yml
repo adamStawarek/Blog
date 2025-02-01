@@ -12,7 +12,7 @@ services:
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/certs/certificate.pfx
-      - ConnectionStrings__BlogDbContext=${DB_CONNECTION_STRING}
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     volumes:
       - ./logs:/app/logs
       -  ${CERT_PATH}:/certs/certificate.pfx:ro
@@ -30,6 +30,6 @@ services:
     depends_on:
       - database
     environment:
-      - ConnectionStrings__BlogDbContext=${DB_CONNECTION_STRING}
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     networks:
       - default
