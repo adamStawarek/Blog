@@ -38,8 +38,14 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseDefaultFiles();
+        // Redirect HTTP to HTTPS
+        app.UseHttpsRedirection();
+
+        // Serve static files (images, CSS, JS)
         app.UseStaticFiles();
+
+        // Serve default files (like index.html)
+        app.UseDefaultFiles();
 
         app.UseSerilogRequestLogging();
 
@@ -63,8 +69,6 @@ public class Program
         }
 
         app.MapCarter();
-
-        app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
