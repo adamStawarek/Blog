@@ -26,7 +26,7 @@ services:
   cli-apply-migrations:
     image: ghcr.io/adamstawarek/cli:${IMAGE_TAG}
     container_name: cli-apply-migrations
-    command: [database apply-migrations]
+    command: ["database", "apply-migrations"]
     depends_on:
       - database
     networks:
