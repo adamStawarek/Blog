@@ -29,3 +29,5 @@ services:
     command: [database apply-migrations]
     depends_on:
       - database
+    networks:
+      - default
