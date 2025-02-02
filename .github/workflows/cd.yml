@@ -11,6 +11,11 @@ jobs:
       packages: write
 
     steps:
+    - name: Set up Git LFS
+      run: git lfs install
+    - name: Pull Git LFS files
+      run: git lfs pull
+
     - name: Checkout Code
       uses: actions/checkout@v4
 
