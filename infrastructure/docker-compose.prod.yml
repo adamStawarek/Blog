@@ -15,6 +15,7 @@ services:
       - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     volumes:
       - ./logs:/app/logs
+      - ./assets:/app/wwwroot/assets:ro
       -  ${CERT_PATH}:/certs/certificate.pfx:ro
     ports:
       - 80:5000
