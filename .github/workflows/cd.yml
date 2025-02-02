@@ -19,8 +19,8 @@ jobs:
     - name: Log in to the GitHub Container Registry
       run: stat src/blog.client/src/assets/author.jpg
 
-    - name: XX
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+    # - name: XX
+    #   run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
 
     # - name: Subsitute variables in appsettings.json
     #   uses: microsoft/variable-substitution@v1
