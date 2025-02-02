@@ -30,4 +30,3 @@ public class UserCommands(IServiceProvider serviceProvider)
         await userManager.AddToRoleAsync(exsitingUser!, role);
     }
 }
-

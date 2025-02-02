@@ -47,4 +47,3 @@ public class DatabaseCommands(IServiceProvider serviceProvider)
         await context.SaveChangesAsync();
     }
 }
-
