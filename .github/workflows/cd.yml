@@ -11,12 +11,15 @@ jobs:
       packages: write
 
     steps:
-
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         lfs: true
-    
+
+    - name: Ensure LFS files are properly pulled
+      run: |
+        git lfs pull
+
     - name: Log in to the GitHub Container Registry
       run: stat src/blog.client/src/assets/author.jpg
 
