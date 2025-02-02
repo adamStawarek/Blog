@@ -1,10 +1,11 @@
 name: CI
 
 on: 
-    push: 
-        branches: [ "master" ]
-    pull_request:
-        branches: [ "master" ]
+    # temporary disabled
+    # push: 
+    #     branches: [ "master" ]
+    # pull_request:
+    #     branches: [ "master" ]
 
     # Allows to run this workflow manually from the Actions tab
     workflow_dispatch:
