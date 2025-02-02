@@ -24,8 +24,8 @@ jobs:
       env:
         ConnectionStrings.BlogDbContext: ${{ secrets.DB_CONNECTION_STRING }}
         Email.SendGridKey: ${{ secrets.MAIL_SENDGRID_API_KEY }}  
-        Email.SenderAddress: ${{ env.MAIL_SENDER_ADDRESS }}  
-        Email.SenderName: ${{ env.MAIL_SENDER_NAME }}  
+        Email.SenderAddress: ${{ vars.MAIL_SENDER_ADDRESS }}  
+        Email.SenderName: ${{ vars.MAIL_SENDER_NAME }}  
       
     - name: Build & push WEB docker image
       run: |

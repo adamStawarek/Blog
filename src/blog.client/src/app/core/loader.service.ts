@@ -17,7 +17,8 @@ export class LoaderService {
 
     public showLoader(): void {
         if (this._activeRequestsCount === 0) {
-            this._isLoadingSubject.next(true);
+            //todo: temporary disabled
+            //this._isLoadingSubject.next(true);
         }
         this._activeRequestsCount++;
     }
@@ -25,7 +26,7 @@ export class LoaderService {
     public hideLoader(): void {
         this._activeRequestsCount--;
         if (this._activeRequestsCount === 0) {
-            this._isLoadingSubject.next(false);
+            //this._isLoadingSubject.next(false);
         }
     }
 }
