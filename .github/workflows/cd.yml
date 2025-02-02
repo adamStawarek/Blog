@@ -41,17 +41,6 @@ jobs:
         docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Cli/Dockerfile --tag $CLI_IMAGE_ID
         docker push $CLI_IMAGE_ID
 
-    - name: Copy image files via ssh
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "src/blog.client/src/assets/*.jpg"
-        target: "/home/${{ secrets.VPS_USER }}"
-        strip_components: 3
-
     - name: Copy docker files via ssh
       uses: appleboy/scp-action@v0.1.7
       with:
