@@ -71,7 +71,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-            cd /home/${{ secrets.VPS_USER }}/infrastructure
+            cd /home/${{ secrets.VPS_USER }}
             sed -i 's/DATABASE_PASS=.*/DATABASE_PASS=${{ secrets.DB_PASS }}/' prod.env
             sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=${{ github.sha }}/' prod.env
             sed -i 's/CERT_PASS=.*/CERT_PASS=${{ secrets.CERT_PASS }}/' prod.env
