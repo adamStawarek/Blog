@@ -48,7 +48,7 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "src/blog.client/src/assets/*.{jpg,png}"
+        source: "src/blog.client/src/assets/*.jpg"
         target: "/home/${{ secrets.VPS_USER }}"
         strip_components: 3
 
