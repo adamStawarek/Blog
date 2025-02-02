@@ -11,11 +11,6 @@ jobs:
       packages: write
 
     steps:
-    - name: Set up Git LFS
-      run: git lfs install
-    - name: Pull Git LFS files
-      run: git lfs pull
-
     - name: Checkout Code
       uses: actions/checkout@v4
 
@@ -53,8 +48,9 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "src/blog.client/src/assets/*.jpg"
+        source: "src/blog.client/src/assets/*.jpg,src/blog.client/src/assets/*.png"
         target: "/home/${{ secrets.VPS_USER }}"
+        rm: true
         strip_components: 3
 
     - name: Copy docker files via ssh
