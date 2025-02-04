@@ -38,13 +38,10 @@ public class Program
 
         var app = builder.Build();
 
-        // Redirect HTTP to HTTPS
         app.UseHttpsRedirection();
 
-        // Serve static files (images, CSS, JS)
         app.UseStaticFiles();
 
-        // Serve default files (like index.html)
         app.UseDefaultFiles();
 
         app.UseSerilogRequestLogging();

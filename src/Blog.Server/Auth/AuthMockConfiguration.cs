@@ -4,7 +4,6 @@ public class AuthMockConfiguration
     public const string Key = "AuthMock";
 
     public bool Enabled { get; set; }
-    public bool SeedDatabase { get; set; }
     public MockUser? User { get; set; }
 
     public class MockUser
