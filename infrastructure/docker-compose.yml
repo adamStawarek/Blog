@@ -32,6 +32,8 @@ services:
       - 5555:80
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINUSERNAME=${SEQ_USER}
+      - SEQ_FIRSTRUN_ADMINPASSWORDHASH=${SEQ_PASS_HASH}
     volumes:
       - seq:/data
     networks:

@@ -15,10 +15,24 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .Enrich.WithProperty("Application", "Web")
+            .Enrich.WithProperty("MachineName", Environment.MachineName)
+            .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
+            .WriteTo.File("/app/logs/log.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.OpenTelemetry(x =>
+            {
+                x.Endpoint = $"{builder.Configuration["Seq:Url"]!}";
+                x.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.HttpProtobuf;
+                x.Headers = new Dictionary<string, string>
+                {
+                    ["x-seq-api-key"] = builder.Configuration["Seq:ApiKey"]!
+                };
+            })
             .ReadFrom.Configuration(builder.Configuration)
             .CreateLogger();
 
-        builder.Host.UseSerilog();
+        builder.Services.AddSerilog();
 
         builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
         builder.Services.AddProblemDetails();

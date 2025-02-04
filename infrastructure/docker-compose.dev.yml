@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ../
-      dockerfile: Dockerfile
+      dockerfile: ./src/Blog.Server/Dockerfile
       args:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
     image: web
