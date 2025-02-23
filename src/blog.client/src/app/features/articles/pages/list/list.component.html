@@ -23,8 +23,8 @@
       </ng-container>
     </div>
   </div>
-  <cdk-virtual-scroll-viewport class="container__body" appendOnly [itemSize]="grid.offsetWidth | articleSize">
-    <div class="container__body__grid" #grid>
+  <cdk-virtual-scroll-viewport class="container__body" appendOnly [itemSize]="gridRect | articleSize">
+    <div class="container__body__grid" appResizeObserver (resize)="gridRect = $event">
       <ng-container *cdkVirtualFor="let article of articleDataSource">
         <mat-card *ngIf="article" class="article" (click)="navigateToArticle(article)">
           <mat-card-header>

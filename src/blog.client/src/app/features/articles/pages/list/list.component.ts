@@ -11,6 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { BlogData } from 'src/app/app.model';
 import { ArticleItem, Client } from 'src/app/core/api.generated';
 import { AuthService } from 'src/app/core/auth.service';
+import { ResizeObserverDirective } from 'src/app/shared/directives/resize-observer.directive';
 import jsonData from 'src/assets/data.json';
 import { ArticleSizePipe } from './article-size.pipe';
 import { ArticlesDataSource } from './list.model';
@@ -27,7 +28,8 @@ import { ArticlesDataSource } from './list.model';
     MatIconModule,
     MatChipsModule,
     MatButtonModule,
-    ArticleSizePipe
+    ArticleSizePipe,
+    ResizeObserverDirective
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -37,6 +39,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   public articleDataSource: ArticlesDataSource;
   public compactView = false;
   public blogData: BlogData = jsonData;
+  public gridRect?: DOMRectReadOnly;
 
   private _destroy$: Subject<void> = new Subject<void>();
 

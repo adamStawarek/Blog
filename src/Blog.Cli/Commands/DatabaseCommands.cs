@@ -40,7 +40,7 @@ public class DatabaseCommands(IServiceProvider serviceProvider)
             .RuleFor(x => x.Tags, x => ["Review"])
             .RuleFor(x => x.AuthorId, x => exsitingUser!.Id)
             .RuleFor(x => x.Id, x => new Article.EntityId(Guid.NewGuid()))
-            .Generate(20);
+            .Generate(50);
 
         await context.Article.AddRangeAsync(articles);
 
