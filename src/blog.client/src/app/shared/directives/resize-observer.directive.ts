@@ -5,21 +5,21 @@ import { Directive, ElementRef, EventEmitter, NgZone, OnDestroy, Output } from '
   standalone: true
 })
 export class ResizeObserverDirective implements OnDestroy {
-  @Output() resize = new EventEmitter<DOMRectReadOnly>();
+  @Output() public sizeChanged = new EventEmitter<DOMRectReadOnly>();
 
-  private resizeObserver: ResizeObserver;
+  private _resizeObserver: ResizeObserver;
 
   constructor(private element: ElementRef, private ngZone: NgZone) {
-    this.resizeObserver = new ResizeObserver(entries => {
-      for (let entry of entries) {
-        this.ngZone.run(() => this.resize.emit(entry.contentRect));
+    this._resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        this.ngZone.run(() => this.sizeChanged.emit(entry.contentRect));
       }
     });
 
-    this.resizeObserver.observe(this.element.nativeElement);
+    this._resizeObserver.observe(this.element.nativeElement);
   }
 
-  ngOnDestroy() {
-    this.resizeObserver.disconnect();
+  ngOnDestroy(): void {
+    this._resizeObserver.disconnect();
   }
 }
