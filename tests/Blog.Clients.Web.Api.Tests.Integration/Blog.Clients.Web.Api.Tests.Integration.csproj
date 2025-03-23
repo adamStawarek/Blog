@@ -8,7 +8,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\..\src\Blog.Server\appsettings.Integration.json" Link="appsettings.Integration.json" />
+    <Content Include="..\..\src\Blog.Clients.Web.Api\appsettings.Integration.json" Link="appsettings.Integration.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
@@ -35,7 +35,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Blog.Server\Blog.Server.csproj" />
+    <ProjectReference Include="..\..\src\Blog.Clients.Web.Api\Blog.Clients.Web.Api.csproj" />
     <ProjectReference Include="..\Utils\Blog.Tests.DatabaseUtils\Blog.Tests.DatabaseUtils.csproj" />
   </ItemGroup>
   <ItemGroup>

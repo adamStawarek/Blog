@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ../
-      dockerfile: ./src/Blog.Server/Dockerfile
+      dockerfile: ./src/Blog.Clients.Web.Api/Dockerfile
       args:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
     image: web
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./logs:/app/logs
       - ./../.aspnet/https:/https:ro
-      - ./../src/Blog.Server/appsettings.Development.json:/app/appsettings.Development.json
+      - ./../src/Blog.Clients.Web.Api/appsettings.Development.json:/app/appsettings.Development.json
     ports:
       - 5000:5000
       - 5001:5001

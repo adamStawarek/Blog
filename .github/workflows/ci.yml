@@ -29,11 +29,11 @@ jobs:
 
             - name: Ng build
               run: npm install && npm run build
-              working-directory: ./src/blog.client
+              working-directory: ./src/Blog.Clients.Web.UI
 
             - name: Ng lint
               run: npm run lint
-              working-directory: ./src/blog.client
+              working-directory: ./src/Blog.Clients.Web.UI
                 
             - name: Dotnet build
               run: dotnet build --configuration Release

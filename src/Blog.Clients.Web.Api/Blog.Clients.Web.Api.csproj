@@ -6,7 +6,7 @@
 		<UserSecretsId>f230fd4f-c986-4aee-8d74-0c51858742d2</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<SpaRoot>..\blog.client</SpaRoot>
+		<SpaRoot>..\Blog.Clients.Web.UI</SpaRoot>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 		<SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
 		<!--PropertyGroup for Client codes auto generation-->
@@ -48,7 +48,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
-		<ProjectReference Include="..\blog.client\blog.client.esproj">
+		<ProjectReference Include="..\Blog.Clients.Web.UI\Blog.Clients.Web.UI.esproj">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
 		<ProjectReference Include="..\Blog.Infrastructure.DatabaseMigrations\Blog.Infrastructure.DatabaseMigrations.csproj" />
