@@ -19,6 +19,7 @@
 		<StartupObject>Blog.Server.Program</StartupObject>		
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="Hangfire" Version="1.8.18" />
 		<PackageReference Include="Carter" Version="8.2.1" />
 		<PackageReference Include="FluentResults" Version="3.16.0" />
 		<PackageReference Include="FluentValidation" Version="11.11.0" />

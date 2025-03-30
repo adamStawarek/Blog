@@ -2,9 +2,11 @@ using Blog.Application;
 using Blog.Domain.Entities;
 using Blog.Infrastructure;
 using Blog.Infrastructure.DatabaseMigrations;
+using Blog.Server.Auth;
 using Blog.Server.Errors;
 using Blog.Server.Extensions;
 using Carter;
+using Hangfire;
 using Serilog;
 
 namespace Blog.Server;
@@ -39,6 +41,13 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddHangfire(x =>
+        {
+            x.UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireDbContext"));
+        });
 
         builder.Services
             .AddBlogAuth(builder.Configuration)
@@ -83,6 +92,9 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.MapHangfireDashboard();
+            //.RequireAuthorization(x => x.RequireRole(BlogRoles.Admin));
 
         app.MapGroup("/account")
            .WithTags("Account")
