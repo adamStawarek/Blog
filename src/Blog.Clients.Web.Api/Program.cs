@@ -90,11 +90,11 @@ public class Program
 
         app.MapCarter();
 
-        app.UseAuthentication();
-        app.UseAuthorization();
-
         app.MapHangfireDashboard();
             //.RequireAuthorization(x => x.RequireRole(BlogRoles.Admin));
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.MapGroup("/account")
            .WithTags("Account")

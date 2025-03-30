@@ -1,4 +1,5 @@
 using Blog.Application;
+using Blog.Application.Events.Base;
 using Blog.Clients.Jobs.Utils;
 using Blog.Clients.Web.Jobs.Jobs;
 using Blog.Infrastructure;
@@ -48,7 +49,7 @@ builder.Services.AddHangfireServer();
 builder.Services.AddHostedService<JobsHostedService>();
 
 builder.Services.Scan(scan => scan
-    .FromAssemblyOf<IBlogJob>()
+    .FromAssemblyOf<JobsHostedService>()
     .AddClasses(classes => classes.AssignableTo<IBlogJob>())
     .AsImplementedInterfaces()
     .WithScopedLifetime());

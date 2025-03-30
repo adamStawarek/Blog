@@ -1,4 +1,5 @@
-﻿using Blog.Clients.Web.Jobs.Jobs;
+﻿using Blog.Application.Events.Base;
+using Blog.Clients.Web.Jobs.Jobs;
 using Hangfire;
 using Microsoft.Extensions.Options;
 
