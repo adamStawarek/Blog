@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Web+Jobs",
+    "Projects": [
+      {
+        "Path": "src\\Blog.Clients.Web.Api\\Blog.Clients.Web.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      },
+      {
+        "Path": "src\\Blog.Clients.Jobs\\Blog.Clients.Jobs.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express (no browser)"
+      }
+    ]
+  },
+  {
+    "Name": "Web",
+    "Projects": [
+      {
+        "Path": "src\\Blog.Clients.Web.Api\\Blog.Clients.Web.Api.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  },
+  {
+    "Name": "Jobs",
+    "Projects": [
+      {
+        "Path": "src\\Blog.Clients.Jobs\\Blog.Clients.Jobs.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  }
+]

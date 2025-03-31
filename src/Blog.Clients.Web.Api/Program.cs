@@ -2,7 +2,6 @@ using Blog.Application;
 using Blog.Domain.Entities;
 using Blog.Infrastructure;
 using Blog.Infrastructure.DatabaseMigrations;
-using Blog.Server.Auth;
 using Blog.Server.Errors;
 using Blog.Server.Extensions;
 using Carter;
@@ -91,7 +90,7 @@ public class Program
         app.MapCarter();
 
         app.MapHangfireDashboard();
-            //.RequireAuthorization(x => x.RequireRole(BlogRoles.Admin));
+        //.RequireAuthorization(x => x.RequireRole(BlogRoles.Admin));
 
         app.UseAuthentication();
         app.UseAuthorization();
