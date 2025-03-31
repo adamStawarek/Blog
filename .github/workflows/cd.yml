@@ -38,7 +38,7 @@ jobs:
     - name: Build & push JOBS docker image
       run: |
         JOBS_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/jobs:${{ github.sha }}
-        JOBS_IMAGE_ID=$(echo $WEB_IMAGE_ID | tr '[:upper:]' '[:lower:]')
+        JOBS_IMAGE_ID=$(echo $JOBS_IMAGE_ID | tr '[:upper:]' '[:lower:]')
         docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Clients.Jobs/Dockerfile --tag $JOBS_IMAGE_ID
         docker push $JOBS_IMAGE_ID
 
