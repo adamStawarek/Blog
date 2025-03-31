@@ -13,8 +13,9 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/certs/certificate.pfx
       - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - ConnectionStrings__HangfireDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     volumes:
-      - ./logs:/app/logs
+      - ./logs/web:/app/logs
       -  ${CERT_PATH}:/certs/certificate.pfx:ro
     ports:
       - 80:5000
@@ -22,6 +23,25 @@ services:
     restart: unless-stopped
     networks:
       - default
+
+  jobs:
+    image: ghcr.io/adamstawarek/jobs:${IMAGE_TAG}
+    container_name: jobs
+    depends_on:
+      cli-apply-migrations:
+        condition: service_completed_successfully
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/certs/certificate.pfx
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - ConnectionStrings__HangfireDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+    volumes:
+        - ./logs/jobs:/app/logs
+        -  ${CERT_PATH}:/certs/certificate.pfx:ro
+    restart: unless-stopped
+    networks:
+        - default
 
   cli-apply-migrations:
     image: ghcr.io/adamstawarek/cli:${IMAGE_TAG}

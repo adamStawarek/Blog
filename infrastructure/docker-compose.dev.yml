@@ -10,20 +10,63 @@ services:
     image: web
     container_name: web
     depends_on:
-      - database
+      cli-apply-migrations:
+        condition: service_completed_successfully
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/app.pfx
       - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - ConnectionStrings__HangfireDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     volumes:
-      - ./logs:/app/logs
+      - ./logs/web/:/app/logs
       - ./../.aspnet/https:/https:ro
       - ./../src/Blog.Clients.Web.Api/appsettings.Development.json:/app/appsettings.Development.json
     ports:
       - 5000:5000
       - 5001:5001
     restart: unless-stopped
+    networks:
+      - default
+
+  jobs:
+    build:
+      context: ../
+      dockerfile: ./src/Blog.Clients.Jobs/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    image: jobs
+    container_name: jobs
+    depends_on:
+      cli-apply-migrations:
+        condition: service_completed_successfully
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/app.pfx
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - ConnectionStrings__HangfireDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+    volumes:
+      - ./logs/jobs/:/app/logs
+      - ./../.aspnet/https:/https:ro
+      - ./../src/Blog.Clients.Jobs/appsettings.Development.json:/app/appsettings.Development.json
+    restart: unless-stopped
+    networks:
+      - default
+
+  cli-apply-migrations:
+    build:
+      context: ../
+      dockerfile: ./src/Blog.Clients.Cli/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    image: cli
+    container_name: cli-apply-migrations
+    command: ["database", "apply-migrations"]
+    depends_on:
+      - database
+    environment:
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     networks:
       - default

@@ -37,7 +37,7 @@ podman compose --env-file dev.env -f docker-compose.yml -f docker-compose.dev.ym
 
 Development (with build):
 ```docker
-podman compose --env-file dev.env -f docker-compose.yml -f docker-compose.dev.yml up --build web
+podman compose --env-file dev.env -f docker-compose.yml -f docker-compose.dev.yml up --build
 ```
 
 Production:

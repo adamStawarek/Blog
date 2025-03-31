@@ -35,6 +35,13 @@ jobs:
         docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Clients.Web.Api/Dockerfile --tag $WEB_IMAGE_ID
         docker push $WEB_IMAGE_ID
 
+    - name: Build & push JOBS docker image
+      run: |
+        JOBS_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/jobs:${{ github.sha }}
+        JOBS_IMAGE_ID=$(echo $WEB_IMAGE_ID | tr '[:upper:]' '[:lower:]')
+        docker build . --build-arg BUILD_CONFIGURATION=Release --file src/Blog.Clients.Jobs/Dockerfile --tag $JOBS_IMAGE_ID
+        docker push $JOBS_IMAGE_ID
+
     - name: Build & push CLI docker image
       run: |
         CLI_IMAGE_ID=ghcr.io/${{ github.repository_owner }}/cli:${{ github.sha }}
