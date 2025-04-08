@@ -14,7 +14,7 @@ public class DatabaseCommands(IServiceProvider serviceProvider)
     {
         var context = serviceProvider.GetRequiredService<BlogDbContext>();
 
-        await context.Database.EnsureCreatedAsync();
+        await context.Database.MigrateAsync();
 
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
