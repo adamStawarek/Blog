@@ -51,7 +51,7 @@ public class Program
 
         builder.Services
             .AddBlogAuth(builder.Configuration)
-            .AddBlogInfrastructure(builder.Configuration, x => x.AllowMigrationManagement())
+            .AddBlogDatabase(builder.Configuration, x => x.AllowMigrationManagement())
             .AddBlogAppServices(builder.Configuration)
             .AddBlogWebServices(builder.Configuration);
 

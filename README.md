@@ -1,4 +1,4 @@
-# Maintenance guide
+﻿# Maintenance guide
 
 ## Infrastructure 
 
@@ -98,3 +98,30 @@ relations to the feature module. One must import the core module **only** in the
 
 **Shared** module: components, directives and pipes shared accross various modules. 
 The shared module should **not** depend on any other module in the application.
+
+
+## Google Cloud Platform
+Google provides multiple credential types, but for server-to-server authentication (Client Credentials Flow), you must use a Service Account Key.
+
+1. Go to Google Cloud Console:  
+	- Navigate to Google Cloud Console.
+	- Open your project where the Google Drive API is enabled.
+
+2. Create a Service Account:
+	- Go to IAM & Admin → Service Accounts.
+	- Click Create Service Account.
+	- Assign the role: "Editor" or "Drive File Access".
+	- Click Create and Continue → Done.
+	
+3. Download the Correct JSON Key:
+	- Select the Service Account you created.
+	- Go to the "Keys" tab → Click "Add Key" → "Create new key".
+	- Choose JSON format and download the file.
+	- Place the file in your project (path/to/service_account.json).
+
+Even if the authentication works, your service account must have permission to upload files.
+
+4. Go to Google Drive.
+	- Create a folder for uploads.
+	- Right-click the folder → Share.
+	- Add the service account email (found in your JSON) as an editor.

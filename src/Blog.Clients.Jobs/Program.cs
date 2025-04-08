@@ -30,10 +30,11 @@ Log.Logger = new LoggerConfiguration()
 builder.Services.AddSerilog();
 
 builder.Services
-    .AddBlogInfrastructure(builder.Configuration)
+    .AddBlogDatabase(builder.Configuration)
+    .AddBlogFileStorage(builder.Configuration)
     .AddBlogAppServices(builder.Configuration);
 
-builder.Services.Configure<JobsOptions>(builder.Configuration.GetSection("Hangfire"));
+builder.Services.Configure<JobsOptions>(builder.Configuration.GetSection(JobsOptions.Key));
 
 builder.Services.AddTransient(_ => new AuditContext("JOBS", DateTime.Now));
 

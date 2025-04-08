@@ -1,7 +1,7 @@
 ﻿namespace Blog.Clients.Jobs.Utils;
 public class JobsOptions
 {
-    public const string Key = "Jobs";
+    public const string Key = "Hangfire";
 
     public List<Configuration> Jobs { get; set; } = new();
 

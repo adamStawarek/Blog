@@ -27,6 +27,9 @@ jobs:
         Email.SenderAddress: ${{ vars.MAIL_SENDER_ADDRESS }}  
         Email.SenderName: ${{ vars.MAIL_SENDER_NAME }}
         Seq.ApiKey: ${{ secrets.SEQ_API_KEY }}
+        GoogleDrive.ApplicationName: ${{ vars.GOOGLE_DRIVE_APP_NAME }}
+        GoogleDrive.RootDirectoryId: ${{ vars.GOOGLE_DRIVE_ROOT_DIR_ID }}
+        GoogleDrive.CredentialsJSON: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
       
     - name: Build & push WEB docker image
       run: |

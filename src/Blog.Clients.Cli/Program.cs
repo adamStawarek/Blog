@@ -19,7 +19,7 @@ builder.Configuration
 
 builder.Logging.AddFilter("System.Net.Http", LogLevel.Warning);
 
-builder.Services.AddBlogInfrastructure(builder.Configuration, x => x.AllowMigrationManagement());
+builder.Services.AddBlogDatabase(builder.Configuration, x => x.AllowMigrationManagement());
 
 builder.Services.AddTransient(_ => new AuditContext("CLI", DateTime.Now));
 
