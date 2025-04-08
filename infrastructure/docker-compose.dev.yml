@@ -47,9 +47,11 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/app.pfx
       - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
       - ConnectionStrings__HangfireDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+      - DatabaseBackup__BackupDirectory=/app/backup
     volumes:
       - ./logs/jobs/:/app/logs
       - ./../.aspnet/https:/https:ro
+      - ./backup:/app/backup:ro
       - ./../src/Blog.Clients.Jobs/appsettings.Development.json:/app/appsettings.Development.json
     restart: unless-stopped
     networks:

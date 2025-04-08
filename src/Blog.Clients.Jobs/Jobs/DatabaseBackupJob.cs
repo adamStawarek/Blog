@@ -1,17 +1,23 @@
 ﻿using Blog.Application.Services.FileStorage;
 using Blog.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Web.Jobs.Jobs;
 public class DatabaseBackupJob : IDatabaseBackupJob
 {
     private readonly BlogDbContext _context;
+    private readonly DatabaseBackupJobOptions _options;
     private readonly IFileStorage _fileStorage;
 
-    public DatabaseBackupJob(BlogDbContext context, IFileStorage storage)
+    public DatabaseBackupJob(
+        BlogDbContext context,
+        IOptions<DatabaseBackupJobOptions> options,
+        IFileStorage fileStorage)
     {
         _context = context;
-        _fileStorage = storage;
+        _options = options.Value;
+        _fileStorage = fileStorage;
     }
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
@@ -19,18 +25,10 @@ public class DatabaseBackupJob : IDatabaseBackupJob
         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
         var backupFile = $"BlogDb_{timestamp}.bak";
 
-        var backupDirectory = _context.Database
-            .SqlQueryRaw<string>("DECLARE @path NVARCHAR(512); EXEC master.dbo.xp_instance_regread N'HKEY_LOCAL_MACHINE', " +
-                "N'SOFTWARE\\Microsoft\\MSSQLServer\\MSSQLServer', " +
-                "N'BackupDirectory', " +
-                "@path OUTPUT; SELECT @path;")
-            .AsEnumerable()
-            .Single();
-
-        var backupPath = Path.Combine(backupDirectory, backupFile);
-
         await _context.Database
-          .ExecuteSqlAsync($"BACKUP DATABASE [BlogDb] TO DISK={backupPath}", cancellationToken);
+          .ExecuteSqlAsync($"BACKUP DATABASE [BlogDb] TO DISK={backupFile}", cancellationToken);
+
+        var backupPath = Path.Combine(_options.BackupDirectory, backupFile);
 
         using var stream = new FileStream(backupPath, FileMode.Open, FileAccess.Read);
         await _fileStorage.UploadFileAsync(backupFile, stream, "application/octet-stream");

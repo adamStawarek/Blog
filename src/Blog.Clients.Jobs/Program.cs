@@ -35,6 +35,7 @@ builder.Services
     .AddBlogAppServices(builder.Configuration);
 
 builder.Services.Configure<JobsOptions>(builder.Configuration.GetSection(JobsOptions.Key));
+builder.Services.Configure<DatabaseBackupJobOptions>(builder.Configuration.GetSection(DatabaseBackupJobOptions.Key));
 
 builder.Services.AddTransient(_ => new AuditContext("JOBS", DateTime.Now));
 

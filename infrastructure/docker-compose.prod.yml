@@ -39,6 +39,7 @@ services:
     volumes:
         - ./logs/jobs:/app/logs
         -  ${CERT_PATH}:/certs/certificate.pfx:ro
+        - ./backup:/app/backup:ro
     restart: unless-stopped
     networks:
         - default
