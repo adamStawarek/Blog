@@ -14,8 +14,8 @@ public class DatabaseCommands(IServiceProvider serviceProvider)
     {
         var context = serviceProvider.GetRequiredService<BlogDbContext>();
 
-        //Temporery fix until sql server container healhtcheck is fixed
-        await Task.Delay(30 * 1000);
+        //Temporary fix until sql server container healhtcheck is fixed
+        await Task.Delay(60 * 1000);
 
         await context.Database.MigrateAsync();
 
