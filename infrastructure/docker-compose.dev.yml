@@ -67,7 +67,8 @@ services:
     container_name: cli-apply-migrations
     command: ["database", "apply-migrations"]
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     environment:
       - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
     networks:

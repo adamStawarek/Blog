@@ -25,10 +25,10 @@ public class DatabaseBackupJob : IDatabaseBackupJob
         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
         var backupFile = $"BlogDb_{timestamp}.bak";
 
-        await _context.Database
-          .ExecuteSqlAsync($"BACKUP DATABASE [BlogDb] TO DISK={backupFile}", cancellationToken);
-
         var backupPath = Path.Combine(_options.BackupDirectory, backupFile);
+
+        await _context.Database
+          .ExecuteSqlAsync($"BACKUP DATABASE [BlogDb] TO DISK={backupPath}", cancellationToken);
 
         using var stream = new FileStream(backupPath, FileMode.Open, FileAccess.Read);
         await _fileStorage.UploadFileAsync(backupFile, stream, "application/octet-stream");
