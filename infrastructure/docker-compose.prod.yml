@@ -4,9 +4,9 @@ services:
   web:
     image: ghcr.io/adamstawarek/web:${IMAGE_TAG}
     container_name: web
-    # depends_on:
-    #   cli-apply-migrations:
-    #     condition: service_completed_successfully
+    depends_on:
+      cli-apply-migrations:
+        condition: service_completed_successfully
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
@@ -27,9 +27,9 @@ services:
   jobs:
     image: ghcr.io/adamstawarek/jobs:${IMAGE_TAG}
     container_name: jobs
-    # depends_on:
-    #   cli-apply-migrations:
-    #     condition: service_completed_successfully
+    depends_on:
+      cli-apply-migrations:
+        condition: service_completed_successfully
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERT_PASS}
@@ -44,13 +44,13 @@ services:
     networks:
         - default
 
-  # cli-apply-migrations:
-  #   image: ghcr.io/adamstawarek/cli:${IMAGE_TAG}
-  #   container_name: cli-apply-migrations
-  #   command: ["database", "apply-migrations"]
-  #   depends_on:
-  #     - database
-  #   environment:
-  #     - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
-  #   networks:
-  #     - default
+  cli-apply-migrations:
+    image: ghcr.io/adamstawarek/cli:${IMAGE_TAG}
+    container_name: cli-apply-migrations
+    command: ["database", "apply-migrations"]
+    depends_on:
+      - database
+    environment:
+      - ConnectionStrings__BlogDbContext=Server=tcp:database;Initial Catalog=BlogDb;Persist Security Info=False;User Id=sa;Password=${DATABASE_PASS};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
+    networks:
+      - default
