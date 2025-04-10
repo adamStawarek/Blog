@@ -38,6 +38,7 @@ services:
         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
     image: jobs
     container_name: jobs
+    user: root
     depends_on:
       cli-apply-migrations:
         condition: service_completed_successfully

@@ -27,6 +27,7 @@ services:
   jobs:
     image: ghcr.io/adamstawarek/jobs:${IMAGE_TAG}
     container_name: jobs
+    user: root
     depends_on:
       cli-apply-migrations:
         condition: service_completed_successfully
