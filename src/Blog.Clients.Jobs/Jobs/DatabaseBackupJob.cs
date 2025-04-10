@@ -25,6 +25,7 @@ public class DatabaseBackupJob : IDatabaseBackupJob
         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
         var backupFile = $"BlogDb_{timestamp}.bak";
 
+        // Ensure the backup directory exists both on sql server file system and jobs file system
         var backupPath = Path.Combine(_options.BackupDirectory, backupFile);
 
         await _context.Database
