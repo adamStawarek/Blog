@@ -35,6 +35,7 @@ export class RegisterComponent implements OnDestroy {
     private _authService: AuthService) {
 
     this.registerForm = this.fb.group({
+      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
@@ -48,7 +49,11 @@ export class RegisterComponent implements OnDestroy {
   public onSubmit(): void {
     if (!this.registerForm.valid) return;
 
-    this._authService.register(this.registerForm.value.email, this.registerForm.value.password)
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.password;
+    const userName = this.registerForm.value.userName;
+
+    this._authService.register(userName, email, password)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: () => {

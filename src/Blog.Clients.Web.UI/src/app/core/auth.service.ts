@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Client, LoginRequest, RegisterRequest, ResetPasswordRequest } from './api.generated';
+import { Client, CreateAccountRequest, LoginRequest, ResetPasswordRequest } from './api.generated';
 
 @Injectable({
     providedIn: 'root'
@@ -42,13 +42,14 @@ export class AuthService {
             });
     }
 
-    public register(email: string, password: string): Observable<void> {
-        const request: RegisterRequest = {
+    public register(userName: string, email: string, password: string): Observable<void> {
+        const request: CreateAccountRequest = {
+            userName: userName,
             email: email,
             password: password
         };
 
-        return this._apiClient.postAccountRegister(request);
+        return this._apiClient.createAccount(request);
     }
 
     public login(email: string, password: string): Observable<User> {

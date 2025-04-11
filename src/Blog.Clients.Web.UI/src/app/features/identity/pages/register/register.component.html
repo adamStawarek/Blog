@@ -5,6 +5,10 @@
     <div class="container__body">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
+                <mat-label>User Name</mat-label>
+                <input matInput formControlName="userName" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email" required>
             </mat-form-field>
