@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable, Subscription, take } from "rxjs";
 import { ArticleItem, Client } from "src/app/core/api.generated";
 
 export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
-  private _length = 100;
-  private _pageSize = 15;
+  private _totalPages = 1;
+  private _length = 1000;
+  private _pageSize = 50;
   private _cachedData = Array.from<ArticleItem>({ length: this._length });
   private _fetchedPages = new Set<number>();
 
@@ -42,14 +43,16 @@ export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
   }
 
   private _fetchPage(page: number): void {
-    if (this._fetchedPages.has(page)) {
+    if (this._fetchedPages.has(page) || page >= this._totalPages) {
       return;
     }
+
     this._fetchedPages.add(page);
 
     this._apiClient.getArticles(page, this._pageSize)
       .pipe(take(1))
       .subscribe(x => {
+        this._totalPages = x.totalPages;
         this._cachedData.length = x.totalItems;
         this._cachedData.splice(
           page * this._pageSize,
