@@ -13,5 +13,10 @@ public class Comment : EntityBase<Comment>
     public Article.EntityId ArticleId { get; set; } = null!;
     public Article Article { get; set; } = null!;
 
+    public Comment.EntityId? ParentCommentId { get; set; }
+    public Comment? ParentComment { get; set; }
+
+    public ICollection<Comment> ChildComments { get; set; } = null!;
+
     #endregion
 }

@@ -26,5 +26,10 @@ internal sealed class CommentConfiguration : EntityBaseConfiguration<Comment>
             .WithMany(x => x.Comments)
             .HasForeignKey(x => x.AuthorId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(x => x.ParentComment)
+            .WithMany(x => x.ChildComments)
+            .HasForeignKey(x => x.ParentCommentId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
