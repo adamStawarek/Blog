@@ -1,10 +1,10 @@
 ﻿namespace Blog.Server.Contracts;
 public class GetArticleResponse
 {
-    public string Title { get; set; } = null!;
-    public string Description { get; set; } = null!;
-    public string Author { get; set; } = null!;
-    public string Content { get; set; } = null!;
-    public List<string> Tags { get; set; } = null!;
-    public DateTime Date { get; set; }
+    public required string Title { get; set; }
+    public required string Description { get; set; }
+    public required string Author { get; set; }
+    public required string Content { get; set; }
+    public required List<string> Tags { get; set; }
+    public required DateTime Date { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Blog.Server.Contracts;
 public class GetAccountInfoResponse
 {
-    public Guid Id { get; set; }
-    public string UserName { get; set; } = null!;
-    public List<string> Roles { get; set; } = null!;
+    public required Guid Id { get; set; }
+    public required string UserName { get; set; }
+    public required List<string> Roles { get; set; }
 }

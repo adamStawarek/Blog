@@ -5,11 +5,11 @@ public class GetArticleListResponse : PageableResponse<GetArticleListResponse.Ar
 {
     public sealed record ArticleItem
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; } = null!;
-        public string Author { get; set; } = null!;
-        public string Description { get; set; } = null!;
-        public List<string> Tags { get; set; } = null!;
-        public DateTime Date { get; set; }
+        public required Guid Id { get; set; }
+        public required string Title { get; set; }
+        public required string Author { get; set; }
+        public required string Description { get; set; }
+        public required List<string> Tags { get; set; }
+        public required DateTime Date { get; set; }
     }
 }
