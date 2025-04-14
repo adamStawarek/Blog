@@ -6,5 +6,22 @@
   tags: [
     Tag
   ],
+  comments: [
+    {
+      id: Guid_1,
+      content: Comment A,
+      author: John,
+      date: DateTimeOffset_1,
+      replies: [
+        {
+          id: Guid_2,
+          content: SubComment B,
+          author: Bobby,
+          date: DateTimeOffset_1,
+          replies: null
+        }
+      ]
+    }
+  ],
   date: DateTimeOffset_1
 }

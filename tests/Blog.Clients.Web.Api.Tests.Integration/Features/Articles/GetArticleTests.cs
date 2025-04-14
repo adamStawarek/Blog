@@ -21,7 +21,27 @@ public class GetArticleTests : TestBase
                 x.Tags = new List<string> { "Tag" };
                 x.Content = "Content";
                 x.AuthorId = UserId;
-            }, out var article);
+            }, out var article)
+            .Add<User>(x =>
+            {
+                x.Id = Guid.NewGuid();
+                x.UserName = "Bobby";
+            }, out var reader)
+            .Add<Comment>(x =>
+            {
+                x.AuthorId = UserId;
+                x.ArticleId = article.Id;
+                x.Content = "Comment A";
+                x.ChildComments =
+                [
+                    new Comment
+                    {
+                        AuthorId = reader.Id,
+                        ArticleId = article.Id,
+                        Content = "SubComment B"
+                    }
+                ];
+            }, out var comment);
 
         // Act
         var response = await Client.GetAsync($"/api/articles/{article.Id.Value}");
