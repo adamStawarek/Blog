@@ -63,6 +63,7 @@ module.exports = tseslint.config(
           }
         }
       ],
+      "@angular-eslint/template/click-events-have-key-events": "off"
     },
   },
   {

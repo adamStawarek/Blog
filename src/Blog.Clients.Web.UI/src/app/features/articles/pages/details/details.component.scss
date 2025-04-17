@@ -5,17 +5,99 @@
   flex-direction: column;
   padding-inline: 15px;
   gap: 10px;
+  height: 100vh;
+  overflow-y: scroll;
 
   &__content {
     font-size: 16px;
   }
 
-  h3 {
-    margin-top: -10px;
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-top: 10px;
   }
 
-  mat-chip-set {
-    margin-top: -10px;
-    margin-bottom: 10px;
+  &__footer {
+    h2 {
+      width: max-content;
+      padding-right: 5px;
+    }
+
+    &__login {
+      width: 100%;
+    }
   }
+
+  &__comment {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    position: relative;
+
+    &-reply-text {
+      position: absolute;
+      color: vars.$primary-3;
+      font-size: 14px;
+      display: none;
+      top: 25%;
+      left: 50%;
+    }
+
+    &__header {
+      color: vars.$primary-4;
+    }
+
+    &__footer {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      margin-left: 5px;
+
+      mat-icon {
+        color: vars.$primary-3;
+        transform: rotate(180deg);
+      }
+    }
+
+    &:not(.active) {
+      pointer-events: none;
+    }
+
+    &:not(.selected):not(.reply):hover {
+      background-color: vars.$surface-2;
+      cursor: pointer;
+
+      .article__comment-reply-text {
+        display: block;
+      }
+    }
+
+    &:last-of-type mat-divider {
+      display: none;
+    }
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  button {
+    align-self: flex-end;
+  }
+
+  ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused {
+    // vars not working
+    --mdc-outlined-text-field-focus-outline-color: #ff7b58;
+    --mdc-outlined-text-field-focus-label-text-color: #ff7b58;
+    --mdc-outlined-text-field-caret-color: #ff7b58;
+  }
+}
+
+mat-chip-set {
+  margin-top: -10px;
+  margin-bottom: 10px;
 }

@@ -1007,6 +1007,7 @@ export interface EditArticleRequest {
 }
 
 export interface GetArticleResponse {
+    id: string;
     title: string;
     description: string;
     author: string;

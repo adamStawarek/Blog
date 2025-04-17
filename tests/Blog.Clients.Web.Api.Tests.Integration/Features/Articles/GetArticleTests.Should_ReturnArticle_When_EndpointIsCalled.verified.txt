@@ -1,4 +1,5 @@
 ﻿{
+  id: Guid_1,
   title: Title,
   description: Description,
   author: John,
@@ -8,13 +9,13 @@
   ],
   comments: [
     {
-      id: Guid_1,
+      id: Guid_2,
       content: Comment A,
       author: John,
       date: DateTimeOffset_1,
       replies: [
         {
-          id: Guid_2,
+          id: Guid_3,
           content: SubComment B,
           author: Bobby,
           date: DateTimeOffset_1,
