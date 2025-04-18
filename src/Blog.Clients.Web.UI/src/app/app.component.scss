@@ -38,7 +38,17 @@
 
   &__content {
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+
+    &__top-panel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 5px;
+      font-size: 18px;
+      background-color: vars.$primary-1;
+    }
   }
 }
 
@@ -62,6 +72,12 @@
 
     &__content {
       display: none;
+    }
+  }
+
+  .container {
+    &__content {
+      overflow: hidden;
     }
   }
 }

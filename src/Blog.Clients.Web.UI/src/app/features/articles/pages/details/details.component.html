@@ -15,7 +15,7 @@
     <button mat-raised-button color="primary" routerLink="/articles">
       Go back to home page
     </button>
-    <button mat-raised-button *ngIf="!(isLoggedIn$ | async)" routerLink="/identity/login">
+    <button mat-raised-button *ngIf="(isLoggedIn$ | async) === false" routerLink="/identity/login">
       Log in to comment the article
     </button>
   </div>
@@ -24,9 +24,10 @@
     <h2 [matBadge]="article?.comments?.length" [matBadgeHidden]="!article?.comments?.length">
       Comments
     </h2>
+    <span *ngIf="!article?.comments?.length">No comments yet, why not be first :) ?</span>
     <ng-container *ngTemplateOutlet="commentForm"></ng-container>
     <div class="article__comment" [class.selected]="comment === selectedComment" [class.active]="isLoggedIn$ | async"
-      (click)="selectedComment = comment" *ngFor="let comment of article?.comments">
+      [attr.aria-hidden]="true" (click)="selectedComment = comment" *ngFor="let comment of article?.comments">
       <strong class="article__comment__header">{{comment.author}} - {{comment.date | date}}</strong>
       <p class="article__comment__content">{{comment.content}}</p>
       <div class="article__comment__footer" *ngIf="comment.replies?.length">

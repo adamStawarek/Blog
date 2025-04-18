@@ -24,6 +24,10 @@ export class AuthService {
         this.isAnonymous$ = this.isAuthenticated$.pipe(map(isAuthenticated => !isAuthenticated));
     }
 
+    public get user(): User {
+        return this._userSubject.getValue();
+    }
+
     public init(): void {
         this._apiClient.getAccountInfo()
             .subscribe({
@@ -31,7 +35,7 @@ export class AuthService {
                     this._isAuthenticatedSubject.next(true);
                     this._userSubject.next({
                         id: accountInfo.id,
-                        email: accountInfo.userName,
+                        name: accountInfo.userName,
                         roles: accountInfo.roles
                     });
                 },
@@ -52,9 +56,9 @@ export class AuthService {
         return this._apiClient.createAccount(request);
     }
 
-    public login(email: string, password: string): Observable<User> {
+    public login(userName: string, password: string): Observable<User> {
         const request: LoginRequest = {
-            email: email,
+            email: userName,
             password: password,
             twoFactorCode: undefined,
             twoFactorRecoveryCode: undefined
@@ -69,7 +73,7 @@ export class AuthService {
                 map(accountInfo => {
                     const user: User = {
                         id: accountInfo.id,
-                        email: accountInfo.userName,
+                        name: accountInfo.userName,
                         roles: accountInfo.roles
                     };
                     this._userSubject.next(user);
@@ -102,6 +106,6 @@ export class AuthService {
 
 export interface User {
     id: string;
-    email: string;
+    name: string;
     roles: string[];
 }

@@ -35,7 +35,7 @@ export class LoginComponent implements OnDestroy {
     private _authService: AuthService) {
 
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      userName: ['', [Validators.required]],
       password: ['', Validators.required]
     });
   }
@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
   public onSubmit(): void {
     if (!this.loginForm.valid) return;
 
-    this._authService.login(this.loginForm.value.email, this.loginForm.value.password)
+    this._authService.login(this.loginForm.value.userName, this.loginForm.value.password)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (user) => {

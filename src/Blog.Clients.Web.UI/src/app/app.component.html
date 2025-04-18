@@ -18,6 +18,9 @@
     </button>
   </div>
   <div class="container__content">
+    <div class="container__content__top-panel" *ngIf="authService.isAuthenticated$| async">
+      Hello {{(authService.user$ | async)!.name}} :)
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

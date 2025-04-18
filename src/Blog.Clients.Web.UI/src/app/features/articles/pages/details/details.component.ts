@@ -68,7 +68,7 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
           id: id,
           content: comment,
           date: new Date(),
-          author: 'Me',
+          author: this._authSerive.user.name,
           replies: [],
         };
 
