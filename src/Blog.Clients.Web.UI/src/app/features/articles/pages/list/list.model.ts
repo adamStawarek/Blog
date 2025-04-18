@@ -4,7 +4,7 @@ import { ArticleItem, Client } from "src/app/core/api.generated";
 
 export class ArticlesDataSource extends DataSource<ArticleItem | undefined> {
   private _totalPages = 1;
-  private _length = 1000;
+  private _length = 1;
   private _pageSize = 50;
   private _cachedData = Array.from<ArticleItem>({ length: this._length });
   private _fetchedPages = new Set<number>();

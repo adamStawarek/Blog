@@ -24,7 +24,9 @@
     <h2 [matBadge]="article?.comments?.length" [matBadgeHidden]="!article?.comments?.length">
       Comments
     </h2>
-    <span *ngIf="!article?.comments?.length">No comments yet, why not be first :) ?</span>
+    <div class="article__footer__no-comments-text" *ngIf="!article?.comments?.length">
+      No comments yet, why not be first :) ?
+    </div>
     <ng-container *ngTemplateOutlet="commentForm"></ng-container>
     <div class="article__comment" [class.selected]="comment === selectedComment" [class.active]="isLoggedIn$ | async"
       [attr.aria-hidden]="true" (click)="selectedComment = comment" *ngFor="let comment of article?.comments">
