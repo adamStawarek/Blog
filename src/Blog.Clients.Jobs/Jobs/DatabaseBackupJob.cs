@@ -1,4 +1,5 @@
-﻿using Blog.Application.Services.FileStorage;
+﻿using Blog.Application.Jobs;
+using Blog.Application.Services.FileStorage;
 using Blog.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

@@ -1,4 +1,4 @@
-﻿namespace Blog.Application.Events.Base;
+﻿namespace Blog.Application.Jobs.Base;
 public interface IBlogJob
 {
     Task ExecuteAsync(CancellationToken cancellationToken);
