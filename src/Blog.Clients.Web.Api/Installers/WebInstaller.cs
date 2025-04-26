@@ -1,7 +1,6 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Application.Services.CurrentTime;
 using Blog.Infrastructure.Database.Interceptors;
-using Blog.Server.Services.Email;
 using Blog.Server.Validation;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -28,9 +27,23 @@ public static class WebInstaller
 
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-        services.AddTransient<IEmailSender, SendGridEmailSender>();
-        services.Configure<EmailConfiguration>(configuration.GetSection(EmailConfiguration.Key));
+        services.AddTransient<IEmailSender, MicrosoftIdentityEmailSenderAdapter>();
 
         return services;
+    }
+}
+
+internal class MicrosoftIdentityEmailSenderAdapter : IEmailSender
+{
+    private readonly Application.Services.Email.IEmailSender _emailSender;
+
+    public MicrosoftIdentityEmailSenderAdapter(Application.Services.Email.IEmailSender emailSender)
+    {
+        _emailSender = emailSender;
+    }
+
+    public Task SendEmailAsync(string email, string subject, string htmlMessage)
+    {
+        return _emailSender.SendAsync(email, subject, htmlMessage);
     }
 }

@@ -10,27 +10,29 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
-          .Enrich.FromLogContext()
-          .Enrich.WithProperty("Application", "Jobs")
-          .Enrich.WithProperty("MachineName", Environment.MachineName)
-          .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
-          .WriteTo.File("/app/logs/log.txt", rollingInterval: RollingInterval.Day)
-          .WriteTo.OpenTelemetry(x =>
-          {
-              x.Endpoint = $"{builder.Configuration["Seq:Url"]!}";
-              x.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.HttpProtobuf;
-              x.Headers = new Dictionary<string, string>
-              {
-                  ["x-seq-api-key"] = builder.Configuration["Seq:ApiKey"]!
-              };
-          })
-          .ReadFrom.Configuration(builder.Configuration)
-          .CreateLogger();
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "Jobs")
+    .Enrich.WithProperty("MachineName", Environment.MachineName)
+    .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
+    .WriteTo.File("/app/logs/log.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.OpenTelemetry(x =>
+    {
+        x.Endpoint = $"{builder.Configuration["Seq:Url"]!}";
+        x.Protocol = Serilog.Sinks.OpenTelemetry.OtlpProtocol.HttpProtobuf;
+        x.Headers = new Dictionary<string, string>
+        {
+            ["x-seq-api-key"] = builder.Configuration["Seq:ApiKey"]!
+        };
+    })
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
 
 builder.Services.AddSerilog();
 
 builder.Services
     .AddBlogDatabase(builder.Configuration)
+    .AddBlogBackgroundServices(builder.Configuration)
+    .AddBlogEmailSender(builder.Configuration)
     .AddBlogFileStorage(builder.Configuration)
     .AddBlogAppServices(builder.Configuration);
 
@@ -38,13 +40,6 @@ builder.Services.Configure<JobsOptions>(builder.Configuration.GetSection(JobsOpt
 builder.Services.Configure<DatabaseBackupJobOptions>(builder.Configuration.GetSection(DatabaseBackupJobOptions.Key));
 
 builder.Services.AddTransient(_ => new AuditContext("JOBS", DateTime.Now));
-
-builder.Services.AddHangfire(x =>
-{
-    x.UseSimpleAssemblyNameTypeSerializer()
-        .UseRecommendedSerializerSettings()
-        .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireDbContext"));
-});
 
 builder.Services.AddHangfireServer();
 

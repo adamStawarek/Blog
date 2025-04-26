@@ -1,23 +1,25 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Blog.Application.Services.Email;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
 namespace Blog.Server.Services.Email;
-public class SendGridEmailSender : Microsoft.AspNetCore.Identity.UI.Services.IEmailSender
+public class SendGridEmailSender : IEmailSender
 {
     private readonly ILogger _logger;
 
     public SendGridEmailSender(
-        IOptions<EmailConfiguration> optionsAccessor,
+        IOptions<SendGridEmailSenderOptions> optionsAccessor,
         ILogger<SendGridEmailSender> logger)
     {
         Options = optionsAccessor.Value;
         _logger = logger;
     }
 
-    public EmailConfiguration Options { get; } //Set with Secret Manager.
+    public SendGridEmailSenderOptions Options { get; } //Set with Secret Manager.
 
-    public async Task SendEmailAsync(string toEmail, string subject, string message)
+    public async Task SendAsync(string toEmail, string subject, string message)
     {
         ArgumentNullException.ThrowIfNull(Options.SendGridKey, nameof(Options.SendGridKey));
         await Execute(Options.SendGridKey, subject, message, toEmail);

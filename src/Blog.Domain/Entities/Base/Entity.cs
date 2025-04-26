@@ -1,6 +1,4 @@
-﻿using Blog.Domain.Interfaces;
-
-namespace Blog.Domain.Entities.Base;
+﻿namespace Blog.Domain.Entities.Base;
 public abstract class Entity<TEntity, TId> : IEntity<TId>, IEquatable<Entity<TEntity, TId>>, ISetId<TId>
     where TEntity : IEntity<TId>
     where TId : IEquatable<TId>

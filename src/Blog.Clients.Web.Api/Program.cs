@@ -42,16 +42,11 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddHangfire(x =>
-        {
-            x.UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireDbContext"));
-        });
-
         builder.Services
             .AddBlogAuth(builder.Configuration)
             .AddBlogDatabase(builder.Configuration, x => x.AllowMigrationManagement())
+            .AddBlogBackgroundServices(builder.Configuration)
+            .AddBlogEmailSender(builder.Configuration)
             .AddBlogAppServices(builder.Configuration)
             .AddBlogWebServices(builder.Configuration);
 

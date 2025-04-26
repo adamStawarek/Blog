@@ -1,6 +1,4 @@
-﻿using Blog.Domain.Interfaces;
-
-namespace Blog.Domain.Entities.Base;
+﻿namespace Blog.Domain.Entities.Base;
 public record EntityIdBase<TId> : IEntityId<TId> where TId : IEquatable<TId>
 {
     private TId _value;

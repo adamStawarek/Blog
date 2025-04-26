@@ -1,4 +1,4 @@
-﻿namespace Blog.Domain.Interfaces;
+﻿namespace Blog.Domain.Entities.Base;
 public interface ISoftDelete
 {
     bool Meta_IsActive { get; }

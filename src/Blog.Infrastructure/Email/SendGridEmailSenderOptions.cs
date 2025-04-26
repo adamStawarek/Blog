@@ -1,5 +1,5 @@
 ﻿namespace Blog.Server.Services.Email;
-public class EmailConfiguration
+public class SendGridEmailSenderOptions
 {
     public const string Key = "Email";
 

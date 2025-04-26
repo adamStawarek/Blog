@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.Entities;
-using Blog.Domain.Interfaces;
+using Blog.Domain.Entities.Base;
 using Bogus;
 
 namespace Blog.Tests.DatabaseUtils;

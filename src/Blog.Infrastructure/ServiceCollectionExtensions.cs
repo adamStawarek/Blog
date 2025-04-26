@@ -1,6 +1,11 @@
-﻿using Blog.Application.Services.FileStorage;
+﻿using Blog.Application.Services.Email;
+using Blog.Application.Services.FileStorage;
+using Blog.Application.Services.Jobs;
 using Blog.Infrastructure.Database;
 using Blog.Infrastructure.FileStorage;
+using Blog.Infrastructure.Jobs;
+using Blog.Server.Services.Email;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +37,37 @@ public static class ServiceCollectionExtensions
     {
         services.Configure<GoogleDriveFileStorageOptions>(configuration.GetSection(GoogleDriveFileStorageOptions.Key!));
         services.AddScoped<IFileStorage, GoogleDriveFileStorage>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddBlogEmailSender(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<SendGridEmailSenderOptions>(configuration.GetSection(SendGridEmailSenderOptions.Key!));
+        services.AddScoped<IEmailSender, SendGridEmailSender>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddBlogBackgroundServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<HangfireBackgroundJobProcessorOptions>(configuration.GetSection(HangfireBackgroundJobProcessorOptions.Key!));
+        services.AddScoped<IBackgroundJobProcessor, HangfireBackgroundJobProcessor>();
+
+        services.AddHangfire(x =>
+        {
+            x.UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(configuration.GetConnectionString("HangfireDbContext"));
+        });
+
+
+        return services;
+    }
+
+    public static IServiceCollection AddBlogBackgroundServicesProcessor(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHangfireServer();
 
         return services;
     }

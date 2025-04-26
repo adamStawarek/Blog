@@ -1,5 +1,4 @@
 ﻿using Blog.Domain.Entities.Base;
-using Blog.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Domain.Entities;
