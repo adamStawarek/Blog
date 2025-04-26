@@ -1,6 +1,6 @@
-﻿using Blog.Server.Contracts.Base;
+﻿using Blog.Clients.Web.Api.Contracts.Base;
 
-namespace Blog.Server.Contracts;
+namespace Blog.Clients.Web.Api.Contracts;
 public class GetArticleListRequest : PageableRequest
 {
 }

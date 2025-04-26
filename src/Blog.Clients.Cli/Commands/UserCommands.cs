@@ -3,7 +3,7 @@ using Cocona;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blog.Cli.Commands;
+namespace Blog.Clients.Cli.Commands;
 public class UserCommands(IServiceProvider serviceProvider)
 {
     [Command("add")]

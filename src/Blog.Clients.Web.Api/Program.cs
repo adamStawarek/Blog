@@ -1,10 +1,10 @@
 using Blog.Application;
+using Blog.Clients.Web.Api.Auth;
+using Blog.Clients.Web.Api.Errors;
+using Blog.Clients.Web.Api.Installers;
 using Blog.Domain.Entities;
 using Blog.Infrastructure;
 using Blog.Infrastructure.DatabaseMigrations;
-using Blog.Server.Auth;
-using Blog.Server.Errors;
-using Blog.Server.Extensions;
 using Carter;
 using Hangfire;
 using Serilog;

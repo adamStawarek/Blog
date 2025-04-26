@@ -1,4 +1,4 @@
-﻿namespace Blog.Server.Auth;
+﻿namespace Blog.Clients.Web.Api.Auth;
 
 public static class BlogAuthPolicies
 {

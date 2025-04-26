@@ -1,4 +1,4 @@
-﻿using Blog.Cli.Commands;
+﻿using Blog.Clients.Cli.Commands;
 using Blog.Domain.Entities;
 using Blog.Infrastructure;
 using Blog.Infrastructure.Database;

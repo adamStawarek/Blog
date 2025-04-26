@@ -1,4 +1,4 @@
-﻿namespace Blog.Server.Services.Email;
+﻿namespace Blog.Infrastructure.Email;
 public class SendGridEmailSenderOptions
 {
     public const string Key = "Email";

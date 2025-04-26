@@ -1,9 +1,9 @@
-﻿using Blog.Server.Contracts;
+﻿using Blog.Clients.Web.Api.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace Blog.Server.Tests.Integration.Features.Articles;
+namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
 public class CreateArticleTests : TestBase
 {
     public CreateArticleTests(BlogApplicationFactory factory) : base(factory)

@@ -1,11 +1,11 @@
+using Blog.Clients.Web.Api.Auth;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
-using Blog.Server.Auth;
 using Blog.Tests.DatabaseUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Blog.Server.Tests.Integration;
+namespace Blog.Clients.Web.Api.Tests.Integration;
 
 [Collection("Default")]
 public abstract class TestBase : IAsyncLifetime

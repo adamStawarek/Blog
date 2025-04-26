@@ -1,4 +1,3 @@
-using Blog.Clients.Web.Api;
 using Blog.Infrastructure.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,7 +8,7 @@ using Respawn;
 using System.Data.Common;
 using Testcontainers.MsSql;
 
-namespace Blog.Server.Tests.Integration;
+namespace Blog.Clients.Web.Api.Tests.Integration;
 public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly MsSqlContainer _container = new MsSqlBuilder()

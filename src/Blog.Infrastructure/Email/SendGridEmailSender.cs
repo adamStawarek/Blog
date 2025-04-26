@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace Blog.Server.Services.Email;
+namespace Blog.Infrastructure.Email;
 public class SendGridEmailSender : IEmailSender
 {
     private readonly ILogger _logger;

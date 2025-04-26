@@ -1,4 +1,4 @@
-﻿namespace Blog.Server.Contracts.Base;
+﻿namespace Blog.Clients.Web.Api.Contracts.Base;
 public abstract class PageableRequest
 {
     public required int Page { get; set; }

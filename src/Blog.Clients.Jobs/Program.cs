@@ -1,7 +1,7 @@
 using Blog.Application;
 using Blog.Application.Jobs.Base;
+using Blog.Clients.Jobs.Jobs;
 using Blog.Clients.Jobs.Utils;
-using Blog.Clients.Web.Jobs.Jobs;
 using Blog.Infrastructure;
 using Blog.Infrastructure.Database.Interceptors;
 using Hangfire;

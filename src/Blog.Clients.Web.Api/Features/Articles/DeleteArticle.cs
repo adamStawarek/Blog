@@ -1,13 +1,13 @@
-﻿using Blog.Infrastructure.Database;
-using Blog.Server.Auth;
+﻿using Blog.Clients.Web.Api.Auth;
+using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Blog.Server.Features.Articles.DeleteArticle;
+using static Blog.Clients.Web.Api.Features.Articles.DeleteArticle;
 
-namespace Blog.Server.Features.Articles;
+namespace Blog.Clients.Web.Api.Features.Articles;
 public static class DeleteArticle
 {
     public sealed class Command : IRequest<Result>

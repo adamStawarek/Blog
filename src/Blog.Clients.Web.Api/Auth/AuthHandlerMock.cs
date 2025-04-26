@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 
-namespace Blog.Server.Auth;
+namespace Blog.Clients.Web.Api.Auth;
 public sealed class AuthHandlerMock : AuthenticationHandler<AuthHandlerMock.AuthHandlerMockOptions>
 {
     public const string AuthenticationScheme = "Mock";

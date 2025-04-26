@@ -2,9 +2,9 @@
 using Blog.Application.Services.FileStorage;
 using Blog.Application.Services.Jobs;
 using Blog.Infrastructure.Database;
+using Blog.Infrastructure.Email;
 using Blog.Infrastructure.FileStorage;
 using Blog.Infrastructure.Jobs;
-using Blog.Server.Services.Email;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

@@ -1,11 +1,11 @@
-﻿using Blog.Domain.Entities;
-using Blog.Server.Contracts;
+﻿using Blog.Clients.Web.Api.Contracts;
+using Blog.Domain.Entities;
 using Carter;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace Blog.Server.Features.Account;
+namespace Blog.Clients.Web.Api.Features.Account;
 public class GetAccountInfoEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app

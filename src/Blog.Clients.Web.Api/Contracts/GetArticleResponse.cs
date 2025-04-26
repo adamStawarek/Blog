@@ -1,4 +1,4 @@
-﻿namespace Blog.Server.Contracts;
+﻿namespace Blog.Clients.Web.Api.Contracts;
 public class GetArticleResponse
 {
     public required Guid Id { get; set; }

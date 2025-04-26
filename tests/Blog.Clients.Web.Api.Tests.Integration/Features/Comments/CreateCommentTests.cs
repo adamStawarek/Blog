@@ -1,6 +1,5 @@
 ﻿using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
-using Blog.Server.Tests.Integration;
 using Blog.Tests.DatabaseUtils;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

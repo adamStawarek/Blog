@@ -3,7 +3,7 @@ using Blog.Tests.DatabaseUtils;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
-namespace Blog.Server.Tests.Integration.Features.Articles;
+namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
 public class DeleteArticleTests : TestBase
 {
     public DeleteArticleTests(BlogApplicationFactory factory) : base(factory)

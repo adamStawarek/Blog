@@ -1,4 +1,4 @@
-﻿namespace Blog.Clients.Web.Jobs.Jobs;
+﻿namespace Blog.Clients.Jobs.Jobs;
 public sealed class DatabaseBackupJobOptions
 {
     public const string Key = "DatabaseBackup";

@@ -1,16 +1,16 @@
-﻿using Blog.Domain.Entities;
+﻿using Blog.Clients.Web.Api.Auth;
+using Blog.Clients.Web.Api.Contracts;
+using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
-using Blog.Server.Auth;
-using Blog.Server.Contracts;
 using Carter;
 using FluentResults;
 using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Blog.Server.Features.Articles.EditArticle;
+using static Blog.Clients.Web.Api.Features.Articles.EditArticle;
 
-namespace Blog.Server.Features.Articles;
+namespace Blog.Clients.Web.Api.Features.Articles;
 public static class EditArticle
 {
     public sealed class Command : IRequest<Result>

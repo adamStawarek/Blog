@@ -1,14 +1,14 @@
-﻿using Blog.Infrastructure.Database;
-using Blog.Server.Contracts;
+﻿using Blog.Clients.Web.Api.Contracts;
+using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
 using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Blog.Server.Features.Articles.GetArticle;
+using static Blog.Clients.Web.Api.Features.Articles.GetArticle;
 
-namespace Blog.Server.Features.Articles;
+namespace Blog.Clients.Web.Api.Features.Articles;
 public static class GetArticle
 {
     public sealed class Query : IRequest<Result<Response>>

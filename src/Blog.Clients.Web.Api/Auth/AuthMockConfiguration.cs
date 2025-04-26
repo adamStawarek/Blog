@@ -1,4 +1,4 @@
-﻿namespace Blog.Server.Auth;
+﻿namespace Blog.Clients.Web.Api.Auth;
 public class AuthMockConfiguration
 {
     public const string Key = "AuthMock";

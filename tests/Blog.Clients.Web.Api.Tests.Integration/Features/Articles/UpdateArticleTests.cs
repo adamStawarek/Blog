@@ -1,11 +1,11 @@
-﻿using Blog.Domain.Entities;
-using Blog.Server.Contracts;
+﻿using Blog.Clients.Web.Api.Contracts;
+using Blog.Domain.Entities;
 using Blog.Tests.DatabaseUtils;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace Blog.Server.Tests.Integration.Features.Articles;
+namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
 public class UpdateArticleTests : TestBase
 {
     public UpdateArticleTests(BlogApplicationFactory factory) : base(factory)

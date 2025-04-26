@@ -2,7 +2,7 @@
 using Blog.Tests.DatabaseUtils;
 using System.Net;
 
-namespace Blog.Server.Tests.Integration.Features.Articles;
+namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
 public class GetArticleListTests : TestBase
 {
     public GetArticleListTests(BlogApplicationFactory factory) : base(factory)

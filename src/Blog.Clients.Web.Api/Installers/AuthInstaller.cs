@@ -1,11 +1,11 @@
 ﻿using Blog.Application.Services.ApplicationUser;
+using Blog.Clients.Web.Api.Auth;
+using Blog.Clients.Web.Api.Services.ApplicationUser;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
-using Blog.Server.Auth;
-using Blog.Server.Services.ApplicationUser;
 using Microsoft.AspNetCore.Identity;
 
-namespace Blog.Server.Extensions;
+namespace Blog.Clients.Web.Api.Installers;
 public static class AuthInstaller
 {
     public static IServiceCollection AddBlogAuth(this IServiceCollection services, IConfiguration configuration)
