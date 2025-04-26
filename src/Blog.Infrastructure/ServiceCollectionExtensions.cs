@@ -31,7 +31,7 @@ public static class ServiceCollectionExtensions
             options.EnableDetailedErrors();
         });
 
-        services.AddScoped<IContext, BlogDbContext>();
+        //services.AddScoped<IContext, BlogDbContext>();
 
         return services;
     }
