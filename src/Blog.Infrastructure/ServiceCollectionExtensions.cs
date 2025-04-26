@@ -44,7 +44,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddBlogEmailSender(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<SendGridEmailSenderOptions>(configuration.GetSection(SendGridEmailSenderOptions.Key!));
-        services.AddScoped<IEmailSender, SendGridEmailSender>();
+        services.AddTransient<IEmailSender, SendGridEmailSender>();
 
         return services;
     }

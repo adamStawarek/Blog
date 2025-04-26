@@ -27,7 +27,7 @@ public static class WebInstaller
 
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-        services.AddScoped<IEmailSender, MicrosoftIdentityEmailSenderAdapter>();
+        services.AddTransient<IEmailSender, MicrosoftIdentityEmailSenderAdapter>();
 
         return services;
     }
