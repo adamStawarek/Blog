@@ -16,6 +16,8 @@ COPY ["src/Blog.Clients.Jobs/Blog.Clients.Jobs.csproj", "src/Blog.Clients.Jobs/"
 COPY ["src/Blog.Application/Blog.Application.csproj", "src/Blog.Application/"]
 COPY ["src/Blog.Domain/Blog.Domain.csproj", "src/Blog.Domain/"]
 COPY ["src/Blog.Infrastructure/Blog.Infrastructure.csproj", "src/Blog.Infrastructure/"]
+COPY ["Directory.Build.props", "/"]
+COPY ["Directory.Packages.props", "/"]
 RUN dotnet restore "./src/Blog.Clients.Jobs/Blog.Clients.Jobs.csproj"
 COPY . .
 WORKDIR "/src/src/Blog.Clients.Jobs"
