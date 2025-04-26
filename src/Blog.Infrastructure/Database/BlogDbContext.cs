@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Entities;
+using Blog.Domain.Entities.Base;
 using Blog.Infrastructure.Database.Interceptors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Blog.Infrastructure.Database;
-public sealed class BlogDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public sealed class BlogDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IContext
 {
     private static readonly IReadOnlyList<IInterceptor> Interceptors = new[]
     {
@@ -47,4 +48,15 @@ public sealed class BlogDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
 
         optionsBuilder.AddInterceptors(Interceptors);
     }
+
+    IQueryable<TEntity> IContext.Get<TEntity>() => Set<TEntity>();
+
+    async Task<IEntity> IContext.Get<TEntity>(IEntityId id, CancellationToken cancellationToken) =>
+        await Set<TEntity>().FirstAsync(e => e.Id == id, cancellationToken);
+
+    public void Add(params IEntity[] entities) => Set<IEntity>().AddRange(entities);
+
+    public void Update(params IEntity[] entities) => Set<IEntity>().UpdateRange(entities);
+
+    public void Remove(params IEntity[] entities) => Set<IEntity>().RemoveRange(entities);
 }

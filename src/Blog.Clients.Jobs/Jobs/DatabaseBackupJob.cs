@@ -21,7 +21,7 @@ public class DatabaseBackupJob : IDatabaseBackupJob
         _fileStorage = fileStorage;
     }
 
-    public async Task ExecuteAsync(CancellationToken cancellationToken)
+    public async Task ExecuteAsync(CancellationToken cancellationToken = default)
     {
         var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
         var backupFile = $"BlogDb_{timestamp}.bak";

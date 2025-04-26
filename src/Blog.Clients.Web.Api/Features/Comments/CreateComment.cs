@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
+using Blog.Domain.Events;
 using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
@@ -81,17 +82,22 @@ public static class CreateComment
 public class CreateCommentEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app
-        .MapPost("api/articles/{articleId}/comments", async (Guid articleId, CreateCommentRequest request, ISender sender) =>
+        .MapPost("api/articles/{articleId}/comments", async (Guid articleId, CreateCommentRequest request, IMediator mediator) =>
         {
             var command = request.Adapt<Command>();
             command.ArticleId = articleId;
 
-            var result = await sender.Send(command);
+            var result = await mediator.Send(command);
 
             if (result.IsFailed)
             {
                 return Results.BadRequest();
             }
+
+            await mediator.Publish(new CommentPublishedEvent
+            {
+                CommentId = result.Value
+            });
 
             return Results.Ok(result.Value.Value);
         })

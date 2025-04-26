@@ -8,29 +8,24 @@ namespace Blog.Infrastructure.Email;
 public class SendGridEmailSender : IEmailSender
 {
     private readonly ILogger _logger;
+    private readonly SendGridEmailSenderOptions _options;
 
     public SendGridEmailSender(
         IOptions<SendGridEmailSenderOptions> optionsAccessor,
         ILogger<SendGridEmailSender> logger)
     {
-        Options = optionsAccessor.Value;
+        _options = optionsAccessor.Value;
         _logger = logger;
     }
 
-    public SendGridEmailSenderOptions Options { get; } //Set with Secret Manager.
-
-    public async Task SendAsync(string toEmail, string subject, string message)
+    public async Task SendAsync(string toEmail, string subject, string message, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(Options.SendGridKey, nameof(Options.SendGridKey));
-        await Execute(Options.SendGridKey, subject, message, toEmail);
-    }
+        ArgumentNullException.ThrowIfNull(_options.SendGridKey, nameof(_options.SendGridKey));
 
-    public async Task Execute(string apiKey, string subject, string message, string toEmail)
-    {
-        var client = new SendGridClient(apiKey);
+        var client = new SendGridClient(_options.SendGridKey);
         var msg = new SendGridMessage()
         {
-            From = new EmailAddress(Options.SenderAddress, Options.SenderName),
+            From = new EmailAddress(_options.SenderAddress, _options.SenderName),
             Subject = subject,
             PlainTextContent = message,
             HtmlContent = message
@@ -40,7 +35,7 @@ public class SendGridEmailSender : IEmailSender
         // Disable click tracking.
         // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
         msg.SetClickTracking(false, false);
-        var response = await client.SendEmailAsync(msg);
+        var response = await client.SendEmailAsync(msg, cancellationToken);
 
         _logger.LogInformation(response.IsSuccessStatusCode ?
             $"Email to {toEmail} queued successfully!" :

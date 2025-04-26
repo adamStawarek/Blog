@@ -1,4 +1,5 @@
-﻿using Blog.Application.Services.ApplicationUser;
+﻿using Blog.Application;
+using Blog.Application.Services.ApplicationUser;
 using Blog.Application.Services.CurrentTime;
 using Blog.Clients.Web.Api.Validation;
 using Blog.Infrastructure.Database.Interceptors;
@@ -20,12 +21,12 @@ public static class WebInstaller
 
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            config.RegisterServicesFromAssemblies(typeof(IBlogApplicationMarker).Assembly, typeof(IBlogWebApiMarker).Assembly);
 
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
-        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+        services.AddValidatorsFromAssembly(typeof(IBlogWebApiMarker).Assembly);
 
         services.AddTransient<IEmailSender, MicrosoftIdentityEmailSenderAdapter>();
 

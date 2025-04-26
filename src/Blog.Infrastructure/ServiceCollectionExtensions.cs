@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Services.Email;
 using Blog.Application.Services.FileStorage;
 using Blog.Application.Services.Jobs;
+using Blog.Domain.Entities.Base;
 using Blog.Infrastructure.Database;
 using Blog.Infrastructure.Email;
 using Blog.Infrastructure.FileStorage;
@@ -29,6 +30,8 @@ public static class ServiceCollectionExtensions
 
             options.EnableDetailedErrors();
         });
+
+        services.AddScoped<IContext, BlogDbContext>();
 
         return services;
     }

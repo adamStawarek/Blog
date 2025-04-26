@@ -48,6 +48,7 @@ builder.Services.AddHostedService<JobsHostedService>();
 builder.Services.Scan(scan => scan
     .FromAssemblyOf<JobsHostedService>()
     .AddClasses(classes => classes.AssignableTo<IBlogJob>())
+    .AddClasses(classes => classes.AssignableTo(typeof(IBlogJob<>)))
     .AsImplementedInterfaces()
     .WithScopedLifetime());
 
