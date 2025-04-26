@@ -13,7 +13,7 @@
     gap: 15px;
     background-color: vars.$surface-1;
     width: 400px;
-    transition: width 0.25s;
+    transition: width 0.1s;
     position: relative;
 
     &__toggle {
@@ -33,7 +33,7 @@
 
     p {
       white-space: pre-wrap;
-      font-size: 12px;
+      font-size: 14px;
     }
   }
 

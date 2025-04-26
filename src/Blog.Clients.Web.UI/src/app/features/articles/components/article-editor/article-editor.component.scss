@@ -1,6 +1,5 @@
 .container {
   padding: 15px;
-  width: calc(100vw - 30px);
   display: grid;
   grid-template-areas:
     "title tags"
@@ -41,5 +40,15 @@
 
   mat-form-field {
     width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "tags"
+      "content"
+      "actions";
+    grid-template-columns: 1fr;
   }
 }

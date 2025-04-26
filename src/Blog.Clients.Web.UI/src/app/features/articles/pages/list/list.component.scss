@@ -47,7 +47,7 @@
 .article {
   border-radius: 0;
   margin: 2.5px;
-  max-height: 115px;
+  max-height: 120px;
 
   &:hover {
     cursor: pointer;
@@ -104,7 +104,7 @@
   }
 
   mat-card-content {
-    font-size: 12px;
+    font-size: 14px;
     padding: 2.5px 7.5px;
     padding-bottom: 5px;
 
