@@ -1,3 +1,4 @@
+using Blog.Clients.Web.Api;
 using Blog.Infrastructure.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

@@ -9,7 +9,7 @@ using Carter;
 using Hangfire;
 using Serilog;
 
-namespace Blog.Server;
+namespace Blog.Clients.Web.Api;
 public class Program
 {
     public static void Main(string[] args)

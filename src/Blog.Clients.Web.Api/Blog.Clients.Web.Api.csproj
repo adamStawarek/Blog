@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>f230fd4f-c986-4aee-8d74-0c51858742d2</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
@@ -16,7 +13,7 @@
 		<NoWarn>$(NoWarn);1573</NoWarn>
 		<NoWarn>$(NoWarn);1572</NoWarn>
 		<Configurations>Debug;Release;NSwag</Configurations>
-		<StartupObject>Blog.Server.Program</StartupObject>
+		<StartupObject>Blog.Clients.Web.Api.Program</StartupObject>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Hangfire" />

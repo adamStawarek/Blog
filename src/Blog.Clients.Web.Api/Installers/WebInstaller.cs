@@ -1,5 +1,6 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Application.Services.CurrentTime;
+using Blog.Clients.Web.Api;
 using Blog.Infrastructure.Database.Interceptors;
 using Blog.Server.Validation;
 using FluentValidation;
