@@ -1,0 +1,52 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="Mapster" Version="7.4.0" />
+		<PackageVersion Include="MediatR" Version="12.4.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.SpaProxy" Version="9.0.0"/>
+		<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0"/>
+		<PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageVersion Include="NSwag.AspNetCore" Version="14.2.0" />
+		<PackageVersion Include="NSwag.MSBuild" Version="14.2.0"/>
+		<PackageVersion Include="Scrutor" Version="5.0.2" />
+		<PackageVersion Include="Bogus" Version="35.6.1" />
+		<PackageVersion Include="Cocona" Version="2.2.0" />
+		<PackageVersion Include="Carter" Version="8.2.1" />
+		<PackageVersion Include="Hangfire" Version="1.8.18" />
+		<PackageVersion Include="Hangfire.Core" Version="1.8.18" />
+		<PackageVersion Include="Google.Apis.Drive.v3" Version="1.69.0.3703" />
+		<PackageVersion Include="SendGrid" Version="9.29.3" />
+		<PackageVersion Include="Serilog" Version="4.2.0" />
+		<PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
+		<PackageVersion Include="Serilog.Expressions" Version="5.0.0" />
+		<PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
+		<PackageVersion Include="Serilog.Sinks.OpenTelemetry" Version="4.1.1" />
+		<PackageVersion Include="Serilog.Sinks.Seq" Version="8.0.0" />
+		<PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+		<PackageVersion Include="FluentResults" Version="3.16.0" />
+		<PackageVersion Include="FluentValidation" Version="11.11.0" />
+		<PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageVersion Include="coverlet.collector" Version="6.0.2" />
+		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="9.0.0" />
+		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+		<PackageVersion Include="NSubstitute" Version="5.3.0" />
+		<PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17"/>
+		<PackageVersion Include="Respawn" Version="6.2.1" />
+		<PackageVersion Include="Testcontainers" Version="4.1.0" />
+		<PackageVersion Include="Testcontainers.MsSql" Version="4.1.0" />
+		<PackageVersion Include="Verify.Xunit" Version="28.6.1" />
+		<PackageVersion Include="xunit" Version="2.9.2" />
+		<PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0"/>
+	</ItemGroup>
+</Project>

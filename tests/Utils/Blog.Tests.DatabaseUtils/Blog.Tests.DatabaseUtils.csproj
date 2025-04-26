@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Bogus" Version="35.6.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Blog.Domain\Blog.Domain.csproj" />
-    <ProjectReference Include="..\..\..\src\Blog.Infrastructure\Blog.Infrastructure.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Bogus" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\Blog.Domain\Blog.Domain.csproj" />
+		<ProjectReference Include="..\..\..\src\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+	</ItemGroup>
 </Project>
