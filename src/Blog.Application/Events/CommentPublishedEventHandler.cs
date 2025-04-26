@@ -32,13 +32,17 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
             })
             .FirstAsync(x => x.Id == notification.CommentId, cancellationToken);
 
+        //Move to appsetttings
+        var articleLink = $"https://adamscrypt.com/articles/{comment.ArticleId.Value}";
+
         if (comment.ParentCommentAuthorEmail is not null)
         {
             _backgroundJobProcessor.Enqueue<IEmailJob, EmailJobParams>(new EmailJobParams
             {
                 Email = comment.ParentCommentAuthorEmail,
                 Subject = $"New comment on your reply for article '{comment.Article}'",
-                Body = $"A new comment has been published on your reply by {comment.CommentAuthor}."
+                Body = $"A new comment has been published on your reply by {comment.CommentAuthor}.\n" +
+                    $"Link to article: {articleLink}"
             });
         }
         else
@@ -47,7 +51,8 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
             {
                 Email = comment.ArticleAuthorEmail,
                 Subject = $"New comment on your article '{comment.Article}'",
-                Body = $"A new comment has been published on your article by {comment.CommentAuthor}."
+                Body = $"A new comment has been published on your article by {comment.CommentAuthor}.\n" +
+                    $"Link to article: {articleLink}"
             });
         }
     }

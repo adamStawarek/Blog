@@ -1,9 +1,12 @@
+using Blog.Application.Services.Jobs;
+using Blog.Clients.Web.Api.Tests.Integration.Mocks;
 using Blog.Infrastructure.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Respawn;
 using System.Data.Common;
 using Testcontainers.MsSql;
@@ -56,6 +59,9 @@ public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAs
             RemoveDbContext(services);
             AddDbContext(services, _container.GetConnectionString());
             EnsureDbCreated(services);
+
+            services.RemoveAll<IBackgroundJobProcessor>();
+            services.AddSingleton<IBackgroundJobProcessor, BackgroundJobProcessorMock>();
         });
     }
 
