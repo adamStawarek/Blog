@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
@@ -29,12 +29,13 @@ export class LoginComponent implements OnDestroy {
   private _destroy$: Subject<void> = new Subject<void>();
 
   constructor(
-    private fb: FormBuilder,
+    private _fb: FormBuilder,
     private _snakBar: MatSnackBar,
     private _router: Router,
+    private _route: ActivatedRoute,
     private _authService: AuthService) {
 
-    this.loginForm = this.fb.group({
+    this.loginForm = this._fb.group({
       userName: ['', [Validators.required]],
       password: ['', Validators.required]
     });
@@ -54,7 +55,8 @@ export class LoginComponent implements OnDestroy {
         next: (user) => {
           if (!user) return;
 
-          this._router.navigate(['/']);
+          const returnUrl = this._route.snapshot.queryParamMap.get('returnUrl') ?? '/';
+          this._router.navigate([returnUrl]);
         },
         error: () => {
           this._snakBar.open('Login failed', 'Close', {

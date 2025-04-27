@@ -40,9 +40,8 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
             _backgroundJobProcessor.Enqueue<IEmailJob, EmailJobParams>(new EmailJobParams
             {
                 Email = comment.ParentCommentAuthorEmail,
-                Subject = $"New comment on your reply for article '{comment.Article}'",
-                Body = $"A new comment has been published on your reply by {comment.CommentAuthor}.\n" +
-                    $"Link to article: {articleLink}"
+                Subject = $"New reply to your comment on article '{comment.Article}'",
+                Body = $"{comment.CommentAuthor} replied to your comment. Link to article: {articleLink}"
             });
         }
         else
@@ -51,8 +50,7 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
             {
                 Email = comment.ArticleAuthorEmail,
                 Subject = $"New comment on your article '{comment.Article}'",
-                Body = $"A new comment has been published on your article by {comment.CommentAuthor}.\n" +
-                    $"Link to article: {articleLink}"
+                Body = $"A new comment has been published on your article by {comment.CommentAuthor}. Link to article: {articleLink}"
             });
         }
     }

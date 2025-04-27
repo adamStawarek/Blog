@@ -29,6 +29,8 @@ export class AuthService {
     }
 
     public init(): void {
+        if (!this.hasIdentityCookie()) return;
+
         this._apiClient.getAccountInfo()
             .subscribe({
                 next: accountInfo => {
@@ -101,6 +103,15 @@ export class AuthService {
             newPassword: password
         }
         return this._apiClient.postAccountResetPassword(request);
+    }
+
+    public reset(): void {
+        this._isAuthenticatedSubject.next(false);
+        this._userSubject.next(undefined!);
+    }
+
+    private hasIdentityCookie(): boolean {
+        return document.cookie.split(';').some(cookie => cookie.trim().startsWith('.AspNetCore.Identity.Application='));
     }
 }
 

@@ -3,6 +3,7 @@ using Blog.Clients.Web.Api.Auth;
 using Blog.Clients.Web.Api.Services.ApplicationUser;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Clients.Web.Api.Installers;
@@ -29,7 +30,19 @@ public static class AuthInstaller
         else
         {
             services.AddAuthentication()
-                .AddCookie(IdentityConstants.ApplicationScheme);
+               .AddCookie(IdentityConstants.ApplicationScheme, options =>
+               {
+                   options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                   options.SlidingExpiration = true;
+                   options.Events = new CookieAuthenticationEvents
+                   {
+                       OnRedirectToLogin = context =>
+                       {
+                           context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                           return Task.CompletedTask;
+                       }
+                   };
+               });
 
             services.AddScoped<IApplicationUserProvider, ApplicationUserProvider>();
         }

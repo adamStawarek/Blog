@@ -36,6 +36,7 @@ import { AuthService } from 'src/app/core/auth.service';
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
   public article?: GetArticleResponse;
   public selectedComment?: Comment;
+  public totalComments = 0;
 
   public isLoggedIn$: Observable<boolean> = this._authSerive.isAuthenticated$;
 
@@ -79,6 +80,8 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
           this.article!.comments.unshift(newComment);
         }
 
+        this.refreshCommentsCount();
+
         this._snakBar.open('Successfully published new comment!', 'Close', {
           duration: 3000,
           panelClass: ['notification-success']
@@ -91,7 +94,19 @@ export class ArticleDetailsComponent implements OnInit, OnDestroy {
     this._apiClient.getArticle(articleId)
       .pipe(takeUntil(this._destroy$))
       .subscribe((article) => {
-        this.article = article
+        this.article = article;
+        this.refreshCommentsCount();
       });
+  }
+
+  private refreshCommentsCount(): void {
+    if (!this.article) {
+      this.totalComments = 0;
+      return;
+    }
+
+    const commentsCount = this.article.comments.length;
+    const subCommentsCount = this.article.comments.flatMap(comment => comment.replies).length;
+    this.totalComments = commentsCount + subCommentsCount;
   }
 }

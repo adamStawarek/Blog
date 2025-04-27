@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalErrorHandler } from './core/error.service';
+import { ErrorInterceptor } from './core/http-error.interceptor';
 import { LoaderInterceptor } from './core/http-loader.interceptor';
 import { SpinnerComponent } from "./shared/components/spinner/spinner.component";
 
@@ -34,6 +35,11 @@ import { SpinnerComponent } from "./shared/components/spinner/spinner.component"
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ]
