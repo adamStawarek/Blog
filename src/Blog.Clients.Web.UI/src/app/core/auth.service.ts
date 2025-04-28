@@ -16,6 +16,8 @@ export class AuthService {
     private _isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     private _userSubject = new BehaviorSubject<User>(undefined!);
 
+    private readonly _localStorageKey = 'isAuthenticated';
+
     constructor(private _apiClient: Client) {
         this.isAuthenticated$ = this._isAuthenticatedSubject.asObservable();
         this.user$ = this._userSubject.asObservable();
@@ -29,7 +31,7 @@ export class AuthService {
     }
 
     public init(): void {
-        if (!this.hasIdentityCookie()) return;
+        if (!this.isLoggedIn()) return;
 
         this._apiClient.getAccountInfo()
             .subscribe({
@@ -69,6 +71,7 @@ export class AuthService {
         return this._apiClient.postAccountLogin(true, true, request)
             .pipe(
                 tap(() => {
+                    localStorage.setItem(this._localStorageKey, 'true');
                     this._isAuthenticatedSubject.next(true);
                 }),
                 switchMap(() => this._apiClient.getAccountInfo()),
@@ -106,12 +109,13 @@ export class AuthService {
     }
 
     public reset(): void {
+        localStorage.removeItem(this._localStorageKey);
         this._isAuthenticatedSubject.next(false);
         this._userSubject.next(undefined!);
     }
 
-    private hasIdentityCookie(): boolean {
-        return document.cookie.split(';').some(cookie => cookie.trim().startsWith('.AspNetCore.Identity.Application='));
+    private isLoggedIn(): boolean {
+        return localStorage.getItem(this._localStorageKey) === 'true';
     }
 }
 

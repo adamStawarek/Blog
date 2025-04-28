@@ -2,6 +2,7 @@
 	<ItemGroup>
 		<PackageReference Include="MediatR" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />

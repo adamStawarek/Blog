@@ -67,6 +67,11 @@ export class LoginComponent implements OnDestroy {
       });
   }
 
+  public onCancel(): void {
+    this._authService.reset();
+    this._router.navigate(['/']);
+  }
+
   public onForgotPassword(): void {
     this._router.navigate(['/identity/forgot-password']);
   }

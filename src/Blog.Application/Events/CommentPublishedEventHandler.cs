@@ -1,21 +1,25 @@
 ﻿using Blog.Application.Jobs;
+using Blog.Application.Options;
 using Blog.Application.Services.Jobs;
 using Blog.Domain.Entities;
 using Blog.Domain.Entities.Base;
 using Blog.Domain.Events;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Blog.Application.Events;
 public class CommentPublishedEventHandler : INotificationHandler<CommentPublishedEvent>
 {
     private readonly IContext _context;
     private readonly IBackgroundJobProcessor _backgroundJobProcessor;
+    private readonly BlogGeneralOptions _options;
 
-    public CommentPublishedEventHandler(IContext context, IBackgroundJobProcessor backgroundJobProcessor)
+    public CommentPublishedEventHandler(IContext context, IBackgroundJobProcessor backgroundJobProcessor, IOptions<BlogGeneralOptions> options)
     {
         _context = context;
         _backgroundJobProcessor = backgroundJobProcessor;
+        _options = options.Value;
     }
 
     public async Task Handle(CommentPublishedEvent notification, CancellationToken cancellationToken)
@@ -32,8 +36,7 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
             })
             .FirstAsync(x => x.Id == notification.CommentId, cancellationToken);
 
-        //Move to appsetttings
-        var articleLink = $"https://adamscrypt.com/articles/{comment.ArticleId.Value}";
+        var articleLink = $"https://{_options.Domain}/articles/{comment.ArticleId.Value}";
 
         if (comment.ParentCommentAuthorEmail is not null)
         {
