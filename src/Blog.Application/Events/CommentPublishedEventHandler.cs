@@ -31,7 +31,7 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
                 x.ArticleId,
                 Article = x.Article.Title,
                 CommentAuthor = x.Author.UserName,
-                ParentCommentAuthorEmail = x.ParentComment.Author.Email,
+                ParentCommentAuthorEmail = x.ParentComment!.Author.Email,
                 ArticleAuthorEmail = x.Article.Author.Email,
             })
             .FirstAsync(x => x.Id == notification.CommentId, cancellationToken);
@@ -51,7 +51,7 @@ public class CommentPublishedEventHandler : INotificationHandler<CommentPublishe
         {
             _backgroundJobProcessor.Enqueue<IEmailJob, EmailJobParams>(new EmailJobParams
             {
-                Email = comment.ArticleAuthorEmail,
+                Email = comment.ArticleAuthorEmail!,
                 Subject = $"New comment on your article '{comment.Article}'",
                 Body = $"A new comment has been published on your article by {comment.CommentAuthor}. Link to article: {articleLink}"
             });
