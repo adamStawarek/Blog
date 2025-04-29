@@ -36,7 +36,7 @@ public static class EditArticle
 
             RuleFor(c => c.Content)
                 .NotEmpty()
-                .MaximumLength(4000);
+                .MaximumLength(20_000);
 
             RuleFor(c => c.Tags)
                 .Must(x => x.Any())
