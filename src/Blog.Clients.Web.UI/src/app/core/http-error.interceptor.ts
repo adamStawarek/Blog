@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
+                if (error.status === 401 && this.authService.isLoggedIn()) {
                     this.authService.reset();
                     const returnUrl = this.router.url;
                     this.router.navigate(['/identity/login'], { queryParams: { returnUrl } });

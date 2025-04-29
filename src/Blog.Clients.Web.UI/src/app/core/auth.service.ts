@@ -114,7 +114,7 @@ export class AuthService {
         this._userSubject.next(undefined!);
     }
 
-    private isLoggedIn(): boolean {
+    public isLoggedIn(): boolean {
         return localStorage.getItem(this._localStorageKey) === 'true';
     }
 }
