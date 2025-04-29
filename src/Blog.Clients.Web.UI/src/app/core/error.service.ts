@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable, NgZone } from "@angular/core";
-import { MatSnackBar, } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -12,7 +13,10 @@ export class GlobalErrorHandler implements ErrorHandler {
 
         const defaultError = 'An error occurred. Please try again later.';
         let msg = defaultError;
-        if (error.response != null) {
+
+        if (error instanceof HttpErrorResponse && error.status === 401) {
+            msg = 'Your session has expired. Please login again.';
+        } else if (error.response != null) {
             try {
                 const errorResponse = JSON.parse(error.response);
                 msg = errorResponse?.detail ?? msg;
