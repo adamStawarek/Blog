@@ -1,4 +1,6 @@
-﻿using Blog.Application.Services.ApplicationUser;
+﻿using Blog.Application.Jobs;
+using Blog.Application.Services.ApplicationUser;
+using Blog.Application.Services.Jobs;
 using Blog.Clients.Web.Api.Auth;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
@@ -79,7 +81,7 @@ public static class CreateArticle
 public class CreateArticleEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app
-        .MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
+        .MapPost("api/articles", async (CreateArticleRequest request, ISender sender, IBackgroundJobProcessor jobProcessor) =>
         {
             var command = request.Adapt<Command>();
 
@@ -89,6 +91,8 @@ public class CreateArticleEndpoint : ICarterModule
             {
                 return Results.BadRequest();
             }
+
+            jobProcessor.Enqueue<IDatabaseBackupJob>();
 
             return Results.Ok(result.Value.Value);
         })

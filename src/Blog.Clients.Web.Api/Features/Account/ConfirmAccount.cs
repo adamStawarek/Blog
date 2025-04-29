@@ -25,7 +25,7 @@ public class ConfirmAccount : ICarterModule
                return Results.BadRequest(result.Errors);
            }
 
-           return Results.Ok("Account confirmed");
+           return Results.Ok("Account confirmed.");
        })
        .WithTags("Account")
        .WithName("ConfirmAccount");

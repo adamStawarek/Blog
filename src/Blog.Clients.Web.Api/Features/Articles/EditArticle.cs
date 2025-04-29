@@ -1,4 +1,6 @@
-﻿using Blog.Clients.Web.Api.Auth;
+﻿using Blog.Application.Jobs;
+using Blog.Application.Services.Jobs;
+using Blog.Clients.Web.Api.Auth;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
 using Blog.Infrastructure.Database;
@@ -73,7 +75,7 @@ public static class EditArticle
 public class EditArticleEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app
-        .MapPut("api/articles/{id}", async (Guid id, EditArticleRequest request, ISender sender) =>
+        .MapPut("api/articles/{id}", async (Guid id, EditArticleRequest request, ISender sender, IBackgroundJobProcessor jobProcessor) =>
         {
             var command = request.Adapt<Command>();
 
@@ -85,6 +87,8 @@ public class EditArticleEndpoint : ICarterModule
             {
                 return Results.BadRequest();
             }
+
+            jobProcessor.Enqueue<IDatabaseBackupJob>();
 
             return Results.Ok();
         })

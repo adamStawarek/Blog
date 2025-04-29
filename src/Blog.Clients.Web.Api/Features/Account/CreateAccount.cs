@@ -34,7 +34,7 @@ public class CreateAccountEndpoint : ICarterModule
            var confirmationLink = $"https://{domain}/Account/Confirm?userId={user.Id}&code={encodedToken}";
 
            await emailSender.SendEmailAsync(user.Email, "Confirm your email",
-               $"Please confirm your email by clicking on the link: <a href='{confirmationLink}'>Confirm Email</a>");
+               $"Hi {user.UserName}, welcome to Adam's crypt!<br> Please confirm your email by clicking the following link: {confirmationLink}");
 
            return Results.Ok("Account created. Please check your email to confirm your account.");
        })

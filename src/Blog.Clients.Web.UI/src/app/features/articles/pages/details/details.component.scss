@@ -12,7 +12,7 @@
 
     ::ng-deep pre {
       background-color: vars.$surface-2;
-      overflow: scroll;
+      overflow: auto;
     }
 
     ::ng-deep p {
