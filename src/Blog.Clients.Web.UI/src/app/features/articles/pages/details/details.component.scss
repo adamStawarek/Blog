@@ -9,6 +9,14 @@
 
   &__content {
     font-size: 16px;
+
+    pre {
+      background-color: vars.$surface-2;
+    }
+
+    p {
+      text-wrap: auto;
+    }
   }
 
   &__actions {
