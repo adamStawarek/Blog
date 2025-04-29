@@ -61,7 +61,8 @@ public static class ServiceCollectionExtensions
         {
             x.UseSimpleAssemblyNameTypeSerializer()
                 .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(configuration.GetConnectionString("HangfireDbContext"));
+                .UseSqlServerStorage(configuration.GetConnectionString("HangfireDbContext"))
+                .WithJobExpirationTimeout(TimeSpan.FromDays(30));
         });
 
 
