@@ -1,5 +1,6 @@
 using Blog.Application;
 using Blog.Application.Jobs.Base;
+using Blog.Clients.Jobs;
 using Blog.Clients.Jobs.Jobs;
 using Blog.Clients.Jobs.Utils;
 using Blog.Infrastructure;
@@ -46,12 +47,13 @@ builder.Services.AddHangfireServer();
 builder.Services.AddHostedService<JobsHostedService>();
 
 builder.Services.Scan(scan => scan
-    .FromAssemblyOf<JobsHostedService>()
-    .AddClasses(classes => classes
-        .AssignableTo<IBlogJob>()
-        .AssignableTo(typeof(IBlogJob<>)))
-    .AsImplementedInterfaces()
-    .WithScopedLifetime());
+   .FromAssemblyOf<IBlogJobsMarker>()
+   .AddClasses(classes => classes.AssignableTo(typeof(IBlogJob<>)))
+   .AsImplementedInterfaces()
+   .WithScopedLifetime()
+   .AddClasses(classes => classes.AssignableTo<IBlogJob>())
+   .AsImplementedInterfaces()
+   .WithScopedLifetime());
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
