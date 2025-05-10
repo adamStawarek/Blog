@@ -125,3 +125,24 @@ Even if the authentication works, your service account must have permission to u
 	- Create a folder for uploads.
 	- Right-click the folder → Share.
 	- Add the service account email (found in your JSON) as an editor.
+
+## SSL certificate
+
+### Installation
+1. Install self signed certificate, follow guide from this link: https://certbot.eff.org/instructions?ws=webproduct&os=snap
+2. Check new certificate:  
+```bash 
+certbot certificates
+```
+3. Convert PEM to PFX format:   
+```bash
+openssl pkcs12 -export -out /etc/letsencrypt/live/adamscrypt.com/certificate.pfx -inkey /etc/letsencrypt/live/adamscrypt.com/privkey.pem -in /etc/letsencrypt/live/adamscrypt.com/fullchai
+n.pem -password pass:{CERT_PASS}
+```
+
+### Renew
+1. Renew expired certificate: 
+```bash
+certbot renew
+```
+2. Convert PEM to PFX format with command 3) from 'Installation' section
