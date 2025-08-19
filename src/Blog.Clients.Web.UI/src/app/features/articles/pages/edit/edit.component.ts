@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Client, EditArticleRequest } from 'src/app/core/api.generated';
+import { CanComponentDeactivate } from 'src/app/shared/directives/unsaved-changes.guard';
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { ArticleData } from '../../components/article-editor/article-editor.model';
 
@@ -13,7 +14,9 @@ import { ArticleData } from '../../components/article-editor/article-editor.mode
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
-export class EditArticleComponent implements OnInit, OnDestroy {
+export class EditArticleComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+  @ViewChild(ArticleEditorComponent) public articleEditor!: ArticleEditorComponent;
+
   public articleId!: string;
   public article!: ArticleData;
 
@@ -34,6 +37,10 @@ export class EditArticleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public canDeactivate(): boolean {
+    return !this.articleEditor.editForm.dirty;
   }
 
   public onCancel(): void {

@@ -136,7 +136,7 @@ certbot certificates
 ```
 3. Convert PEM to PFX format:   
 ```bash
-openssl pkcs12 -export -out /etc/letsencrypt/live/adamscrypt.com/certificate.pfx -inkey /etc/letsencrypt/live/adamscrypt.com/privkey.pem -in /etc/letsencrypt/live/adamscrypt.com/fullchai
+sudo openssl pkcs12 -export -out /etc/letsencrypt/live/adamscrypt.com/certificate.pfx -inkey /etc/letsencrypt/live/adamscrypt.com/privkey.pem -in /etc/letsencrypt/live/adamscrypt.com/fullchai
 n.pem -password pass:{CERT_PASS}
 ```
 

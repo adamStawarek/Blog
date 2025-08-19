@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/auth.guard';
+import { UnsavedChangesGuard } from 'src/app/shared/directives/unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       roles: ['Admin']
     },
     canActivate: [AuthGuard],
+    canDeactivate: [UnsavedChangesGuard],
     loadComponent: () => import('./pages/create/create.component').then(m => m.CreateArticleComponent),
   },
   {
@@ -24,6 +26,7 @@ const routes: Routes = [
       roles: ['Admin']
     },
     canActivate: [AuthGuard],
+    canDeactivate: [UnsavedChangesGuard],
     loadComponent: () => import('./pages/edit/edit.component').then(m => m.EditArticleComponent),
   },
   {
