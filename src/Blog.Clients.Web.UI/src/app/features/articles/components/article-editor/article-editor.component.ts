@@ -131,6 +131,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   public onSubmit(): void {
     if (this.editForm.invalid) return;
 
+    this.editForm.markAsPristine();
     this.save.emit({
       title: this.editForm.get('title')?.value,
       description: this.editForm.get('description')?.value,
