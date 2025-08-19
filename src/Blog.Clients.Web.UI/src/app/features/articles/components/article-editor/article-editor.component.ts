@@ -1,3 +1,4 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -61,6 +62,8 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
       },
     ]
   };
+
+  public readonly TagSeparatorKeys = [ENTER, COMMA] as const;
 
   private _destroy$: Subject<void> = new Subject<void>();
 

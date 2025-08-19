@@ -45,8 +45,8 @@
         </mat-chip-row>
         }
       </mat-chip-grid>
-      <input placeholder="Add article tags..." [matChipInputFor]="reactiveChipGrid"
-        (matChipInputTokenEnd)="addTag($event)" />
+      <input placeholder="Add article tags..." [matChipInputFor]="reactiveChipGrid" [matChipInputAddOnBlur]="true"
+        [matChipInputSeparatorKeyCodes]="TagSeparatorKeys" (matChipInputTokenEnd)="addTag($event)" />
       <mat-error *ngIf="editForm.get('tags')?.errors">
         At least one tag is required
       </mat-error>
