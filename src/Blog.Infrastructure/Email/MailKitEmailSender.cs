@@ -10,7 +10,7 @@ public sealed class MailKitEmailSender : IEmailSender
     private readonly ILogger _logger;
     private readonly MailKitEmailSenderOptions _options;
 
-    public MailKitEmailSender(ILogger logger, IOptions<MailKitEmailSenderOptions> options)
+    public MailKitEmailSender(ILogger<MailKitEmailSender> logger, IOptions<MailKitEmailSenderOptions> options)
     {
         _logger = logger;
         _options = options.Value;
