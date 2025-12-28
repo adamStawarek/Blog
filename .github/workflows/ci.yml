@@ -27,12 +27,16 @@ jobs:
               with:
                 node-version: '20'
 
-            - name: Ng lint
+            - name: Npm install
+              run: npm install
+              working-directory: ./src/Blog.Clients.Web.UI
+
+            - name: Npm lint
               run: npm run lint
               working-directory: ./src/Blog.Clients.Web.UI
 
-            - name: Ng build
-              run: npm install && npm run build
+            - name: Npm build
+              run: npm run build
               working-directory: ./src/Blog.Clients.Web.UI
 
             - name: Dotnet format
