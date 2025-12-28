@@ -3,7 +3,7 @@ using Blog.Application.Services.FileStorage;
 using Blog.Application.Services.Jobs;
 using Blog.Domain.Entities.Base;
 using Blog.Infrastructure.Database;
-using Blog.Infrastructure.Email;
+using Blog.Infrastructure.Emaill;
 using Blog.Infrastructure.FileStorage;
 using Blog.Infrastructure.Jobs;
 using Hangfire;
@@ -46,8 +46,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddBlogEmailSender(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<SendGridEmailSenderOptions>(configuration.GetSection(SendGridEmailSenderOptions.Key!));
-        services.AddTransient<IEmailSender, SendGridEmailSender>();
+        services.Configure<MailKitEmailSenderOptions>(configuration.GetSection(MailKitEmailSenderOptions.Key!));
+        services.AddTransient<IEmailSender, MailKitEmailSender>();
 
         return services;
     }
@@ -64,7 +64,6 @@ public static class ServiceCollectionExtensions
                 .UseSqlServerStorage(configuration.GetConnectionString("HangfireDbContext"))
                 .WithJobExpirationTimeout(TimeSpan.FromDays(30));
         });
-
 
         return services;
     }
