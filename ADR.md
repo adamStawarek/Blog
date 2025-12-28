@@ -11,21 +11,21 @@ Additionaly it should be short and concise.
 
 ---
 
-### #1 (28/12/2025) Switch SMTP server to Smtp2go
-
+### #1 (28/12/2025) Switch SMTP server
 #### Context
 
-Application sends out emails i.e during account confirmation or when someone post a commment to the article. 
-Right now the emails are send out through SendGrid api but unfortunately the trial period has ended (60 days only) and we need 
-to decide whether to pay for the higher plan or switch to different smtp provider.
+The application sends emails for things like account confirmation or when someone posts a comment on an article.
+At the moment, emails are sent using the SendGrid API. Unfortunately, the 60-day trial has ended, so I needed to decide whether to upgrade to a paid plan or switch to a different SMTP provider.
 
 #### Decision
 
-Since I want to keep the cost of running the blog at minnimum I decided not to pay for the higher SendGrid plan but instead to 
-switch to Smtp2go https://www.smtp2go.com/ which is quite popular, has very good deliverability ~96% on average and is free 
-withouth any trial period.
+To keep the cost of running the blog as low as possible, I decided not to upgrade to the paid SendGrid plan, which costs around $20 per month.
+I looked into the free plan from SMTP2GO (https://www.smtp2go.com/
+), which is quite popular and offers good deliverability (~96%). However, it couldn’t be set up with my private Gmail account.
+
+In the end, I chose a simpler option and paid a small fee (3 z³oty, ~$0.75 per month) for a business outbox from Hostinger, linked to my domain.
 
 #### Consequences
 
-For the downsides the Smtp2go has limits of 25 emails per hour, 200 per day and 1000 per month but since the scale of my blog is small
-and I don't expect that many users thus those limitations are acceptable.
+The basic plan allows up to 1,000 emails per day, which is more than enough for the blog.
+If I ever need to switch to another SMTP provider in the future, it should only require updating the host, port, and credentials in the SMTP configuration.
