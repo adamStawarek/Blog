@@ -23,7 +23,10 @@ jobs:
         files: '**/appsettings.json'
       env:
         ConnectionStrings.BlogDbContext: ${{ secrets.DB_CONNECTION_STRING }}
-        Email.SendGridKey: ${{ secrets.MAIL_SENDGRID_API_KEY }}  
+        Email.SmtpHost: ${{ secrets.MAIL_SMTP_HOST }}  
+        Email.SmtpPort: ${{ secrets.MAIL_SMTP_PORT }}  
+        Email.SmtpUser: ${{ secrets.MAIL_SMTP_USER }}  
+        Email.SmtpPassword: ${{ secrets.MAIL_SMTP_PASSWORD }}  
         Email.SenderAddress: ${{ vars.MAIL_SENDER_ADDRESS }}  
         Email.SenderName: ${{ vars.MAIL_SENDER_NAME }}
         Seq.ApiKey: ${{ secrets.SEQ_API_KEY }}
