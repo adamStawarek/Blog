@@ -20,20 +20,23 @@ jobs:
             - name: Set up .Net
               uses: actions/setup-dotnet@v4
               with:
-                dotnet-version: 9
+                global-json-file: global.json
 
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                 node-version: '20'
 
+            - name: Ng lint
+              run: npm run lint
+              working-directory: ./src/Blog.Clients.Web.UI
+
             - name: Ng build
               run: npm install && npm run build
               working-directory: ./src/Blog.Clients.Web.UI
 
-            - name: Ng lint
-              run: npm run lint
-              working-directory: ./src/Blog.Clients.Web.UI
+            - name: Dotnet format
+              run: dotnet format -v detailed --verify-no-changes
                 
             - name: Dotnet build
               run: dotnet build --configuration Release
@@ -41,5 +44,3 @@ jobs:
             - name: Dotnet test
               run: dotnet test --configuration Release --no-build
 
-            - name: Dotnet format
-              run: dotnet format -v detailed --verify-no-changes
