@@ -29,7 +29,11 @@
         <mat-card *ngIf="article" class="article" (click)="navigateToArticle(article)">
           <mat-card-header>
             <mat-card-title>
-              <span>{{article.title}}</span>
+              <span [matBadge]="'DRAFT'" [matBadgeHidden]="article.status !== ARTICLE_STATUS.Draft"
+                [matBadgeSize]="'small'" [matBadgeColor]="'primary'" matBadgeOverlap="false"
+                [matBadgePosition]="'after'">
+                {{article.title}}
+              </span>
               <div class="article__actions" *ngIf="authService.isAdmin$ | async">
                 <mat-icon class="icon-btn--sm" (click)="editArticle($event, article)">
                   edit

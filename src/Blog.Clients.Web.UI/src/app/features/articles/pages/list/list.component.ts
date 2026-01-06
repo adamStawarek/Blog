@@ -1,6 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatBadge } from "@angular/material/badge";
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -9,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { BlogData } from 'src/app/app.model';
-import { ArticleItem, Client } from 'src/app/core/api.generated';
+import { ArticleItem, ArticleStatus, Client } from 'src/app/core/api.generated';
 import { AuthService } from 'src/app/core/auth.service';
 import { ResizeObserverDirective } from 'src/app/shared/directives/resize-observer.directive';
 import jsonData from 'src/assets/data.json';
@@ -29,7 +30,8 @@ import { ArticlesDataSource } from './list.model';
     MatChipsModule,
     MatButtonModule,
     ArticleSizePipe,
-    ResizeObserverDirective
+    ResizeObserverDirective,
+    MatBadge
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -40,6 +42,8 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   public compactView = false;
   public blogData: BlogData = jsonData;
   public gridRect?: DOMRectReadOnly;
+
+  public readonly ARTICLE_STATUS = ArticleStatus;
 
   private _destroy$: Subject<void> = new Subject<void>();
 

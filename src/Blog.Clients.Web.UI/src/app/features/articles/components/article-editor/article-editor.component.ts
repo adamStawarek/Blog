@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +24,7 @@ import { ArticleData } from './article-editor.model';
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     MatButtonModule],
   templateUrl: './article-editor.component.html',
   styleUrl: './article-editor.component.scss'
@@ -38,7 +40,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
   public config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: 'calc(100vh - 360px)',
+    height: 'calc(100vh - 400px)',
     translate: 'no',
     defaultFontSize: '4',
     defaultParagraphSeparator: 'p',
@@ -80,6 +82,9 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
       tags: ['', [
         Validators.required,
       ]],
+      isDraft: ['', [
+        Validators.required,
+      ]],
       content: ['', [
         Validators.required
       ]]
@@ -92,6 +97,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
     this.editForm.controls['title'].setValue(this.article!.title);
     this.editForm.controls['description'].setValue(this.article!.description);
     this.editForm.controls['tags'].setValue(this.article!.tags);
+    this.editForm.controls['isDraft'].setValue(this.article!.isDraft);
     this.editForm.controls['content'].setValue(this.article!.content);
 
     this.tags.update(() => [...this.article!.tags]);
@@ -137,6 +143,7 @@ export class ArticleEditorComponent implements OnDestroy, OnChanges {
       description: this.editForm.get('description')?.value,
       content: this.editForm.get('content')?.value,
       tags: this.editForm.get('tags')?.value,
+      isDraft: this.editForm.get('isDraft')?.value,
     });
   }
 }

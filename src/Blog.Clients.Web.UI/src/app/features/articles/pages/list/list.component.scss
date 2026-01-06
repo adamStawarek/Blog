@@ -85,7 +85,15 @@
 
     span {
       text-overflow: ellipsis;
-      overflow: hidden;
+      // overflow: hidden;
+
+      .mat-badge-content {
+        top: 10px;
+        text-overflow: unset;
+        width: 40px;
+        border-radius: 10px;
+        background: #48719c;
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, CreateArticleRequest } from 'src/app/core/api.generated';
+import { ArticleStatus, Client, CreateArticleRequest } from 'src/app/core/api.generated';
 import { CanComponentDeactivate } from 'src/app/shared/directives/unsaved-changes.guard';
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { ArticleData } from '../../components/article-editor/article-editor.model';
@@ -10,8 +10,7 @@ import { ArticleData } from '../../components/article-editor/article-editor.mode
   selector: 'app-article-create',
   standalone: true,
   imports: [ArticleEditorComponent],
-  templateUrl: './create.component.html',
-  styleUrl: './create.component.scss'
+  templateUrl: './create.component.html'
 })
 export class CreateArticleComponent implements OnDestroy, CanComponentDeactivate {
   @ViewChild(ArticleEditorComponent) public articleEditor!: ArticleEditorComponent;
@@ -40,7 +39,10 @@ export class CreateArticleComponent implements OnDestroy, CanComponentDeactivate
       title: $event.title,
       description: $event.description,
       content: $event.content,
-      tags: $event.tags
+      tags: $event.tags,
+      status: $event.isDraft ?
+        ArticleStatus.Draft :
+        ArticleStatus.Ready
     }
 
     this._apiClient.createArticle(request)

@@ -3,7 +3,7 @@
   display: grid;
   grid-template-areas:
     "title tags"
-    "subtitle tags"
+    "subtitle draft"
     "content content"
     "actions actions";
   grid-template-columns: 3fr 2fr;
@@ -23,6 +23,10 @@
     mat-form-field {
       height: 100%;
     }
+  }
+
+  &__draft {
+    grid-area: draft;
   }
 
   &__content {
@@ -47,6 +51,7 @@
       "title"
       "subtitle"
       "tags"
+      "draft"
       "content"
       "actions";
     grid-template-columns: 1fr;

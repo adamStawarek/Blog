@@ -4,7 +4,7 @@
     <h1>{{article.title}}</h1>
     <h3>{{article.author}} - {{article.date | date}}</h3>
     <mat-chip-set>
-      <mat-chip *ngFor="let tag of article?.tags">{{tag}}</mat-chip>
+      <mat-chip *ngFor="let tag of article.tags">{{tag}}</mat-chip>
     </mat-chip-set>
     <mat-divider></mat-divider>
   </div>
@@ -30,10 +30,10 @@
     </div>
     <ng-container *ngTemplateOutlet="commentForm"></ng-container>
     <div class="article__comment" [class.selected]="comment === selectedComment" [class.active]="isLoggedIn$ | async"
-      [attr.aria-hidden]="true" (click)="selectedComment = comment" *ngFor="let comment of article?.comments">
+      [attr.aria-hidden]="true" (click)="selectedComment = comment" *ngFor="let comment of article.comments">
       <strong class="article__comment__header">{{comment.author}} - {{comment.date | date}}</strong>
       <p class="article__comment__content">{{comment.content}}</p>
-      <div class="article__comment__footer" *ngIf="comment.replies?.length">
+      <div class="article__comment__footer" *ngIf="comment.replies.length">
         <mat-icon>reply</mat-icon>
         <div class="article__comment__replies">
           <div class="article__comment reply" *ngFor="let reply of comment.replies">

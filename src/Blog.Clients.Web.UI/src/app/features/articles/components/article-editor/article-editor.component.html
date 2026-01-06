@@ -52,6 +52,10 @@
       </mat-error>
     </mat-form-field>
   </div>
+  <!-- STATUS -->
+  <div class="container__draft">
+    <mat-checkbox formControlName="isDraft">Marked as draft</mat-checkbox>
+  </div>
   <!-- EDITOR -->
   <div class="container__content">
     <angular-editor formControlName="content" [config]="config">

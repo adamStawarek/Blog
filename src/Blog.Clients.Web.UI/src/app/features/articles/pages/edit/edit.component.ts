@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Client, EditArticleRequest } from 'src/app/core/api.generated';
+import { ArticleStatus, Client, EditArticleRequest } from 'src/app/core/api.generated';
 import { CanComponentDeactivate } from 'src/app/shared/directives/unsaved-changes.guard';
 import { ArticleEditorComponent } from "../../components/article-editor/article-editor.component";
 import { ArticleData } from '../../components/article-editor/article-editor.model';
@@ -11,8 +11,7 @@ import { ArticleData } from '../../components/article-editor/article-editor.mode
   selector: 'app-article-edit',
   standalone: true,
   imports: [CommonModule, ArticleEditorComponent],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.scss'
+  templateUrl: './edit.component.html'
 })
 export class EditArticleComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   @ViewChild(ArticleEditorComponent) public articleEditor!: ArticleEditorComponent;
@@ -52,7 +51,10 @@ export class EditArticleComponent implements OnInit, OnDestroy, CanComponentDeac
       title: $event.title,
       description: $event.description,
       content: $event.content,
-      tags: $event.tags
+      tags: $event.tags,
+      status: $event.isDraft ?
+        ArticleStatus.Draft :
+        ArticleStatus.Ready
     }
 
     this._apiClient.editArticle(this.articleId, request)
@@ -70,7 +72,8 @@ export class EditArticleComponent implements OnInit, OnDestroy, CanComponentDeac
           title: article.title,
           description: article.description,
           content: article.content,
-          tags: article.tags
+          tags: article.tags,
+          isDraft: article.status === ArticleStatus.Draft
         }
       });
   }
