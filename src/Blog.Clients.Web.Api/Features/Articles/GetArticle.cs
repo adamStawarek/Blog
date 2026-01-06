@@ -95,7 +95,7 @@ public static class GetArticle
                         .ToList()
                 })
                 .FirstAsync(x => x.Id == request.ArticleId, cancellationToken);
-          
+
             if (article.Status is ArticleStatus.Ready)
             {
                 return Result.Ok(article);

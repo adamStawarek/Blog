@@ -39,8 +39,8 @@ internal class ApplicationUserProvider : IApplicationUserProvider
             .Where(x => x.Type == ClaimTypes.Role)
             .Any(x => x.Value == BlogRoles.Admin);
 
-        var userRole = isAdmin ? 
-            ApplicationRole.Administrator : 
+        var userRole = isAdmin ?
+            ApplicationRole.Administrator :
             ApplicationRole.AuthenticatedReader;
 
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser

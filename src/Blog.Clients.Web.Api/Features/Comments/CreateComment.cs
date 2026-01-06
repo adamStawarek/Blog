@@ -59,7 +59,7 @@ public static class CreateComment
                 Content = request.Content,
                 ArticleId = new Article.EntityId(request.ArticleId),
                 ParentCommentId = request.ParentId is not null ?
-                    new Comment.EntityId(request.ParentId.Value) : 
+                    new Comment.EntityId(request.ParentId.Value) :
                     null,
                 AuthorId = currentUser.Id
             };
