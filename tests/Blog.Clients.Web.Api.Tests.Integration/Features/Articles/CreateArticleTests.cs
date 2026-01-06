@@ -1,4 +1,5 @@
 ﻿using Blog.Clients.Web.Api.Contracts;
+using Blog.Domain.Entities.Enumerators;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Http.Json;
@@ -11,7 +12,7 @@ public class CreateArticleTests : TestBase
     }
 
     [Fact]
-    public async Task Should_Retur200OkAndCreateArticleInDatabase_When_EndpointIsCalled()
+    public async Task Should_Return200OkAndCreateArticleInDatabase_When_EndpointIsCalled()
     {
         // Act
         var response = await Client.PostAsJsonAsync($"/api/articles", new CreateArticleRequest
@@ -19,24 +20,16 @@ public class CreateArticleTests : TestBase
             Title = "Title",
             Content = "Content",
             Description = "Description",
-            Tags = new List<string> { "Tag" }
+            Status = ArticleStatus.Ready,
+            Tags = ["Tag"]
         });
 
         // Assert
-        var responseBody = await response.Content.ReadAsStringAsync();
-
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var article = await Context.Article.SingleOrDefaultAsync();
+        var article = await Context.Article
+            .SingleOrDefaultAsync();
 
-        Assert.Multiple(() =>
-        {
-            Assert.NotNull(article);
-            Assert.Equal("Title", article!.Title);
-            Assert.Equal("Content", article.Content);
-            Assert.Equal("Description", article.Description);
-            Assert.Single(article.Tags);
-            Assert.Equal("Tag", article.Tags[0]);
-        });
+        await Verify(article);
     }
 }

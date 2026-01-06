@@ -18,7 +18,7 @@ public class GetArticleTests : TestBase
             {
                 x.Title = "Title";
                 x.Description = "Description";
-                x.Tags = new List<string> { "Tag" };
+                x.Tags = ["Tag"];
                 x.Content = "Content";
                 x.AuthorId = UserId;
             }, out var article)
@@ -41,7 +41,7 @@ public class GetArticleTests : TestBase
                         Content = "SubComment B"
                     }
                 ];
-            }, out var comment);
+            }, out Comment _);
 
         // Act
         var response = await Client.GetAsync($"/api/articles/{article.Id.Value}");

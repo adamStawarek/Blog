@@ -1,4 +1,6 @@
 ﻿using Blog.Application.Services.ApplicationUser;
+using Blog.Clients.Web.Api.Auth;
+using Blog.Domain.Roles;
 using System.Security.Claims;
 
 namespace Blog.Clients.Web.Api.Services.ApplicationUser;
@@ -20,14 +22,32 @@ internal class ApplicationUserProvider : IApplicationUserProvider
             return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
             {
                 Id = Guid.Empty,
-                UserName = "System"
+                UserName = "Anonymous",
+                Role = ApplicationRole.AnonymousReader
             });
         }
 
+        var userId = identity
+            .FindFirst(x => x.Type == ClaimTypes.NameIdentifier)!
+            .Value;
+
+        var userName = identity
+            .FindFirst(x => x.Type == ClaimTypes.Name)!
+            .Value;
+
+        var isAdmin = identity.Claims
+            .Where(x => x.Type == ClaimTypes.Role)
+            .Any(x => x.Value == BlogRoles.Admin);
+
+        var userRole = isAdmin ? 
+            ApplicationRole.Administrator : 
+            ApplicationRole.AuthenticatedReader;
+
         return Task.FromResult(new Application.Services.ApplicationUser.ApplicationUser
         {
-            Id = Guid.Parse(identity!.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)!.Value),
-            UserName = identity!.FindFirst(x => x.Type == ClaimTypes.Name)!.Value
+            Id = Guid.Parse(userId),
+            UserName = userName,
+            Role = userRole
         });
     }
 }

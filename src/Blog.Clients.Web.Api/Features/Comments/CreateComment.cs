@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Services.ApplicationUser;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
+using Blog.Domain.Entities.Enumerators;
 using Blog.Domain.Events;
 using Blog.Infrastructure.Database;
 using Carter;
@@ -8,7 +9,6 @@ using FluentResults;
 using FluentValidation;
 using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using static Blog.Clients.Web.Api.Features.Comments.CreateComment;
 
 namespace Blog.Clients.Web.Api.Features.Comments;
@@ -49,24 +49,18 @@ public static class CreateComment
         {
             var currentUser = await _userProvider.GetAsync(cancellationToken);
 
-            if (request.ParentId is not null)
+            if (!IsRequestValid(request, out var error))
             {
-                var parentComment = await _context.Comment
-                    .Select(x => new { x.Id, x.ParentCommentId })
-                    .FirstAsync(c => c.Id == request.ParentId, cancellationToken);
-
-                if (parentComment.ParentCommentId is not null)
-                {
-                    return Result.Fail("Comment nesting is too deep.");
-                }
+                return Result.Fail(error);
             }
 
             var comment = new Comment
             {
                 Content = request.Content,
-                ArticleId = new Domain.Entities.Base.Entity<Article, Guid>.EntityId(request.ArticleId),
+                ArticleId = new Article.EntityId(request.ArticleId),
                 ParentCommentId = request.ParentId is not null ?
-                    new Domain.Entities.Base.Entity<Comment, Guid>.EntityId(request.ParentId.Value) : null,
+                    new Comment.EntityId(request.ParentId.Value) : 
+                    null,
                 AuthorId = currentUser.Id
             };
 
@@ -75,6 +69,37 @@ public static class CreateComment
             await _context.SaveChangesAsync(cancellationToken);
 
             return Result.Ok(comment.Id);
+        }
+
+        private bool IsRequestValid(Command request, out string? error)
+        {
+            error = null;
+
+            if (request.ParentId is not null)
+            {
+                var parentComment = _context.Comment
+                    .Select(x => new { x.Id, x.ParentCommentId })
+                    .First(c => c.Id == request.ParentId);
+
+                if (parentComment.ParentCommentId is not null)
+                {
+                    error = "Comment nesting is too deep.";
+                    return false;
+                }
+            }
+
+            var articleStatus = _context.Article
+                .Where(x => x.Id == request.ArticleId)
+                .Select(x => x.Status)
+                .First();
+
+            if (articleStatus is not ArticleStatus.Ready)
+            {
+                error = "Cannot comment on unpublished articles.";
+                return false;
+            }
+
+            return true;
         }
     }
 }

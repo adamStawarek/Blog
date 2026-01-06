@@ -1,0 +1,18 @@
+﻿{
+  Title: Title,
+  Content: Content,
+  Description: Description,
+  Status: Ready,
+  Tags: [
+    Tag
+  ],
+  AuthorId: Guid_1,
+  Meta_IsActive: true,
+  Meta_CreatedBy: John,
+  Meta_CreatedDate: DateTimeOffset_1,
+  Meta_LastModifiedBy: John,
+  Meta_LastModifiedDate: DateTimeOffset_1,
+  Id: {
+    Value: Guid_2
+  }
+}

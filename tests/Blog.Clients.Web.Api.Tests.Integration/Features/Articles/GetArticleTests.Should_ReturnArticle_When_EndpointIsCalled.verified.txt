@@ -4,6 +4,7 @@
   description: Description,
   author: John,
   content: Content,
+  status: 1,
   tags: [
     Tag
   ],

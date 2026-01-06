@@ -364,4 +364,5 @@ FodyWeavers.xsd
 
 *.received.*
 
-/blog.client/.angular/
+/src/blog.client/.angular/
+/src/blog.client/dist/

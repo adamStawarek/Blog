@@ -1,4 +1,8 @@
-﻿using Blog.Clients.Web.Api.Contracts;
+﻿using Blog.Application.Services.ApplicationUser;
+using Blog.Clients.Web.Api.Contracts;
+using Blog.Domain.Entities;
+using Blog.Domain.Entities.Enumerators;
+using Blog.Domain.Roles;
 using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
@@ -6,6 +10,7 @@ using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using static Blog.Clients.Web.Api.Features.Articles.GetArticleList;
 
 namespace Blog.Clients.Web.Api.Features.Articles;
@@ -30,6 +35,7 @@ public static class GetArticleList
             public string Title { get; set; } = null!;
             public string Author { get; set; } = null!;
             public string Description { get; set; } = null!;
+            public ArticleStatus Status { get; set; }
             public List<string> Tags { get; set; } = null!;
             public DateTime Date { get; set; }
         }
@@ -47,19 +53,30 @@ public static class GetArticleList
     internal sealed class Handler : IRequestHandler<Query, Result<Response>>
     {
         private readonly BlogDbContext _context;
+        private readonly IApplicationUserProvider _userProvider;
 
-        public Handler(BlogDbContext context)
+        public Handler(BlogDbContext context, IApplicationUserProvider userProvider)
         {
             _context = context;
+            _userProvider = userProvider;
         }
 
         public async Task<Result<Response>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var total = await _context.Article.CountAsync(cancellationToken);
+            var currentUser = await _userProvider.GetAsync(cancellationToken);
+
+            Expression<Func<Article, bool>> statusFilter = currentUser.Role is ApplicationRole.Administrator ?
+                _ => true :
+                x => x.Status == ArticleStatus.Ready;
+
+            var total = await _context.Article
+                .Where(statusFilter)
+                .CountAsync(cancellationToken);
 
             var articles = await _context.Article
                 .AsNoTracking()
                 .OrderByDescending(x => x.Meta_CreatedDate)
+                .Where(statusFilter)
                 .Skip(request.Page * request.ItemsPerPage)
                 .Take(request.ItemsPerPage)
                 .Select(x => new Response.ArticleItem
@@ -68,6 +85,7 @@ public static class GetArticleList
                     Title = x.Title,
                     Description = x.Description,
                     Author = x.Author.UserName!,
+                    Status = x.Status,
                     Tags = x.Tags,
                     Date = x.Meta_CreatedDate.Date
                 })

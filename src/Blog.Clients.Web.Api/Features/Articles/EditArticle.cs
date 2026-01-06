@@ -3,6 +3,7 @@ using Blog.Application.Services.Jobs;
 using Blog.Clients.Web.Api.Auth;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
+using Blog.Domain.Entities.Enumerators;
 using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
@@ -21,6 +22,7 @@ public static class EditArticle
         public string Title { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string Content { get; set; } = default!;
+        public ArticleStatus Status { get; set; }
         public List<string> Tags { get; set; } = default!;
     }
 
@@ -39,6 +41,9 @@ public static class EditArticle
             RuleFor(c => c.Content)
                 .NotEmpty()
                 .MaximumLength(20_000);
+
+            RuleFor(c => c.Status)
+                .IsInEnum();
 
             RuleFor(c => c.Tags)
                 .Must(x => x.Any())
@@ -64,6 +69,7 @@ public static class EditArticle
             article.Description = request.Description;
             article.Content = request.Content;
             article.Tags = request.Tags;
+            article.Status = request.Status;
 
             await _context.SaveChangesAsync(cancellationToken);
 

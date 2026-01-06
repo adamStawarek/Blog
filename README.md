@@ -56,11 +56,11 @@ Navigate to the migrations project (Blog.Infrastructure.DatabaseMigrations) in a
 
 Below is the list of popular commands:  
 1.	Add new migration:  
-`dotnet ef migrations add {MIGRATION_NAME} --startup-project "./../Blog.Server/Blog.Server.csproj"`  
+`dotnet ef migrations add {MIGRATION_NAME} --startup-project "./../Blog.Clients.Web.Api/Blog.Clients.Web.Api.csproj"`  
 2.	Remove pending migration (possible only if database was not updated yet):   
-`dotnet ef migrations remove --startup-project "./../Blog.Server/Blog.Server.csproj"`  
+`dotnet ef migrations remove --startup-project "./../Blog.Clients.Web.Api/Blog.Clients.Web.Api.csproj"`  
 3.	Update database:  
-`dotnet ef database update --startup-project "./../Blog.Server/Blog.Server.csproj"`  
+`dotnet ef database update --startup-project "./../Blog.Clients.Web.Api/Blog.Clients.Web.Api.csproj"`  
 
 ### Frontend project organization
 

@@ -1,4 +1,6 @@
-﻿namespace Blog.Clients.Web.Api.Contracts;
+﻿using Blog.Domain.Entities.Enumerators;
+
+namespace Blog.Clients.Web.Api.Contracts;
 public class GetArticleResponse
 {
     public required Guid Id { get; set; }
@@ -6,6 +8,7 @@ public class GetArticleResponse
     public required string Description { get; set; }
     public required string Author { get; set; }
     public required string Content { get; set; }
+    public ArticleStatus Status { get; set; }
     public required List<string> Tags { get; set; }
     public required List<Comment> Comments { get; set; }
     public required DateTime Date { get; set; }

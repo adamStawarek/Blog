@@ -13,7 +13,7 @@ public class CreateCommentTests : TestBase
     }
 
     [Fact]
-    public async Task Should_Retur200OkAndCreateCommentInDatabase_When_EndpointIsCalled()
+    public async Task Should_Return200OkAndCreateCommentInDatabase_When_EndpointIsCalled()
     {
         // Arrange
         BlogDbSeeder.Create(Context)
@@ -21,7 +21,7 @@ public class CreateCommentTests : TestBase
             {
                 x.Title = "Title";
                 x.Description = "Description";
-                x.Tags = new List<string> { "Tag" };
+                x.Tags = ["Tag"];
                 x.Content = "Content";
                 x.AuthorId = UserId;
             }, out var article);
@@ -33,11 +33,10 @@ public class CreateCommentTests : TestBase
         });
 
         // Assert
-        var responseBody = await response.Content.ReadAsStringAsync();
-
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var comment = await Context.Comment.SingleOrDefaultAsync();
+        var comment = await Context.Comment
+            .SingleOrDefaultAsync();
 
         Assert.Multiple(() =>
         {

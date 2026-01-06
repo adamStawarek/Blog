@@ -8,6 +8,7 @@
       title: C,
       author: John,
       description: Description C,
+      status: 1,
       tags: [
         Tag2
       ],
@@ -18,6 +19,7 @@
       title: B,
       author: John,
       description: Description B,
+      status: 1,
       tags: [
         Tag1
       ],
@@ -28,6 +30,7 @@
       title: A,
       author: John,
       description: Description A,
+      status: 1,
       tags: [
         Tag1,
         Tag2

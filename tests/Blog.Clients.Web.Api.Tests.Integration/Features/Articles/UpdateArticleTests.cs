@@ -1,5 +1,6 @@
 ﻿using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
+using Blog.Domain.Entities.Enumerators;
 using Blog.Tests.DatabaseUtils;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -13,7 +14,7 @@ public class UpdateArticleTests : TestBase
     }
 
     [Fact]
-    public async Task Should_Retur200OkAndUpdateArticleInDatabase_When_EndpointIsCalled()
+    public async Task Should_Return200OkAndUpdateArticleInDatabase_When_EndpointIsCalled()
     {
         // Arrange
         BlogDbSeeder.Create(Context)
@@ -21,7 +22,7 @@ public class UpdateArticleTests : TestBase
             {
                 x.Title = "Title";
                 x.Description = "Description";
-                x.Tags = new List<string> { "Tag" };
+                x.Tags = ["Tag"];
                 x.Content = "Content";
                 x.AuthorId = UserId;
             }, out var article);
@@ -32,24 +33,16 @@ public class UpdateArticleTests : TestBase
             Title = "Title2",
             Content = "Content2",
             Description = "Description2",
-            Tags = new List<string> { "Tag2" }
+            Status = ArticleStatus.Draft,
+            Tags = ["Tag2"]
         });
 
         // Assert
-        var responseBody = await response.Content.ReadAsStringAsync();
-
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var updatedArticle = await Context.Article.SingleOrDefaultAsync();
+        var updatedArticle = await Context.Article
+            .SingleOrDefaultAsync();
 
-        Assert.Multiple(() =>
-        {
-            Assert.NotNull(updatedArticle);
-            Assert.Equal("Title2", updatedArticle!.Title);
-            Assert.Equal("Content2", updatedArticle.Content);
-            Assert.Equal("Description2", updatedArticle.Description);
-            Assert.Single(updatedArticle.Tags);
-            Assert.Equal("Tag2", updatedArticle.Tags[0]);
-        });
+        await Verify(updatedArticle);
     }
 }

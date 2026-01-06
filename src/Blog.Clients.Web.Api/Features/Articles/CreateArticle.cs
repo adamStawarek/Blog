@@ -4,6 +4,7 @@ using Blog.Application.Services.Jobs;
 using Blog.Clients.Web.Api.Auth;
 using Blog.Clients.Web.Api.Contracts;
 using Blog.Domain.Entities;
+using Blog.Domain.Entities.Enumerators;
 using Blog.Infrastructure.Database;
 using Carter;
 using FluentResults;
@@ -20,6 +21,7 @@ public static class CreateArticle
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
+        public ArticleStatus Status { get; set; }
         public List<string> Tags { get; set; } = new();
     }
 
@@ -38,6 +40,9 @@ public static class CreateArticle
             RuleFor(c => c.Content)
                 .NotEmpty()
                 .MaximumLength(20_000);
+
+            RuleFor(c => c.Status)
+                .IsInEnum();
 
             RuleFor(c => c.Tags)
                 .Must(x => x.Any())
@@ -65,6 +70,7 @@ public static class CreateArticle
                 Title = request.Title,
                 Description = request.Description,
                 Content = request.Content,
+                Status = request.Status,
                 Tags = request.Tags,
                 AuthorId = currentUser.Id
             };

@@ -11,7 +11,7 @@ public class DeleteArticleTests : TestBase
     }
 
     [Fact]
-    public async Task Should_Retur200OkAndSoftDeleteArticleInDatabase_When_EndpointIsCalled()
+    public async Task Should_Return200OkAndSoftDeleteArticleInDatabase_When_EndpointIsCalled()
     {
         // Arrange
         BlogDbSeeder.Create(Context)
@@ -24,8 +24,6 @@ public class DeleteArticleTests : TestBase
         var response = await Client.DeleteAsync($"/api/articles/{article.Id.Value}");
 
         // Assert
-        var responseBody = await response.Content.ReadAsStringAsync();
-
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var updatedArticle = await Context.Article

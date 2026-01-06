@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Entities;
 using Blog.Domain.Entities.Base;
+using Blog.Domain.Entities.Enumerators;
 using Bogus;
 
 namespace Blog.Tests.DatabaseUtils;
@@ -32,8 +33,9 @@ internal static class BlogDataGenerator
         .RuleFor(x => x.UserName, x => x.Person.FullName);
 
     private static readonly Faker<Article> ArticleGenerator = new Faker<Article>()
+        .RuleFor(x => x.Status, _ => ArticleStatus.Ready)
         .RuleFor(x => x.Title, x => x.Lorem.Sentence())
-        .RuleFor(x => x.Tags, x => new List<string> { x.PickRandom("c#", "java", "sql") })
+        .RuleFor(x => x.Tags, x => [x.PickRandom("c#", "java", "sql")])
         .RuleFor(x => x.Description, x => x.Lorem.Sentence())
         .RuleFor(x => x.Content, x => x.Lorem.Paragraphs(5));
 
