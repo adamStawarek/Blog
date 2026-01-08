@@ -41,7 +41,9 @@ public sealed class GoogleDriveFileStorage : IFileStorage
 
     private DriveService CreateGoogleDriveService()
     {
-        var credential = GoogleCredential.FromJson(_options.CredentialsJSON).CreateScoped(DriveService.ScopeConstants.Drive);
+        GoogleCredential credential = CredentialFactory
+            .FromJson(_options.CredentialsJSON, "service_account")
+            .CreateScoped(DriveService.ScopeConstants.Drive);
 
         return new DriveService(new BaseClientService.Initializer
         {
