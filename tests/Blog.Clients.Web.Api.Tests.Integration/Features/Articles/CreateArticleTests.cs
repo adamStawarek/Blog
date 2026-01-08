@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http.Json;
 
 namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
+
 public class CreateArticleTests : TestBase
 {
     public CreateArticleTests(BlogApplicationFactory factory) : base(factory)

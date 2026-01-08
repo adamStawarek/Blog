@@ -1,4 +1,5 @@
 ﻿namespace Blog.Clients.Web.Api.Contracts.Base;
+
 public class PageableResponse<T>
 {
     public required long TotalItems { get; set; }

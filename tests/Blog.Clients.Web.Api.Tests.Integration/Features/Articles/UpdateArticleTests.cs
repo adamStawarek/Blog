@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http.Json;
 
 namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
+
 public class UpdateArticleTests : TestBase
 {
     public UpdateArticleTests(BlogApplicationFactory factory) : base(factory)

@@ -1,4 +1,5 @@
 ﻿namespace Blog.Clients.Jobs.Utils;
+
 public class JobsOptions
 {
     public const string Key = "Hangfire";

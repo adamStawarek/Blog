@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Jobs.Jobs;
+
 public class DatabaseBackupJob : IDatabaseBackupJob
 {
     private readonly BlogDbContext _context;

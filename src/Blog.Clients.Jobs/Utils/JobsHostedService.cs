@@ -4,6 +4,7 @@ using Hangfire;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Jobs.Utils;
+
 public partial class JobsHostedService : IHostedService
 {
     private readonly JobsOptions _options;

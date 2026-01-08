@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Clients.Cli.Commands;
+
 public class DatabaseCommands(IServiceProvider serviceProvider)
 {
     [Command("apply-migrations")]

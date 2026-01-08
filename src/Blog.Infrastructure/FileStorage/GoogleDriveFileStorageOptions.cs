@@ -1,4 +1,5 @@
 ﻿namespace Blog.Infrastructure.FileStorage;
+
 public class GoogleDriveFileStorageOptions
 {
     public const string Key = "GoogleDrive";

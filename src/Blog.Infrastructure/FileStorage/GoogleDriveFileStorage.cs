@@ -5,6 +5,7 @@ using Google.Apis.Services;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Infrastructure.FileStorage;
+
 public sealed class GoogleDriveFileStorage : IFileStorage
 {
     private readonly GoogleDriveFileStorageOptions _options;

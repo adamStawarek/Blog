@@ -2,6 +2,7 @@
 using Blog.Application.Services.Jobs;
 
 namespace Blog.Clients.Web.Api.Tests.Integration.Mocks;
+
 internal class BackgroundJobProcessorMock : IBackgroundJobProcessor
 {
     public string Enqueue(Action action) => string.Empty;

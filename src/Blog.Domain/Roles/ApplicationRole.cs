@@ -1,4 +1,5 @@
 ﻿namespace Blog.Domain.Roles;
+
 public enum ApplicationRole
 {
     AnonymousReader = 0,

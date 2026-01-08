@@ -1,4 +1,5 @@
 ﻿namespace Blog.Domain.Entities.Base;
+
 public interface IEntity
 {
     IEntityId Id { get; }

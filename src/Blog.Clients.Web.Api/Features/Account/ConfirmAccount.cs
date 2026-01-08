@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Web.Api.Features.Account;
+
 public class ConfirmAccount : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app

@@ -3,6 +3,7 @@ using Blog.Clients.Web.Api.Auth;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Web.Api.Services.ApplicationUser;
+
 internal class MockApplicationUserProvider : IApplicationUserProvider
 {
     private readonly AuthMockConfiguration _configuration;

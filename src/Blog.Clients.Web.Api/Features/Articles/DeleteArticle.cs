@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using static Blog.Clients.Web.Api.Features.Articles.DeleteArticle;
 
 namespace Blog.Clients.Web.Api.Features.Articles;
+
 public static class DeleteArticle
 {
     public sealed class Command : IRequest<Result>

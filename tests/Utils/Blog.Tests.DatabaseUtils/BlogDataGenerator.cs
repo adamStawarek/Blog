@@ -4,6 +4,7 @@ using Blog.Domain.Entities.Enumerators;
 using Bogus;
 
 namespace Blog.Tests.DatabaseUtils;
+
 internal static class BlogDataGenerator
 {
     static BlogDataGenerator()

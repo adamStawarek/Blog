@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Blog.Infrastructure.Database;
+
 public sealed class BlogDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, IContext
 {
     private static readonly IReadOnlyList<IInterceptor> Interceptors = new[]

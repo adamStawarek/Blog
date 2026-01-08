@@ -1,4 +1,5 @@
 ﻿namespace Blog.Domain.Entities.Base;
+
 public interface IContext
 {
     IQueryable<TEntity> Get<TEntity>() where TEntity : class, IEntity;

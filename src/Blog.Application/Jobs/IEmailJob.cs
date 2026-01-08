@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Jobs.Base;
 
 namespace Blog.Application.Jobs;
+
 public interface IEmailJob : IBlogJob<EmailJobParams>
 {
 }

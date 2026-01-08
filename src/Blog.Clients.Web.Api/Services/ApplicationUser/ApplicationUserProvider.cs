@@ -4,6 +4,7 @@ using Blog.Domain.Roles;
 using System.Security.Claims;
 
 namespace Blog.Clients.Web.Api.Services.ApplicationUser;
+
 internal class ApplicationUserProvider : IApplicationUserProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

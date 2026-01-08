@@ -1,4 +1,5 @@
 ﻿namespace Blog.Domain.Entities.Base;
+
 public abstract class EntityBase<T> : Entity<T, Guid>, ISoftDelete, IAudit where T : IEntity<Guid>
 {
     protected EntityBase() : base(Guid.NewGuid())

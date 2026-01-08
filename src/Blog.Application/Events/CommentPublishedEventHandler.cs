@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Application.Events;
+
 public class CommentPublishedEventHandler : INotificationHandler<CommentPublishedEvent>
 {
     private readonly IContext _context;

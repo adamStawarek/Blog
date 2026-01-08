@@ -3,6 +3,7 @@ using Blog.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Tests.DatabaseUtils;
+
 public class BlogDbSeeder
 {
     private readonly BlogDbContext _context;

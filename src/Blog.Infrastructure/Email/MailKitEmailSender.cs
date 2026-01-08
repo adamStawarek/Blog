@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 
 namespace Blog.Infrastructure.Emaill;
+
 public sealed class MailKitEmailSender : IEmailSender
 {
     private readonly ILogger _logger;

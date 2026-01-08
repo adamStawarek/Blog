@@ -1,6 +1,7 @@
 ﻿using Blog.Domain.Entities.Enumerators;
 
 namespace Blog.Clients.Web.Api.Contracts;
+
 public class CreateArticleRequest
 {
     public required string Title { get; set; }

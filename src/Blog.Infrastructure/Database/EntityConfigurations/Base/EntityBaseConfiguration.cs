@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blog.Infrastructure.Database.EntityConfigurations.Base;
+
 public abstract class EntityBaseConfiguration<T> : IEntityTypeConfiguration<T> where T : EntityBase<T>
 {
     public virtual void Configure(EntityTypeBuilder<T> builder)

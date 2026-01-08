@@ -2,6 +2,7 @@
 using Blog.Domain.Entities.Enumerators;
 
 namespace Blog.Clients.Web.Api.Contracts;
+
 public class GetArticleListResponse : PageableResponse<GetArticleListResponse.ArticleItem>
 {
     public sealed record ArticleItem

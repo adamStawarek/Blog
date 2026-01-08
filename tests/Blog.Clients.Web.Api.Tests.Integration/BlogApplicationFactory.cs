@@ -12,6 +12,7 @@ using System.Data.Common;
 using Testcontainers.MsSql;
 
 namespace Blog.Clients.Web.Api.Tests.Integration;
+
 public sealed class BlogApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly MsSqlContainer _container = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2022-latest")

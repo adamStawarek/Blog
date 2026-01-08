@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Jobs.Base;
 
 namespace Blog.Application.Services.Jobs;
+
 public interface IBackgroundJobProcessor
 {
     string Enqueue(Action action);

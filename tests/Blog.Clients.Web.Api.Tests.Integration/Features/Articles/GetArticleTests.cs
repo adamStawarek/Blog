@@ -3,6 +3,7 @@ using Blog.Tests.DatabaseUtils;
 using System.Net;
 
 namespace Blog.Clients.Web.Api.Tests.Integration.Features.Articles;
+
 public class GetArticleTests : TestBase
 {
     public GetArticleTests(BlogApplicationFactory factory) : base(factory)

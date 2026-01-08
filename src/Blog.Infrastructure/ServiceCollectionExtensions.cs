@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Blog.Infrastructure;
+
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddBlogDatabase(this IServiceCollection services, IConfiguration configuration, Action<SqlServerDbContextOptionsBuilder>? action = null)

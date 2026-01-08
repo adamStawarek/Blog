@@ -7,6 +7,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Blog.Clients.Web.Api.Installers;
+
 public static class WebInstaller
 {
     public static IServiceCollection AddBlogWebServices(this IServiceCollection services, IConfiguration configuration)

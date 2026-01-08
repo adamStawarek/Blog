@@ -12,6 +12,7 @@ using MediatR;
 using static Blog.Clients.Web.Api.Features.Comments.CreateComment;
 
 namespace Blog.Clients.Web.Api.Features.Comments;
+
 public static class CreateComment
 {
     public sealed class Command : IRequest<Result<Comment.EntityId>>

@@ -2,6 +2,7 @@
 using Blog.Application.Services.Email;
 
 namespace Blog.Clients.Jobs.Jobs;
+
 public class EmailJob : IEmailJob
 {
     private readonly IEmailSender _emailSender;

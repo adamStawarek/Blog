@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http.Json;
 
 namespace Blog.Clients.Web.Api.Tests.Integration.Features.Comments;
+
 public class CreateCommentTests : TestBase
 {
     public CreateCommentTests(BlogApplicationFactory factory) : base(factory)

@@ -1,6 +1,7 @@
 ﻿using Blog.Domain.Entities.Base;
 
 namespace Blog.Domain.Entities;
+
 public class Comment : EntityBase<Comment>
 {
     public string Content { get; set; } = null!;

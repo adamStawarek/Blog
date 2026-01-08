@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace Blog.Clients.Web.Api.Installers;
+
 public static class AuthInstaller
 {
     public static IServiceCollection AddBlogAuth(this IServiceCollection services, IConfiguration configuration)

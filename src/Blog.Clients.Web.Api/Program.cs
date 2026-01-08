@@ -10,6 +10,7 @@ using Hangfire;
 using Serilog;
 
 namespace Blog.Clients.Web.Api;
+
 public class Program
 {
     public static void Main(string[] args)

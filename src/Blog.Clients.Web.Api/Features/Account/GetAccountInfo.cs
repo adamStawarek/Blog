@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace Blog.Clients.Web.Api.Features.Account;
+
 public class GetAccountInfoEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app

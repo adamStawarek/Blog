@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 
 namespace Blog.Clients.Web.Api.Features.Account;
+
 public class CreateAccountEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app) => app

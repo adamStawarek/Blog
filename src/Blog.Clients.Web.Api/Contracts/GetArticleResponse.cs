@@ -1,6 +1,7 @@
 ﻿using Blog.Domain.Entities.Enumerators;
 
 namespace Blog.Clients.Web.Api.Contracts;
+
 public class GetArticleResponse
 {
     public required Guid Id { get; set; }

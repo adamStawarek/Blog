@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using static Blog.Clients.Web.Api.Features.Articles.GetArticle;
 
 namespace Blog.Clients.Web.Api.Features.Articles;
+
 public static class GetArticle
 {
     public sealed class Query : IRequest<Result<Response>>

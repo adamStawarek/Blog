@@ -2,6 +2,7 @@
 using Blog.Domain.Entities.Enumerators;
 
 namespace Blog.Domain.Entities;
+
 public class Article : EntityBase<Article>
 {
     public string Title { get; set; } = null!;

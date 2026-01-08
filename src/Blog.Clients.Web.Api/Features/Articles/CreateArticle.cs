@@ -14,6 +14,7 @@ using MediatR;
 using static Blog.Clients.Web.Api.Features.Articles.CreateArticle;
 
 namespace Blog.Clients.Web.Api.Features.Articles;
+
 public static class CreateArticle
 {
     public sealed class Command : IRequest<Result<Article.EntityId>>

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blog.Infrastructure.Database.EntityConfigurations;
+
 internal sealed class ArticleConfiguration : EntityBaseConfiguration<Article>
 {
     public override void Configure(EntityTypeBuilder<Article> builder)

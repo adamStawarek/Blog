@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 using static Blog.Clients.Web.Api.Features.Articles.GetArticleList;
 
 namespace Blog.Clients.Web.Api.Features.Articles;
+
 public static class GetArticleList
 {
     public sealed class Query : IRequest<Result<Response>>

@@ -3,6 +3,7 @@ using Blog.Application.Services.Jobs;
 using Hangfire;
 
 namespace Blog.Infrastructure.Jobs;
+
 public class HangfireBackgroundJobProcessor : IBackgroundJobProcessor
 {
     public string Enqueue<T, V>(V args) where T : IBlogJob<V> where V : IBlogJobParams
