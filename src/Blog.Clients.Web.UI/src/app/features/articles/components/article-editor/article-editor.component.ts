@@ -13,21 +13,21 @@ import { Subject } from 'rxjs';
 import { ArticleData } from './article-editor.model';
 
 @Component({
-  selector: 'app-article-editor',
-  standalone: true,
-  imports: [
-    AngularEditorModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatChipsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule],
-  templateUrl: './article-editor.component.html',
-  styleUrl: './article-editor.component.scss'
+    selector: 'app-article-editor',
+    imports: [
+        AngularEditorModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatChipsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule
+    ],
+    templateUrl: './article-editor.component.html',
+    styleUrl: './article-editor.component.scss'
 })
 export class ArticleEditorComponent implements OnDestroy, OnChanges {
   @Input() public article: ArticleData | null = null;

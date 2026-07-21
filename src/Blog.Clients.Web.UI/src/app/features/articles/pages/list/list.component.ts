@@ -18,24 +18,23 @@ import { ArticleSizePipe } from './article-size.pipe';
 import { ArticlesDataSource } from './list.model';
 
 @Component({
-  selector: 'app-article-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDividerModule,
-    ScrollingModule,
-    RouterModule,
-    MatCardModule,
-    MatIconModule,
-    MatChipsModule,
-    MatButtonModule,
-    ArticleSizePipe,
-    ResizeObserverDirective,
-    MatBadge
-  ],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-article-list',
+    imports: [
+        CommonModule,
+        MatDividerModule,
+        ScrollingModule,
+        RouterModule,
+        MatCardModule,
+        MatIconModule,
+        MatChipsModule,
+        MatButtonModule,
+        ArticleSizePipe,
+        ResizeObserverDirective,
+        MatBadge
+    ],
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
   public articleDataSource: ArticlesDataSource;

@@ -15,23 +15,23 @@ import { Client, Comment, CreateCommentRequest, GetArticleResponse } from 'src/a
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
-  selector: 'app-article-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatDividerModule,
-    MatSnackBarModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatBadgeModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    RouterModule,
-    DatePipe],
-  templateUrl: './details.component.html',
-  styleUrl: './details.component.scss'
+    selector: 'app-article-details',
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatDividerModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatChipsModule,
+        MatBadgeModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        RouterModule,
+        DatePipe
+    ],
+    templateUrl: './details.component.html',
+    styleUrl: './details.component.scss'
 })
 export class ArticleDetailsComponent implements OnInit, OnDestroy {
   public article?: GetArticleResponse;

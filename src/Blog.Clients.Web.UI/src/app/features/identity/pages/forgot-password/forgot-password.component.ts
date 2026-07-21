@@ -11,19 +11,19 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
-  selector: 'app-forgot-password',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterModule,
-    MatDividerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule],
-  templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.scss'
+    selector: 'app-forgot-password',
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterModule,
+        MatDividerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule
+    ],
+    templateUrl: './forgot-password.component.html',
+    styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent implements OnDestroy {
   public resetForm: FormGroup;

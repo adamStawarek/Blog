@@ -11,19 +11,19 @@ import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
-  selector: 'app-change-password',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterModule,
-    MatDividerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule],
-  templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.scss'
+    selector: 'app-change-password',
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterModule,
+        MatDividerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule
+    ],
+    templateUrl: './change-password.component.html',
+    styleUrl: './change-password.component.scss'
 })
 export class ChangePasswordComponent implements OnDestroy {
   public resetForm: FormGroup;

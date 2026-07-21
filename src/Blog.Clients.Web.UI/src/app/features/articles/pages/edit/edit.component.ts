@@ -8,10 +8,9 @@ import { ArticleEditorComponent } from "../../components/article-editor/article-
 import { ArticleData } from '../../components/article-editor/article-editor.model';
 
 @Component({
-  selector: 'app-article-edit',
-  standalone: true,
-  imports: [CommonModule, ArticleEditorComponent],
-  templateUrl: './edit.component.html'
+    selector: 'app-article-edit',
+    imports: [CommonModule, ArticleEditorComponent],
+    templateUrl: './edit.component.html'
 })
 export class EditArticleComponent implements OnInit, OnDestroy, CanComponentDeactivate {
   @ViewChild(ArticleEditorComponent) public articleEditor!: ArticleEditorComponent;
