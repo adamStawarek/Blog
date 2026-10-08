@@ -44,7 +44,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
-		<ProjectReference Include="..\Blog.Clients.Web.UI\Blog.Clients.Web.UI.esproj">
+		<ProjectReference Include="..\Blog.Clients.Web.UI\Blog.Clients.Web.UI.esproj" Condition=" '$(Configuration)' != 'Release' ">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>
 		<ProjectReference Include="..\Blog.Infrastructure.DatabaseMigrations\Blog.Infrastructure.DatabaseMigrations.csproj" />
