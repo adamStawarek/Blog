@@ -40,8 +40,7 @@ public static class EditArticle
                 .MaximumLength(400);
 
             RuleFor(c => c.Content)
-                .NotEmpty()
-                .MaximumLength(20_000);
+                .NotEmpty();
 
             RuleFor(c => c.Status)
                 .IsInEnum();
