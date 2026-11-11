@@ -5,10 +5,10 @@
 		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Bogus"/>
-		<PackageReference Include="Cocona"/>
-		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions"  />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets"  />
+		<PackageReference Include="Bogus" />
+		<PackageReference Include="Cocona" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Infrastructure.DatabaseMigrations\Blog.Infrastructure.DatabaseMigrations.csproj" />

@@ -1,4 +1,5 @@
 ﻿using Blog.Application.Services.Email;
+using MailKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

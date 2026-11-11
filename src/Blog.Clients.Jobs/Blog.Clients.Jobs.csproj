@@ -7,13 +7,13 @@
 	<ItemGroup>
 		<PackageReference Include="Hangfire" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-		<PackageReference Include="Serilog"  />
+		<PackageReference Include="Serilog" />
 		<PackageReference Include="Serilog.AspNetCore" />
 		<PackageReference Include="Serilog.Expressions" />
 		<PackageReference Include="Serilog.Sinks.File" />
-		<PackageReference Include="Serilog.Sinks.OpenTelemetry"/>
+		<PackageReference Include="Serilog.Sinks.OpenTelemetry" />
 		<PackageReference Include="Serilog.Sinks.Seq" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />

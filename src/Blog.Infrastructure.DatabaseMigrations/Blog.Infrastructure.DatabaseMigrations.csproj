@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<ItemGroup>
+	  <PackageReference Include="System.Security.Cryptography.Pkcs" />
+	</ItemGroup>
+	<ItemGroup>
 		<ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
 	</ItemGroup>
 </Project>
